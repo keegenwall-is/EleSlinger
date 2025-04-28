@@ -244,7 +244,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723802619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0007}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00404}
   m_LocalScale: {x: 0.010000001, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -254,7 +254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.0002, y: -0.0658}
+  m_AnchoredPosition: {x: 0.00011, y: -0.00347}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723802621
@@ -492,14 +492,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 6, z: 5}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 15, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!1 &1216135822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotateSpeed: 500
+  rb: {fileID: 0}
 --- !u!114 &1237196042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,6 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573ea553ae28e9044a39da66a85753e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  isAttacking: 0
+  canMove: 1
 --- !u!54 &1237196043
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1142,6 +1146,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &1237196044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237196037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792e3c992069c6f4e96792becfd9f12e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animCut: 0.5
 --- !u!1 &1686227512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1185,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686227512}
   m_LocalRotation: {x: -0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 0, z: 0.47}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1177,7 +1194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -10, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 6.2}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686227514
