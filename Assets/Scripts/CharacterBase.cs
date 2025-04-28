@@ -18,9 +18,9 @@ public class CharacterBase: MonoBehaviour
         Idle,
         Running,
         Attacking,
-        Blocking,
         Dashing,
         TakingDamage,
+        Blocking,
         Dead
     }
 
@@ -64,6 +64,9 @@ public class CharacterBase: MonoBehaviour
             case playerState.Dashing:
                 anim.Play("CatJump");
                 canMove = true;
+                break;
+            case playerState.TakingDamage:
+                canMove = false;
                 break;
         }
     }
