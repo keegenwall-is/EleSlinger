@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3265884936773054250
+--- !u!114 &-3363699087767433389
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,13 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Trail
-  m_Shader: {fileID: -6465566751694194690, guid: d5e5624766e709e4b922e2fa58c7b0b8, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: d5e5624766e709e4b922e2fa58c7b0b8, type: 3}
-  m_ModifiedSerializedProperties: 2
+  m_Name: Trail_02
+  m_Shader: {fileID: -6465566751694194690, guid: 26265b55722a8c3498e07d97c32d5192, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 6
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -36,12 +36,29 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainText:
-        m_Texture: {fileID: 2800000, guid: 3e7318af838f0324bb90570732371c2a, type: 3}
+    - _SampleTexture2D_22210e7299824e22b960c85d38170f55_Texture_1:
+        m_Texture: {fileID: 2800000, guid: eb04308b8caff59499a6f6eee594a078, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_eaf43daf873b45589eb4165f73f36e91_Out_0:
+        m_Texture: {fileID: 2800000, guid: 660574c820f94704a94f98830b12e2a9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors: []
   m_BuildTextureStacks: []
