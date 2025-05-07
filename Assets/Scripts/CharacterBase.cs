@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterBase: MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class CharacterBase: MonoBehaviour
 
     public InputDevice thisController;
     public Animator anim;
+    public Image face;
+    public Sprite normalFace;
+    public Sprite attackFace;
     public bool isAttacking = false;
     public bool canMove = true;
 
@@ -51,18 +55,22 @@ public class CharacterBase: MonoBehaviour
         {
             case playerState.Idle:
                 anim.Play("CatIdle");
+                face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Running:
                 anim.Play("CatRun");
+                face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Attacking:
                 anim.Play("CatAttack");
+                face.sprite = attackFace;
                 canMove = false;
                 break;
             case playerState.Dashing:
                 anim.Play("CatJump");
+                face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.TakingDamage:

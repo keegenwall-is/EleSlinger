@@ -9,6 +9,8 @@ public class PlayerAttack : MonoBehaviour
     private CharacterBase baseScript;
 
     public float animCut;
+    public GameObject projectile;
+    public GameObject magicSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +39,10 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(baseScript.anim.GetCurrentAnimatorStateInfo(0).length - animCut);
 
         baseScript.SetState(CharacterBase.playerState.Idle);
+    }
+
+    public void SpawnProjectile()
+    {
+        Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
     }
 }
