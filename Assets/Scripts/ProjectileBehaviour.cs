@@ -9,6 +9,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private ParticleSystem ps;
 
     public float speed;
+    public GameObject hit;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,14 @@ public class ProjectileBehaviour : MonoBehaviour
     IEnumerator Delete()
     {
         yield return new WaitForSeconds(0.8f);
+        Destroy(gameObject);
+    }
+
+    public void OnTriggerEnter()
+    {
+        Instantiate(hit, transform.position, transform.rotation);
+        speed = 0.0f;
+        //StartCoroutine(Delete());
         Destroy(gameObject);
     }
 }
