@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
 
     private CharacterBase baseScript;
+    private PlayerMove moveScript;
     private Animator anim;
     private bool isAiming;
     private GameObject thisCharge;
@@ -21,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         baseScript = GetComponent<CharacterBase>();
+        moveScript = GetComponent<PlayerMove>();
         anim = GetComponent<Animator>();
     }
 
@@ -51,13 +53,15 @@ public class PlayerAttack : MonoBehaviour
             //The player can aim if they are charging
             if (isAiming)
             {
-                if (keyboard.aKey.isPressed)
+                float moveX = 0;
+                float moveZ = 0;
+                moveZ = keyboard.wKey.isPressed ? 1 : keyboard.sKey.isPressed ? -1 : 0;
+                moveX = keyboard.dKey.isPressed ? 1 : keyboard.aKey.isPressed ? -1 : 0;
+                Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
+                if (moveZ != 0f || moveX != 0f)
                 {
-                    transform.Rotate(0, aimSpeed * -1, 0);
-                } 
-                else if (keyboard.dKey.isPressed)
-                {
-                    transform.Rotate(0, aimSpeed, 0);
+                    Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
                 }
             }
         }
