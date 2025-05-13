@@ -7,6 +7,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private Rigidbody rb;
     private ParticleSystem ps;
+    private GameObject thrower;
 
     public float speed;
     public GameObject hit;
@@ -25,8 +26,11 @@ public class ProjectileBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = transform.forward * speed;
-        //rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
-        //transform.position += transform.forward * speed * Time.deltaTime;
+    }
+
+    public void SetThrower(GameObject thrower)
+    {
+        this.thrower = thrower;
     }
 
     IEnumerator Delete()
@@ -35,11 +39,14 @@ public class ProjectileBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        Instantiate(hit, transform.position, transform.rotation);
-        speed = 0.0f;
-        //StartCoroutine(Delete());
-        Destroy(gameObject);
+        if (other != thrower)
+        {
+            Instantiate(hit, transform.position, transform.rotation);
+            print(other.gameObject.name);
+            speed = 0.0f;
+            Destroy(gameObject);
+        }
     }
 }

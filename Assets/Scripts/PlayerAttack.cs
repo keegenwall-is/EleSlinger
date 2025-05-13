@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     private bool isAiming;
     private GameObject thisCharge;
+    private GameObject thisProjectile;
+    private float chargeSize;
 
     public float animCut;
     public GameObject projectile;
@@ -64,7 +66,7 @@ public class PlayerAttack : MonoBehaviour
                     Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
                 }
-
+                chargeSize += 1.5f * Time.deltaTime;
                 thisCharge.transform.localScale += new Vector3(chargeSpeed, chargeSpeed, chargeSpeed) * Time.deltaTime;
             }
         }
@@ -91,8 +93,12 @@ public class PlayerAttack : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
+        thisProjectile = Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
+        ProjectileBehaviour projScript = thisProjectile.GetComponent<ProjectileBehaviour>();
+        projScript.SetThrower(gameObject);
+        thisProjectile.transform.localScale = thisProjectile.transform.localScale + new Vector3(chargeSize, chargeSize, chargeSize);
         Destroy(thisCharge);
+        chargeSize = 0.0f;
         StartCoroutine(EndAttack());
     }
 
