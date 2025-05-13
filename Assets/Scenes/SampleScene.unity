@@ -1347,8 +1347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792e3c992069c6f4e96792becfd9f12e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animCut: 0.5
+  animCut: 1
   projectile: {fileID: 1038630477285693883, guid: d3cc00edc1da99d4bbeb08051851f439, type: 3}
+  charge: {fileID: 700600728685169191, guid: a8c7a3fff7940ba439b37455cb5c56d4, type: 3}
   magicSpawner: {fileID: 437824301}
   aimSpeed: 3
 --- !u!1 &1686227512

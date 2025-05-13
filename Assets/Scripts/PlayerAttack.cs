@@ -9,9 +9,11 @@ public class PlayerAttack : MonoBehaviour
     private CharacterBase baseScript;
     private Animator anim;
     private bool isAiming;
+    private GameObject thisCharge;
 
     public float animCut;
     public GameObject projectile;
+    public GameObject charge;
     public GameObject magicSpawner;
     public float aimSpeed;
 
@@ -25,8 +27,10 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Checks the kind of controller the player is using
         if (baseScript.thisController is Keyboard keyboard)
         {
+            //Starts the attack if the player is idle or running and presses the attack button
             if (baseScript.GetState() == CharacterBase.playerState.Idle || baseScript.GetState() == CharacterBase.playerState.Running)
             {
                 if (keyboard.pKey.wasPressedThisFrame)
@@ -35,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
 
+            //Resume the Animation if the player releases the attack button
             if (baseScript.GetState() == CharacterBase.playerState.Attacking)
             {
                 if (keyboard.pKey.wasReleasedThisFrame)
@@ -43,6 +48,7 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
 
+            //The player can aim if they are charging
             if (isAiming)
             {
                 if (keyboard.aKey.isPressed)
@@ -65,6 +71,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 anim.speed = 0f;
                 isAiming = true;
+                thisCharge = Instantiate(charge, magicSpawner.transform.position, transform.rotation, magicSpawner.transform);
             }
         }
     }
@@ -78,10 +85,13 @@ public class PlayerAttack : MonoBehaviour
     public void SpawnProjectile()
     {
         Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
+        Destroy(thisCharge);
+        StartCoroutine(EndAttack());
     }
 
-    public void EndAttack()
+    IEnumerator EndAttack()
     {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - animCut);
         baseScript.SetState(CharacterBase.playerState.Idle);
     }
 }
