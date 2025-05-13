@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject charge;
     public GameObject magicSpawner;
     public float aimSpeed;
+    public float chargeSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,8 @@ public class PlayerAttack : MonoBehaviour
                     Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
                 }
+
+                thisCharge.transform.localScale += new Vector3(chargeSpeed, chargeSpeed, chargeSpeed) * Time.deltaTime;
             }
         }
     }

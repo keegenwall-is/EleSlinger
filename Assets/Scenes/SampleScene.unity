@@ -1352,6 +1352,7 @@ MonoBehaviour:
   charge: {fileID: 700600728685169191, guid: a8c7a3fff7940ba439b37455cb5c56d4, type: 3}
   magicSpawner: {fileID: 437824301}
   aimSpeed: 500
+  chargeSpeed: 0.01
 --- !u!1 &1686227512
 GameObject:
   m_ObjectHideFlags: 0
