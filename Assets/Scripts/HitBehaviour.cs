@@ -18,4 +18,9 @@ public class HitBehaviour : MonoBehaviour
         yield return new WaitForSeconds(destroyAfterSeconds);
         Destroy(gameObject);
     }
+
+    public void SetSize(Vector3 size)
+    {
+        transform.localScale = size / 2;
+    }
 }

@@ -8,6 +8,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private Rigidbody rb;
     private ParticleSystem ps;
     private GameObject thrower;
+    private GameObject thisHit;
 
     public float speed;
     public GameObject hit;
@@ -43,8 +44,9 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (other != thrower)
         {
-            Instantiate(hit, transform.position, transform.rotation);
-            print(other.gameObject.name);
+            thisHit = Instantiate(hit, transform.position, transform.rotation);
+            HitBehaviour hitScript = thisHit.GetComponent<HitBehaviour>();
+            hitScript.SetSize(transform.localScale);
             speed = 0.0f;
             Destroy(gameObject);
         }
