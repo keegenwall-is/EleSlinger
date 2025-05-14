@@ -14,6 +14,7 @@ public class CharacterBase: MonoBehaviour
     public Image face;
     public Sprite normalFace;
     public Sprite attackFace;
+    public Sprite hitFace;
     public bool isAttacking = false;
     public bool canMove = true;
 
@@ -23,7 +24,7 @@ public class CharacterBase: MonoBehaviour
         Running,
         Attacking,
         Dashing,
-        TakingDamage,
+        TakingHit,
         Blocking,
         Dead
     }
@@ -73,7 +74,9 @@ public class CharacterBase: MonoBehaviour
                 face.sprite = normalFace;
                 canMove = true;
                 break;
-            case playerState.TakingDamage:
+            case playerState.TakingHit:
+                anim.Play("CatTakeHit");
+                face.sprite = hitFace;
                 canMove = false;
                 break;
         }

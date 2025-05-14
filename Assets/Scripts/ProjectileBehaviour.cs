@@ -47,7 +47,15 @@ public class ProjectileBehaviour : MonoBehaviour
             thisHit = Instantiate(hit, transform.position, transform.rotation);
             HitBehaviour hitScript = thisHit.GetComponent<HitBehaviour>();
             hitScript.SetSize(transform.localScale);
-            speed = 0.0f;
+
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Dummy")
+            {
+                TakeHit takeHitScript = other.GetComponent<TakeHit>();
+                takeHitScript.SetDirection(transform.forward);
+                takeHitScript.SetProjPower(transform.localScale.x);
+                takeHitScript.HitReaction();
+            }
+
             Destroy(gameObject);
         }
     }
