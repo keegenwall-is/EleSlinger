@@ -12,14 +12,17 @@ public class PlayerAttack : MonoBehaviour
     private bool isAiming;
     private GameObject thisCharge;
     private GameObject thisProjectile;
-    private float chargeSize;
+    private float projSize;
+    private Vector3 indicatorStartSize;
 
     public float animCut;
     public GameObject projectile;
     public GameObject charge;
     public GameObject magicSpawner;
+    public GameObject indicator;
     public float aimSpeed;
     public float chargeSpeed;
+    public float maxSize;
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +69,13 @@ public class PlayerAttack : MonoBehaviour
                     Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
                 }
-                chargeSize += 1.5f * Time.deltaTime;
-                thisCharge.transform.localScale += new Vector3(chargeSpeed, chargeSpeed, chargeSpeed) * Time.deltaTime;
+                projSize += chargeSpeed * Time.deltaTime;
+                if (projSize >= maxSize)
+                {
+                    projSize = maxSize;
+                }
+                thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
+                indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
             }
         }
     }
@@ -81,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
                 anim.speed = 0f;
                 isAiming = true;
                 thisCharge = Instantiate(charge, magicSpawner.transform.position, transform.rotation, magicSpawner.transform);
+                indicator.SetActive(true);
             }
         }
     }
@@ -89,6 +98,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.speed = 1f;
         isAiming = false;
+        indicator.SetActive(false);
+        indicator.transform.localScale = indicatorStartSize;
     }
 
     public void SpawnProjectile()
@@ -96,9 +107,9 @@ public class PlayerAttack : MonoBehaviour
         thisProjectile = Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
         ProjectileBehaviour projScript = thisProjectile.GetComponent<ProjectileBehaviour>();
         projScript.SetThrower(gameObject);
-        thisProjectile.transform.localScale = thisProjectile.transform.localScale + new Vector3(chargeSize, chargeSize, chargeSize);
+        thisProjectile.transform.localScale += new Vector3(projSize, projSize, projSize);
         Destroy(thisCharge);
-        chargeSize = 0.0f;
+        projSize = 0.0f;
         StartCoroutine(EndAttack());
     }
 
