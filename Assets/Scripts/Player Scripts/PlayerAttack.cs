@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-
     private CharacterBase baseScript;
     private PlayerMove moveScript;
     private Animator anim;
