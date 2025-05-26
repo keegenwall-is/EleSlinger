@@ -19,6 +19,8 @@ public class CharacterBase: MonoBehaviour
     public bool canMove = true;
     public float animFadeDur;
 
+    private AnimationClip[] clips;
+
     public enum playerState
     {
         Idle,
@@ -35,6 +37,7 @@ public class CharacterBase: MonoBehaviour
         thisController = Keyboard.current;
         anim = GetComponent<Animator>();
         currentState = playerState.Idle;
+        clips = anim.runtimeAnimatorController.animationClips;
     }
 
     public void SetState(playerState newState)
@@ -56,30 +59,42 @@ public class CharacterBase: MonoBehaviour
         switch (state)
         {
             case playerState.Idle:
-                anim.CrossFade("CatIdle", animFadeDur);
+                anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Running:
-                anim.CrossFade("CatRun", animFadeDur);
+                anim.CrossFade(FindAnimation("Run"), animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Attacking:
-                anim.CrossFade("CatAttack", animFadeDur);
+                anim.CrossFade(FindAnimation("Attack"), animFadeDur);
                 face.sprite = attackFace;
                 canMove = false;
                 break;
             case playerState.Dashing:
-                anim.CrossFade("CatJump", animFadeDur);
+                anim.CrossFade(FindAnimation("Jump"), animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.TakingHit:
-                anim.CrossFade("CatTakeHit", animFadeDur);
+                anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
                 face.sprite = hitFace;
                 canMove = false;
                 break;
         }
+    }
+
+    private string FindAnimation(string seg)
+    {
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name.Contains(seg))
+            {
+                return clip.name;
+            }
+        }
+        return null;
     }
 }

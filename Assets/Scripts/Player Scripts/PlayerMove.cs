@@ -49,6 +49,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
+            if (baseScript.GetState() != CharacterBase.playerState.TakingHit)
             rb.velocity = new Vector3(0, 0, 0);
         }
     }
