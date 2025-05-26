@@ -29,7 +29,7 @@ public class MenuManagement : MonoBehaviour
     private int[] playerCharacterSelections = {0, 0, 0, 0};
     //total number of available characters to choose from
     private int noOfCharacters = 0;
-    private bool canChangeSelection = true;
+    private bool[] canChangeSelection = {true, true, true, true};
 
     // Start is called before the first frame update
     void Start()
@@ -169,47 +169,47 @@ public class MenuManagement : MonoBehaviour
         {
             if (playerControllers[i] is Keyboard keyboard)
             {
-                if (keyboard.aKey.wasPressedThisFrame && canChangeSelection)
+                if (keyboard.aKey.wasPressedThisFrame && canChangeSelection[i])
                 {
                     if (playerCharacterSelections[i] > 1)
                     {
                         playerCharacterSelections[i]--;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1, i));
                     }
-                } else if (keyboard.dKey.wasPressedThisFrame && canChangeSelection)
+                } else if (keyboard.dKey.wasPressedThisFrame && canChangeSelection[i])
                 {
                     if (playerCharacterSelections[i] < noOfCharacters)
                     {
                         playerCharacterSelections[i]++;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1, i));
                     }
                 }
             }
             else if (playerControllers[i] is Gamepad gamepad)
             {
-                if (gamepad.leftStick.left.wasPressedThisFrame && canChangeSelection)
+                if (gamepad.leftStick.left.wasPressedThisFrame && canChangeSelection[i])
                 {
                     if (playerCharacterSelections[i] > 1)
                     {
                         playerCharacterSelections[i]--;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1, i));
                     }
                 }
-                else if (gamepad.leftStick.right.wasPressedThisFrame && canChangeSelection)
+                else if (gamepad.leftStick.right.wasPressedThisFrame && canChangeSelection[i])
                 {
                     if (playerCharacterSelections[i] < noOfCharacters)
                     {
                         playerCharacterSelections[i]++;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1, i));
                     }
                 }
             }
         }
     }
 
-    IEnumerator CameraMove(Transform selectionTransform, Vector3 targetPos, float speed, int selectedCharacterIndex, int moveDir)
+    IEnumerator CameraMove(Transform selectionTransform, Vector3 targetPos, float speed, int selectedCharacterIndex, int moveDir, int playerNo)
     {
-        canChangeSelection = false;
+        canChangeSelection[playerNo] = false;
         Vector3 currentPos = selectionTransform.position;
         targetPos = currentPos + targetPos;
         float elapsed = 0f;
@@ -231,7 +231,7 @@ public class MenuManagement : MonoBehaviour
         PlayAnim(oldCharacterT, "Idle");
 
         selectionTransform.position = targetPos;
-        canChangeSelection = true;
+        canChangeSelection[playerNo] = true;
     }
 
     private void PlayAnim(Transform selectedCharacterT, string seg)

@@ -51,7 +51,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3118248190291657112, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3118248190291657112, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
       propertyPath: m_LocalPosition.y
@@ -101,6 +101,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6349229707284161517, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
@@ -117,6 +121,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 6997054269070557808}
     m_Modifications:
+    - target: {fileID: 4253953024373787564, guid: 976a68549324c8c44a5296cdfe3cebb1, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4834618470884619107, guid: 976a68549324c8c44a5296cdfe3cebb1, type: 3}
       propertyPath: m_Name
       value: Cat
