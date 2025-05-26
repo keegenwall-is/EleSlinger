@@ -17,6 +17,7 @@ public class MenuManagement : MonoBehaviour
     public List<InputDevice> playerControllers = new List<InputDevice>();
     public List<GameObject> joinIcons = new List<GameObject>();
     public List<GameObject> mainMenuButtons = new List<GameObject>();
+    //Each player has an row of characters that they can each scroll through separately
     public List<GameObject> characterLists = new List<GameObject>();
     public float cameraSpeed;
     public float characterDistance;
@@ -24,7 +25,9 @@ public class MenuManagement : MonoBehaviour
 
     private bool characterSelect = false;
     private int mainMenuBtnSelect = 0;
+    //integer representations of each players position within the list of characters. 0 represents that player hasn't joined.
     private int[] playerCharacterSelections = {0, 0, 0, 0};
+    //total number of available characters to choose from
     private int noOfCharacters = 0;
     private bool canChangeSelection = true;
 
@@ -219,6 +222,7 @@ public class MenuManagement : MonoBehaviour
 
         foreach (AnimationClip clip in clips)
         {
+            print(clip.name);
             if (clip.name.Contains("Selected"))
             {
                 anim.CrossFade(clip.name, animFadeDur);
@@ -226,12 +230,17 @@ public class MenuManagement : MonoBehaviour
             }
         }
 
+        print(moveDir);
+
         //Finds the animator of the previously selected character and sets the animation back to idle
         Transform oldCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1 + moveDir);
         GameObject oldCharacter = oldCharacterT.gameObject;
         Animator oldAnim = oldCharacter.GetComponent<Animator>();
+        clips = oldAnim.runtimeAnimatorController.animationClips;
+
         foreach (AnimationClip clip in clips)
         {
+            print(clip.name);
             if (clip.name.Contains("Idle"))
             {
                 oldAnim.CrossFade(clip.name, animFadeDur);
