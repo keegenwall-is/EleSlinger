@@ -37,7 +37,6 @@ public class MenuManagement : MonoBehaviour
         Image startingBtn = mainMenuButtons[0].gameObject.GetComponent<Image>();
         startingBtn.color = new Color(1f, 1f, 0f, 1f);
         noOfCharacters = characterLists[0].gameObject.transform.childCount;
-
     }
 
     // Update is called once per frame
@@ -104,20 +103,12 @@ public class MenuManagement : MonoBehaviour
                 if (gamepad.leftStick.down.wasPressedThisFrame && mainMenuBtnSelect < mainMenuButtons.Count - 1)
                 {
                     mainMenuBtnSelect++;
-                    //remove select colouring from button
-                    Image oldBtn = mainMenuButtons[mainMenuBtnSelect - 1].gameObject.GetComponent<Image>();
-                    oldBtn.color = new Color(1f, 1f, 1f, 1f);
-                    //add select colouring to new button
-                    Image newBtn = mainMenuButtons[mainMenuBtnSelect].gameObject.GetComponent<Image>();
-                    newBtn.color = new Color(1f, 1f, 0f, 1f);
+                    UIFeedback();
                 }
                 else if (gamepad.leftStick.up.wasPressedThisFrame && mainMenuBtnSelect > 0)
                 {
                     mainMenuBtnSelect--;
-                    Image oldBtn = mainMenuButtons[mainMenuBtnSelect + 1].gameObject.GetComponent<Image>();
-                    oldBtn.color = new Color(1f, 1f, 1f, 1f);
-                    Image newBtn = mainMenuButtons[mainMenuBtnSelect].gameObject.GetComponent<Image>();
-                    newBtn.color = new Color(1f, 1f, 0f, 1f);
+                    UIFeedback();
                 }
                 else if (gamepad.buttonEast.wasPressedThisFrame)
                 {
@@ -128,6 +119,16 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
+    private void UIFeedback()
+    {
+        //remove select colouring from old button
+        Image oldBtn = mainMenuButtons[mainMenuBtnSelect - 1].gameObject.GetComponent<Image>();
+        oldBtn.color = new Color(1f, 1f, 1f, 1f);
+        //add select colouring to new button
+        Image newBtn = mainMenuButtons[mainMenuBtnSelect].gameObject.GetComponent<Image>();
+        newBtn.color = new Color(1f, 1f, 0f, 1f);
+    }
+
     private void CheckNewPlayers()
     {
         foreach (var device in InputSystem.devices)
@@ -136,23 +137,30 @@ public class MenuManagement : MonoBehaviour
             {
                 if (keyboard.enterKey.wasPressedThisFrame && !playerControllers.Contains(keyboard))
                 {
-                    joinIcons[playerNo].gameObject.SetActive(false);
-                    playerControllers.Add(device);
-                    playerCharacterSelections[playerNo] = 1;
-                    playerNo++;
+                    AddNewPlayer(keyboard);
                 }
             }
             else if (device is Gamepad gamepad)
             {
                 if (gamepad.buttonEast.wasPressedThisFrame && !playerControllers.Contains(gamepad))
                 {
-                    joinIcons[playerNo].gameObject.SetActive(false);
-                    playerControllers.Add(device);
-                    playerCharacterSelections[playerNo] = 1;
-                    playerNo++;
+                    AddNewPlayer(gamepad);
                 }
             }
         }
+    }
+
+    private void AddNewPlayer(InputDevice device)
+    {
+        joinIcons[playerNo].gameObject.SetActive(false);
+        playerControllers.Add(device);
+        playerCharacterSelections[playerNo] = 1;
+
+        //Play selected animation when player initially joins
+        Transform selectedCharacterT = characterLists[playerNo].gameObject.transform.GetChild(0);
+        PlayAnim(selectedCharacterT, "Selected");
+
+        playerNo++;
     }
 
     private void OperateCharacterSelect()
@@ -216,39 +224,29 @@ public class MenuManagement : MonoBehaviour
 
         //Finds the animator of the currently selected Character and sets the animation to a selected pose
         Transform selectedCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1);
+        PlayAnim(selectedCharacterT, "Selected");
+
+        //Finds the animator of the previously selected character and sets the animation back to idle
+        Transform oldCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1 + moveDir);
+        PlayAnim(oldCharacterT, "Idle");
+
+        selectionTransform.position = targetPos;
+        canChangeSelection = true;
+    }
+
+    private void PlayAnim(Transform selectedCharacterT, string seg)
+    {
         GameObject selectedCharacter = selectedCharacterT.gameObject;
         Animator anim = selectedCharacter.GetComponent<Animator>();
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
 
         foreach (AnimationClip clip in clips)
         {
-            print(clip.name);
-            if (clip.name.Contains("Selected"))
+            if (clip.name.Contains(seg))
             {
                 anim.CrossFade(clip.name, animFadeDur);
                 break;
             }
         }
-
-        print(moveDir);
-
-        //Finds the animator of the previously selected character and sets the animation back to idle
-        Transform oldCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1 + moveDir);
-        GameObject oldCharacter = oldCharacterT.gameObject;
-        Animator oldAnim = oldCharacter.GetComponent<Animator>();
-        clips = oldAnim.runtimeAnimatorController.animationClips;
-
-        foreach (AnimationClip clip in clips)
-        {
-            print(clip.name);
-            if (clip.name.Contains("Idle"))
-            {
-                oldAnim.CrossFade(clip.name, animFadeDur);
-                break;
-            }
-        }
-
-        selectionTransform.position = targetPos;
-        canChangeSelection = true;
     }
 }
