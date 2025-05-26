@@ -18,11 +18,15 @@ public class MenuManagement : MonoBehaviour
     public List<GameObject> joinIcons = new List<GameObject>();
     public List<GameObject> mainMenuButtons = new List<GameObject>();
     public List<GameObject> characterLists = new List<GameObject>();
+    public float cameraSpeed;
+    public float characterDistance;
+    public float animFadeDur;
 
     private bool characterSelect = false;
     private int mainMenuBtnSelect = 0;
     private int[] playerCharacterSelections = {0, 0, 0, 0};
     private int noOfCharacters = 0;
+    private bool canChangeSelection = true;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,7 @@ public class MenuManagement : MonoBehaviour
         Image startingBtn = mainMenuButtons[0].gameObject.GetComponent<Image>();
         startingBtn.color = new Color(1f, 1f, 0f, 1f);
         noOfCharacters = characterLists[0].gameObject.transform.childCount;
+
     }
 
     // Update is called once per frame
@@ -153,30 +158,88 @@ public class MenuManagement : MonoBehaviour
         {
             if (playerControllers[i] is Keyboard keyboard)
             {
-                if (keyboard.aKey.wasPressedThisFrame)
+                if (keyboard.aKey.wasPressedThisFrame && canChangeSelection)
                 {
                     if (playerCharacterSelections[i] > 1)
                     {
                         playerCharacterSelections[i]--;
-                        Vector3 pos = characterLists[i].gameObject.transform.position;
-                        pos.x += 10;
-                        characterLists[i].gameObject.transform.position = pos;
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1));
                     }
-                } else if (keyboard.dKey.wasPressedThisFrame)
+                } else if (keyboard.dKey.wasPressedThisFrame && canChangeSelection)
                 {
                     if (playerCharacterSelections[i] < noOfCharacters)
                     {
                         playerCharacterSelections[i]++;
-                        Vector3 pos = characterLists[i].gameObject.transform.position;
-                        pos.x -= 10;
-                        characterLists[i].gameObject.transform.position = pos;
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1));
                     }
                 }
             }
             else if (playerControllers[i] is Gamepad gamepad)
             {
-                
+                if (gamepad.leftStick.left.wasPressedThisFrame && canChangeSelection)
+                {
+                    if (playerCharacterSelections[i] > 1)
+                    {
+                        playerCharacterSelections[i]--;
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1));
+                    }
+                }
+                else if (gamepad.leftStick.right.wasPressedThisFrame && canChangeSelection)
+                {
+                    if (playerCharacterSelections[i] < noOfCharacters)
+                    {
+                        playerCharacterSelections[i]++;
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1));
+                    }
+                }
             }
         }
+    }
+
+    IEnumerator CameraMove(Transform selectionTransform, Vector3 targetPos, float speed, int selectedCharacterIndex, int moveDir)
+    {
+        canChangeSelection = false;
+        Vector3 currentPos = selectionTransform.position;
+        targetPos = currentPos + targetPos;
+        float elapsed = 0f;
+
+        //Moves the selection list to the next character
+        while (elapsed < speed)
+        {
+            selectionTransform.position = Vector3.Lerp(currentPos, targetPos, elapsed / speed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        //Finds the animator of the currently selected Character and sets the animation to a selected pose
+        Transform selectedCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1);
+        GameObject selectedCharacter = selectedCharacterT.gameObject;
+        Animator anim = selectedCharacter.GetComponent<Animator>();
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name.Contains("Selected"))
+            {
+                anim.CrossFade(clip.name, animFadeDur);
+                break;
+            }
+        }
+
+        //Finds the animator of the previously selected character and sets the animation back to idle
+        Transform oldCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1 + moveDir);
+        GameObject oldCharacter = oldCharacterT.gameObject;
+        Animator oldAnim = oldCharacter.GetComponent<Animator>();
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name.Contains("Idle"))
+            {
+                oldAnim.CrossFade(clip.name, animFadeDur);
+                break;
+            }
+        }
+
+        selectionTransform.position = targetPos;
+        canChangeSelection = true;
     }
 }
