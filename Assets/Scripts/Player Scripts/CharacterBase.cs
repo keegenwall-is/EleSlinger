@@ -17,6 +17,7 @@ public class CharacterBase: MonoBehaviour
     public Sprite hitFace;
     public bool isAttacking = false;
     public bool canMove = true;
+    public float animFadeDur;
 
     public enum playerState
     {
@@ -55,27 +56,27 @@ public class CharacterBase: MonoBehaviour
         switch (state)
         {
             case playerState.Idle:
-                anim.Play("CatIdle");
+                anim.CrossFade("CatIdle", animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Running:
-                anim.Play("CatRun");
+                anim.CrossFade("CatRun", animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.Attacking:
-                anim.Play("CatAttack");
+                anim.CrossFade("CatAttack", animFadeDur);
                 face.sprite = attackFace;
                 canMove = false;
                 break;
             case playerState.Dashing:
-                anim.Play("CatJump");
+                anim.CrossFade("CatJump", animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
                 break;
             case playerState.TakingHit:
-                anim.Play("CatTakeHit");
+                anim.CrossFade("CatTakeHit", animFadeDur);
                 face.sprite = hitFace;
                 canMove = false;
                 break;

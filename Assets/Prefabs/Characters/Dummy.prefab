@@ -1336,6 +1336,7 @@ MonoBehaviour:
   hitFace: {fileID: 21300000, guid: 9e29325c18e517c4dba80049afdd3153, type: 3}
   isAttacking: 0
   canMove: 1
+  animFadeDur: 0.2
 --- !u!114 &3511578620395347116
 MonoBehaviour:
   m_ObjectHideFlags: 0
