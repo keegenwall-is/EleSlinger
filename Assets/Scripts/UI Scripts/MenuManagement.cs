@@ -103,12 +103,12 @@ public class MenuManagement : MonoBehaviour
                 if (gamepad.leftStick.down.wasPressedThisFrame && mainMenuBtnSelect < mainMenuButtons.Count - 1)
                 {
                     mainMenuBtnSelect++;
-                    UIFeedback();
+                    UIFeedback(-1);
                 }
                 else if (gamepad.leftStick.up.wasPressedThisFrame && mainMenuBtnSelect > 0)
                 {
                     mainMenuBtnSelect--;
-                    UIFeedback();
+                    UIFeedback(1);
                 }
                 else if (gamepad.buttonEast.wasPressedThisFrame)
                 {
@@ -119,10 +119,10 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
-    private void UIFeedback()
+    private void UIFeedback(int lastBtn)
     {
         //remove select colouring from old button
-        Image oldBtn = mainMenuButtons[mainMenuBtnSelect - 1].gameObject.GetComponent<Image>();
+        Image oldBtn = mainMenuButtons[mainMenuBtnSelect + lastBtn].gameObject.GetComponent<Image>();
         oldBtn.color = new Color(1f, 1f, 1f, 1f);
         //add select colouring to new button
         Image newBtn = mainMenuButtons[mainMenuBtnSelect].gameObject.GetComponent<Image>();
