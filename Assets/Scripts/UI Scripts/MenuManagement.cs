@@ -14,7 +14,6 @@ public class MenuManagement : MonoBehaviour
     public GameObject camera3;
     public GameObject camera4;
     public int playerNo = 0;
-    public List<InputDevice> playerControllers = new List<InputDevice>();
     public List<GameObject> joinIcons = new List<GameObject>();
     public List<GameObject> mainMenuButtons = new List<GameObject>();
     //Each player has an row of characters that they can each scroll through separately
@@ -22,7 +21,10 @@ public class MenuManagement : MonoBehaviour
     public float cameraSpeed;
     public float characterDistance;
     public float animFadeDur;
+    public GameObject readyImg;
+    public PlayerManager PMscript;
 
+    private List<InputDevice> playerControllers = new List<InputDevice>();
     private bool characterSelect = false;
     private int mainMenuBtnSelect = 0;
     //integer representations of each players position within the list of characters. 0 represents that player hasn't joined.
@@ -30,6 +32,8 @@ public class MenuManagement : MonoBehaviour
     //total number of available characters to choose from
     private int noOfCharacters = 0;
     private bool[] canChangeSelection = {true, true, true, true};
+    private bool[] isLockedIn = {false, false, false, false};
+    private bool allLocked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,13 +52,13 @@ public class MenuManagement : MonoBehaviour
         }
         else
         {
-            if (playerNo < 4)
-            {
-                CheckNewPlayers();
-            }
             if (playerNo > 0)
             {
                 OperateCharacterSelect();
+            }
+            if (playerNo < 4)
+            {
+                CheckNewPlayers();
             }
         }
     }
@@ -156,11 +160,8 @@ public class MenuManagement : MonoBehaviour
         playerControllers.Add(device);
         playerCharacterSelections[playerNo] = 1;
 
-        //Play selected animation when player initially joins
-        Transform selectedCharacterT = characterLists[playerNo].gameObject.transform.GetChild(0);
-        PlayAnim(selectedCharacterT, "Selected");
-
         playerNo++;
+        CheckLockedIn();
     }
 
     private void OperateCharacterSelect()
@@ -174,15 +175,22 @@ public class MenuManagement : MonoBehaviour
                     if (playerCharacterSelections[i] > 1)
                     {
                         playerCharacterSelections[i]--;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1, i));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, i));
                     }
                 } else if (keyboard.dKey.wasPressedThisFrame && canChangeSelection[i])
                 {
                     if (playerCharacterSelections[i] < noOfCharacters)
                     {
                         playerCharacterSelections[i]++;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1, i));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
                     }
+                } else if (keyboard.enterKey.wasPressedThisFrame)
+                {
+                    ToggleLockIn(i);
+                }
+                else if (keyboard.spaceKey.wasPressedThisFrame && allLocked)
+                {
+                    SetPlayerManager();
                 }
             }
             else if (playerControllers[i] is Gamepad gamepad)
@@ -192,7 +200,7 @@ public class MenuManagement : MonoBehaviour
                     if (playerCharacterSelections[i] > 1)
                     {
                         playerCharacterSelections[i]--;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], 1, i));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, i));
                     }
                 }
                 else if (gamepad.leftStick.right.wasPressedThisFrame && canChangeSelection[i])
@@ -200,14 +208,68 @@ public class MenuManagement : MonoBehaviour
                     if (playerCharacterSelections[i] < noOfCharacters)
                     {
                         playerCharacterSelections[i]++;
-                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, playerCharacterSelections[i], -1, i));
+                        StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
                     }
+                }
+                else if (gamepad.buttonEast.wasPressedThisFrame)
+                {
+                    ToggleLockIn(i);
+                }
+                else if (gamepad.buttonNorth.wasPressedThisFrame && allLocked)
+                {
+                    SetPlayerManager();
                 }
             }
         }
     }
 
-    IEnumerator CameraMove(Transform selectionTransform, Vector3 targetPos, float speed, int selectedCharacterIndex, int moveDir, int playerNo)
+    private void ToggleLockIn(int player)
+    {
+        if (isLockedIn[player] == true)
+        {
+            isLockedIn[player] = false;
+            canChangeSelection[player] = true;
+            //Finds the animator of the previously selected character and sets the animation back to idle
+            Transform deselectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player] - 1);
+            PlayAnim(deselectedCharacterT, "Idle");
+            CheckLockedIn();
+        }
+        else
+        {
+            isLockedIn[player] = true;
+            canChangeSelection[player] = false;
+            //Finds the animator of the currently selected Character and sets the animation to a selected pose
+            Transform selectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player] - 1);
+            PlayAnim(selectedCharacterT, "Selected");
+            CheckLockedIn();
+        }
+    }
+
+    private void CheckLockedIn()
+    {
+        bool thisAllLocked = true;
+
+        for (int i = 0; i < playerNo; i++)
+        {
+            if (!isLockedIn[i])
+            {
+                thisAllLocked = false;
+                break;
+            }
+        }
+
+        if (thisAllLocked)
+        {
+            allLocked = true;
+            readyImg.SetActive(true);
+        } else
+        {
+            allLocked = false;
+            readyImg.SetActive(false);
+        }
+    }
+
+    IEnumerator CameraMove(Transform selectionTransform, Vector3 targetPos, float speed, int playerNo)
     {
         canChangeSelection[playerNo] = false;
         Vector3 currentPos = selectionTransform.position;
@@ -221,14 +283,6 @@ public class MenuManagement : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
-        //Finds the animator of the currently selected Character and sets the animation to a selected pose
-        Transform selectedCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1);
-        PlayAnim(selectedCharacterT, "Selected");
-
-        //Finds the animator of the previously selected character and sets the animation back to idle
-        Transform oldCharacterT = selectionTransform.GetChild(selectedCharacterIndex - 1 + moveDir);
-        PlayAnim(oldCharacterT, "Idle");
 
         selectionTransform.position = targetPos;
         canChangeSelection[playerNo] = true;
@@ -247,6 +301,19 @@ public class MenuManagement : MonoBehaviour
                 anim.CrossFade(clip.name, animFadeDur);
                 break;
             }
+        }
+    }
+
+    private void SetPlayerManager()
+    {
+        foreach (var device in playerControllers)
+        {
+            PMscript.AddController(device);
+        }
+        PMscript.SetPlayerNo(playerNo);
+        for (int i = 0; i < playerNo; i++)
+        {
+            PMscript.SetCharacter(playerCharacterSelections[i]);
         }
     }
 }
