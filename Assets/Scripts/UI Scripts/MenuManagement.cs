@@ -184,7 +184,9 @@ public class MenuManagement : MonoBehaviour
                         playerCharacterSelections[i]++;
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
                     }
-                } else if (keyboard.enterKey.wasPressedThisFrame)
+                } 
+                //stops the player from being able to lock in if the camera is still moving, but allows them to unlock if they are locked in
+                else if (keyboard.enterKey.wasPressedThisFrame && (canChangeSelection[i] || isLockedIn[i]))
                 {
                     ToggleLockIn(i);
                 }
@@ -211,7 +213,8 @@ public class MenuManagement : MonoBehaviour
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
                     }
                 }
-                else if (gamepad.buttonEast.wasPressedThisFrame)
+                //stops the player from being able to lock in if the camera is still moving, but allows them to unlock if they are locked in
+                else if (gamepad.buttonEast.wasPressedThisFrame && (canChangeSelection[i] || isLockedIn[i]))
                 {
                     ToggleLockIn(i);
                 }
