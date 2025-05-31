@@ -22,7 +22,7 @@ public class MenuManagement : MonoBehaviour
     public float characterDistance;
     public float animFadeDur;
     public GameObject readyImg;
-    public PlayerManager PMscript;
+    public GameController GCscript;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private bool characterSelect = false;
@@ -158,7 +158,7 @@ public class MenuManagement : MonoBehaviour
     {
         joinIcons[playerNo].gameObject.SetActive(false);
         playerControllers.Add(device);
-        playerCharacterSelections[playerNo] = 1;
+        //playerCharacterSelections[playerNo] = 1;
 
         playerNo++;
         CheckLockedIn();
@@ -179,7 +179,7 @@ public class MenuManagement : MonoBehaviour
                     }
                 } else if (keyboard.dKey.wasPressedThisFrame && canChangeSelection[i])
                 {
-                    if (playerCharacterSelections[i] < noOfCharacters)
+                    if (playerCharacterSelections[i] < noOfCharacters - 1)
                     {
                         playerCharacterSelections[i]++;
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
@@ -192,7 +192,7 @@ public class MenuManagement : MonoBehaviour
                 }
                 else if (keyboard.spaceKey.wasPressedThisFrame && allLocked)
                 {
-                    SetPlayerManager();
+                    GameReady();
                 }
             }
             else if (playerControllers[i] is Gamepad gamepad)
@@ -207,7 +207,7 @@ public class MenuManagement : MonoBehaviour
                 }
                 else if (gamepad.leftStick.right.wasPressedThisFrame && canChangeSelection[i])
                 {
-                    if (playerCharacterSelections[i] < noOfCharacters)
+                    if (playerCharacterSelections[i] < noOfCharacters - 1)
                     {
                         playerCharacterSelections[i]++;
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(-characterDistance, 0, 0), cameraSpeed, i));
@@ -220,7 +220,7 @@ public class MenuManagement : MonoBehaviour
                 }
                 else if (gamepad.buttonNorth.wasPressedThisFrame && allLocked)
                 {
-                    SetPlayerManager();
+                    GameReady();
                 }
             }
         }
@@ -233,7 +233,7 @@ public class MenuManagement : MonoBehaviour
             isLockedIn[player] = false;
             canChangeSelection[player] = true;
             //Finds the animator of the previously selected character and sets the animation back to idle
-            Transform deselectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player] - 1);
+            Transform deselectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player]);
             PlayAnim(deselectedCharacterT, "Idle");
             CheckLockedIn();
         }
@@ -242,7 +242,7 @@ public class MenuManagement : MonoBehaviour
             isLockedIn[player] = true;
             canChangeSelection[player] = false;
             //Finds the animator of the currently selected Character and sets the animation to a selected pose
-            Transform selectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player] - 1);
+            Transform selectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player]);
             PlayAnim(selectedCharacterT, "Selected");
             CheckLockedIn();
         }
@@ -307,16 +307,20 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
-    private void SetPlayerManager()
+    private void GameReady()
     {
+        GCscript.SetPlayerNo(playerNo);
+
         foreach (var device in playerControllers)
         {
-            PMscript.AddController(device);
+            GCscript.AddController(device);
         }
-        PMscript.SetPlayerNo(playerNo);
+
         for (int i = 0; i < playerNo; i++)
         {
-            PMscript.SetCharacter(playerCharacterSelections[i]);
+            GCscript.SetCharacter(playerCharacterSelections[i]);
         }
+
+        GCscript.StartTutorial();
     }
 }

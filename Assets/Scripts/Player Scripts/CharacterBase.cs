@@ -40,6 +40,11 @@ public class CharacterBase: MonoBehaviour
         clips = anim.runtimeAnimatorController.animationClips;
     }
 
+    public void SetController(InputDevice device)
+    {
+        thisController = device;
+    }
+
     public void SetState(playerState newState)
     {
         if (currentState != newState)
