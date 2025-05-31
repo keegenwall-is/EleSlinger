@@ -80,7 +80,10 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (controller.buttonEast.wasReleasedThisFrame)
                 {
-                    ResumeAnim();
+                    if (isAiming)
+                    {
+                        ResumeAnim();
+                    }
                 }
             }
 
@@ -159,5 +162,16 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - animCut);
         baseScript.SetState(CharacterBase.playerState.Idle);
+    }
+
+    public void CancelAttack()
+    {
+        baseScript.SetState(CharacterBase.playerState.Idle);
+        Destroy(thisCharge);
+        projSize = 0.0f;
+        isAiming = false;
+        indicator.SetActive(false);
+        indicator.transform.localScale = indicatorStartSize;
+        anim.speed = 1f;
     }
 }

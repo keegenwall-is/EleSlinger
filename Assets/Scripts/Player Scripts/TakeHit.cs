@@ -8,6 +8,8 @@ public class TakeHit : MonoBehaviour
     private Rigidbody rb;
     private float projPower;
     private Vector3 direction;
+    private PlayerAttack PAscript;
+    private CharacterBase baseScript;
 
     public float flySpeed;
 
@@ -15,6 +17,8 @@ public class TakeHit : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        PAscript = GetComponent<PlayerAttack>();
+        baseScript = GetComponent<CharacterBase>();
     }
 
     // Update is called once per frame
@@ -43,11 +47,15 @@ public class TakeHit : MonoBehaviour
 
     IEnumerator FlyAway()
     {
+        if (baseScript.GetState() == CharacterBase.playerState.Attacking)
+        {
+            PAscript.CancelAttack();
+        }
+
         transform.forward = direction;
-        CharacterBase baseScript = GetComponent<CharacterBase>();
         baseScript.SetState(CharacterBase.playerState.TakingHit);
-        rb.AddForce(direction * projPower * flySpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(projPower / projPower / 2);
+        rb.AddForce(Vector3.Project(rb.velocity, direction.normalized) + direction.normalized * projPower * flySpeed, ForceMode.Impulse);
+        yield return new WaitForSeconds(projPower * 0.5f);
         baseScript.SetState(CharacterBase.playerState.Idle);
         rb.velocity = new Vector3(0, 0, 0);
     }
