@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 51fef7662b080994ba559dd0038aaebb
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/Fuse Box.unity
     guid: 0bcfbd0209279264d82b60b59f97fd16
   m_configObjects: {}

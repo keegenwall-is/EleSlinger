@@ -54,8 +54,8 @@ public class TakeHit : MonoBehaviour
 
         transform.forward = direction;
         baseScript.SetState(CharacterBase.playerState.TakingHit);
-        rb.AddForce(Vector3.Project(rb.velocity, direction.normalized) + direction.normalized * projPower * flySpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(projPower * 0.5f);
+        rb.velocity =  direction.normalized * projPower * flySpeed;
+        yield return new WaitForSeconds(0.5f);
         baseScript.SetState(CharacterBase.playerState.Idle);
         rb.velocity = new Vector3(0, 0, 0);
     }

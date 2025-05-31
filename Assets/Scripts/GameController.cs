@@ -67,5 +67,9 @@ public class GameController : MonoBehaviour
                 baseScript.SetController(playerControllers[i]);
             }
         }
+
+        GameObject[] Cam = GameObject.FindGameObjectsWithTag("MainCamera");
+        CameraMovement camMoveScript = Cam[0].GetComponent<CameraMovement>();
+        camMoveScript.FindPlayers();
     }
 }
