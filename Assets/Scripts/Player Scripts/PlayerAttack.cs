@@ -77,6 +77,46 @@ public class PlayerAttack : MonoBehaviour
                 indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
             }
         }
+        else if (baseScript.thisController is Gamepad controller)
+        {
+            if (baseScript.GetState() == CharacterBase.playerState.Idle || baseScript.GetState() == CharacterBase.playerState.Running)
+            {
+                if (controller.buttonEast.wasPressedThisFrame)
+                {
+                    baseScript.SetState(CharacterBase.playerState.Attacking);
+                }
+            }
+
+            //Resume the Animation if the player releases the attack button
+            if (baseScript.GetState() == CharacterBase.playerState.Attacking)
+            {
+                if (controller.buttonEast.wasReleasedThisFrame)
+                {
+                    ResumeAnim();
+                }
+            }
+
+            if (isAiming)
+            {
+                float moveX = 0;
+                float moveZ = 0;
+                moveZ = controller.leftStick.up.isPressed ? 1 : controller.leftStick.down.isPressed ? -1 : 0;
+                moveX = controller.leftStick.right.isPressed ? 1 : controller.leftStick.left.isPressed ? -1 : 0;
+                Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
+                if (moveZ != 0f || moveX != 0f)
+                {
+                    Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
+                }
+                projSize += chargeSpeed * Time.deltaTime;
+                if (projSize >= maxSize)
+                {
+                    projSize = maxSize;
+                }
+                thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
+                indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
+            }
+        }
     }
 
     public void Aim()
@@ -84,6 +124,16 @@ public class PlayerAttack : MonoBehaviour
         if (baseScript.thisController is Keyboard keyboard)
         {
             if (keyboard.pKey.isPressed)
+            {
+                anim.speed = 0f;
+                isAiming = true;
+                thisCharge = Instantiate(charge, magicSpawner.transform.position, transform.rotation, magicSpawner.transform);
+                indicator.SetActive(true);
+            }
+        }
+        else if (baseScript.thisController is Gamepad controller)
+        {
+            if (controller.buttonEast.isPressed)
             {
                 anim.speed = 0f;
                 isAiming = true;

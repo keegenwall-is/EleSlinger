@@ -33,6 +33,14 @@ public class PlayerMove : MonoBehaviour
                     return;
                 }
             }
+            else if (baseScript.thisController is Gamepad controller)
+            {
+                if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle)
+                {
+                    StartCoroutine(Dash());
+                    return;
+                }
+            }
 
             if (baseScript.GetState() != CharacterBase.playerState.Dashing)
             {
