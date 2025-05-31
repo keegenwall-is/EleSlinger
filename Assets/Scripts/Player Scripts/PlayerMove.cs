@@ -76,8 +76,9 @@ public class PlayerMove : MonoBehaviour
         }
         else if (baseScript.thisController is Gamepad controller)
         {
-            moveZ = controller.leftStick.up.isPressed ? 1 : controller.leftStick.down.isPressed ? -1 : 0;
-            moveX = controller.leftStick.right.isPressed ? 1 : controller.leftStick.left.isPressed ? -1 : 0;
+            Vector2 stickInput = controller.leftStick.ReadValue();
+            moveX = stickInput.x;
+            moveZ = stickInput.y;
         }
 
         moveDir = new Vector3(moveX, 0f, moveZ).normalized;
