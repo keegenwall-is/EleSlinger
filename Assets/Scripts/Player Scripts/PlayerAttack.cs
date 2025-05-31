@@ -62,19 +62,7 @@ public class PlayerAttack : MonoBehaviour
                 float moveZ = 0;
                 moveZ = keyboard.wKey.isPressed ? 1 : keyboard.sKey.isPressed ? -1 : 0;
                 moveX = keyboard.dKey.isPressed ? 1 : keyboard.aKey.isPressed ? -1 : 0;
-                Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
-                if (moveZ != 0f || moveX != 0f)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
-                }
-                projSize += chargeSpeed * Time.deltaTime;
-                if (projSize >= maxSize)
-                {
-                    projSize = maxSize;
-                }
-                thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
-                indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
+                AimMovement(moveX, moveZ);
             }
         }
         else if (baseScript.thisController is Gamepad controller)
@@ -102,19 +90,7 @@ public class PlayerAttack : MonoBehaviour
                 float moveZ = 0;
                 moveZ = controller.leftStick.up.isPressed ? 1 : controller.leftStick.down.isPressed ? -1 : 0;
                 moveX = controller.leftStick.right.isPressed ? 1 : controller.leftStick.left.isPressed ? -1 : 0;
-                Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
-                if (moveZ != 0f || moveX != 0f)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
-                }
-                projSize += chargeSpeed * Time.deltaTime;
-                if (projSize >= maxSize)
-                {
-                    projSize = maxSize;
-                }
-                thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
-                indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
+                AimMovement(moveX, moveZ);
             }
         }
     }
@@ -141,6 +117,23 @@ public class PlayerAttack : MonoBehaviour
                 indicator.SetActive(true);
             }
         }
+    }
+
+    private void AimMovement(float moveX, float moveZ)
+    {
+        Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
+        if (moveZ != 0f || moveX != 0f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
+        }
+        projSize += chargeSpeed * Time.deltaTime;
+        if (projSize >= maxSize)
+        {
+            projSize = maxSize;
+        }
+        thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
+        indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
     }
 
     public void ResumeAnim()
