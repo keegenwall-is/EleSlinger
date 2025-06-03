@@ -91,8 +91,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 float moveX = 0;
                 float moveZ = 0;
-                moveZ = controller.leftStick.up.isPressed ? 1 : controller.leftStick.down.isPressed ? -1 : 0;
-                moveX = controller.leftStick.right.isPressed ? 1 : controller.leftStick.left.isPressed ? -1 : 0;
+                Vector2 stickInput = controller.leftStick.ReadValue();
+                moveX = stickInput.x * 0.5f;
+                moveZ = stickInput.y * 0.5f;
                 AimMovement(moveX, moveZ);
             }
         }
