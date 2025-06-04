@@ -13,8 +13,13 @@ public class CameraMovement : MonoBehaviour
     public float zoomLimiter;
     public Vector3 offset;
     public float tightness;
-    public float minZ;
-    public float maxZ;
+    public float minZOffset;
+    public float maxZOffset;
+    public float minZPos;
+    public float maxZPos;
+    public float minXPos;
+    public float maxXPos;
+
 
     private void Start()
     {
@@ -39,7 +44,7 @@ public class CameraMovement : MonoBehaviour
     private void MoveCamera()
     {
         Vector3 centerPoint = GetCenterPoint();
-        offset.z = Mathf.Lerp(minZ, maxZ, Mathf.InverseLerp(minFOV, maxFOV, cam.fieldOfView));
+        offset.z = Mathf.Lerp(minZOffset, maxZOffset, Mathf.InverseLerp(minFOV, maxFOV, cam.fieldOfView));
         transform.position = centerPoint + offset;
         transform.LookAt(centerPoint);
     }
