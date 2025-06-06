@@ -11,6 +11,7 @@ public class CharacterBase: MonoBehaviour
     private CapsuleCollider cc;
     private Vector3 spawnPos;
     private PlayerMove playerMove;
+    private GameObject thisKO;
 
     public InputDevice thisController;
     public Animator anim;
@@ -24,6 +25,7 @@ public class CharacterBase: MonoBehaviour
     public float respawnTime = 3.0f;
     public float graceLength = 2.0f;
     public GameObject mesh;
+    public GameObject KO;
 
     private AnimationClip[] clips;
 
@@ -105,6 +107,7 @@ public class CharacterBase: MonoBehaviour
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 face.sprite = hitFace;
                 StartCoroutine(Respawn());
+                thisKO = Instantiate(KO, transform.position, transform.rotation);
                 break;
         }
     }
@@ -141,6 +144,7 @@ public class CharacterBase: MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+        Destroy(thisKO);
         playerMove.enabled = true;
         SetState(playerState.Idle);
         mesh.SetActive(true);

@@ -735,7 +735,9 @@ MonoBehaviour:
   canMove: 1
   animFadeDur: 0.2
   respawnTime: 3
+  graceLength: 2
   mesh: {fileID: 4923852485758663766}
+  KO: {fileID: 1871634612635050819, guid: c897ace78b27843408acedc7b1026409, type: 3}
 --- !u!114 &5753746768392326714
 MonoBehaviour:
   m_ObjectHideFlags: 0

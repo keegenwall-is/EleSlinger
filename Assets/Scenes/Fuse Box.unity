@@ -1517,7 +1517,7 @@ MonoBehaviour:
   maxFOV: 100
   zoomLimiter: 50
   offset: {x: 0, y: 50, z: -10}
-  tightness: 0.7
+  tightness: 0.6
   minZOffset: -40
   maxZOffset: -20
   minZPos: 0

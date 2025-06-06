@@ -15,10 +15,10 @@ public class CameraMovement : MonoBehaviour
     public float tightness;
     public float minZOffset;
     public float maxZOffset;
-    public float minZPos;
-    public float maxZPos;
-    public float minXPos;
-    public float maxXPos;
+    //public float minZPos;
+    //public float maxZPos;
+    //public float minXPos;
+    //public float maxXPos;
 
 
     private void Start()
