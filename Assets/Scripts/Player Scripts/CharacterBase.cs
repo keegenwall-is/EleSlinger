@@ -22,6 +22,7 @@ public class CharacterBase: MonoBehaviour
     public bool canMove = true;
     public float animFadeDur;
     public float respawnTime = 3.0f;
+    public float graceLength = 2.0f;
     public GameObject mesh;
 
     private AnimationClip[] clips;
@@ -103,7 +104,6 @@ public class CharacterBase: MonoBehaviour
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 face.sprite = hitFace;
-                //canMove = false;
                 StartCoroutine(Respawn());
                 break;
         }
@@ -123,8 +123,6 @@ public class CharacterBase: MonoBehaviour
 
     IEnumerator Respawn()
     {
-        //transform.rotation = transform.LookAt(spawnPos);
-
         playerMove.enabled = false;
         cc.enabled = false;
         mesh.SetActive(false);
@@ -144,8 +142,17 @@ public class CharacterBase: MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         playerMove.enabled = true;
-        cc.enabled = true;
-        mesh.SetActive(true);
         SetState(playerState.Idle);
+        mesh.SetActive(true);
+
+        for (int i = 0; i < graceLength * 2; i++)
+        {
+            yield return new WaitForSeconds(0.25f);
+            mesh.SetActive(false);
+            yield return new WaitForSeconds(0.25f);
+            mesh.SetActive(true);
+        }
+
+        cc.enabled = true;
     }
 }
