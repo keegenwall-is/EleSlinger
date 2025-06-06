@@ -168,7 +168,10 @@ public class PlayerAttack : MonoBehaviour
     public void CancelAttack()
     {
         baseScript.SetState(CharacterBase.playerState.Idle);
-        Destroy(thisCharge);
+        if (thisCharge != null)
+        {
+            Destroy(thisCharge);
+        }
         projSize = 0.0f;
         isAiming = false;
         indicator.SetActive(false);

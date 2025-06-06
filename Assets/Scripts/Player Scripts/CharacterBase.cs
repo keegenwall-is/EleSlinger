@@ -8,6 +8,9 @@ public class CharacterBase: MonoBehaviour
 {
 
     private playerState currentState;
+    private CapsuleCollider cc;
+    private Vector3 spawnPos;
+    private PlayerMove playerMove;
 
     public InputDevice thisController;
     public Animator anim;
@@ -18,6 +21,8 @@ public class CharacterBase: MonoBehaviour
     public bool isAttacking = false;
     public bool canMove = true;
     public float animFadeDur;
+    public float respawnTime = 3.0f;
+    public GameObject mesh;
 
     private AnimationClip[] clips;
 
@@ -38,6 +43,8 @@ public class CharacterBase: MonoBehaviour
         anim = GetComponent<Animator>();
         currentState = playerState.Idle;
         clips = anim.runtimeAnimatorController.animationClips;
+        cc = GetComponent<CapsuleCollider>();
+        playerMove = GetComponent<PlayerMove>();
     }
 
     public void SetController(InputDevice device)
@@ -57,6 +64,11 @@ public class CharacterBase: MonoBehaviour
     public playerState GetState()
     {
         return currentState;
+    }
+
+    public void SetSpawnPos(Vector3 spawnPos)
+    {
+        this.spawnPos = spawnPos;
     }
 
     public void OnStateEnter(playerState state)
@@ -88,6 +100,12 @@ public class CharacterBase: MonoBehaviour
                 face.sprite = hitFace;
                 canMove = false;
                 break;
+            case playerState.Dead:
+                anim.CrossFade(FindAnimation("Idle"), animFadeDur);
+                face.sprite = hitFace;
+                //canMove = false;
+                StartCoroutine(Respawn());
+                break;
         }
     }
 
@@ -101,5 +119,33 @@ public class CharacterBase: MonoBehaviour
             }
         }
         return null;
+    }
+
+    IEnumerator Respawn()
+    {
+        //transform.rotation = transform.LookAt(spawnPos);
+
+        playerMove.enabled = false;
+        cc.enabled = false;
+        mesh.SetActive(false);
+
+        float elapsed = 0f;
+        float dist = Vector3.Distance(transform.position, spawnPos);
+
+        while (elapsed < respawnTime)
+        {
+            transform.position = Vector3.Lerp(transform.position, spawnPos, elapsed/dist);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = spawnPos;
+
+        yield return new WaitForSeconds(0.1f);
+
+        playerMove.enabled = true;
+        cc.enabled = true;
+        mesh.SetActive(true);
+        SetState(playerState.Idle);
     }
 }

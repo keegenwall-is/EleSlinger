@@ -551,7 +551,7 @@ Transform:
   - {fileID: 7428244454447292684}
   - {fileID: 3228103776636286687}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3228103777456989814
 Rigidbody:
@@ -623,6 +623,8 @@ MonoBehaviour:
   isAttacking: 0
   canMove: 1
   animFadeDur: 0.2
+  respawnTime: 3
+  mesh: {fileID: 2828512097743770647}
 --- !u!114 &3228103777456989812
 MonoBehaviour:
   m_ObjectHideFlags: 0
