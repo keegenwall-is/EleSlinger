@@ -25,14 +25,16 @@ public class Electricity : MonoBehaviour
         {
             //Finding the largest, minimum player distance from any spawner
             GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            List<GameObject> players = new List<GameObject>();
+            players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+            players.AddRange(GameObject.FindGameObjectsWithTag("Immune"));
             float maxSpawnDist = 0;
             GameObject spawnPoint = spawnPoints[0];
 
             for (int i = 0; i < spawnPoints.Length; i++)
             {
                 float minPlayerDist = float.MaxValue;
-                for (int j = 0; j < players.Length; j++)
+                for (int j = 0; j < players.Count; j++)
                 {
                     float thisDist = Vector3.Distance(spawnPoints[i].transform.position, players[j].transform.position);
                     if (thisDist < minPlayerDist)

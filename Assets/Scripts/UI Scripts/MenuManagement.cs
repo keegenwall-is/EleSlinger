@@ -172,7 +172,7 @@ public class MenuManagement : MonoBehaviour
             {
                 if (keyboard.aKey.wasPressedThisFrame && canChangeSelection[i])
                 {
-                    if (playerCharacterSelections[i] > 1)
+                    if (playerCharacterSelections[i] > 0)
                     {
                         playerCharacterSelections[i]--;
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, i));
@@ -199,7 +199,7 @@ public class MenuManagement : MonoBehaviour
             {
                 if (gamepad.leftStick.left.wasPressedThisFrame && canChangeSelection[i])
                 {
-                    if (playerCharacterSelections[i] > 1)
+                    if (playerCharacterSelections[i] > 0)
                     {
                         playerCharacterSelections[i]--;
                         StartCoroutine(CameraMove(characterLists[i].gameObject.transform, new Vector3(characterDistance, 0, 0), cameraSpeed, i));

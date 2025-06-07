@@ -129,6 +129,7 @@ public class CharacterBase: MonoBehaviour
         playerMove.enabled = false;
         cc.enabled = false;
         mesh.SetActive(false);
+        gameObject.tag = "Immune";
 
         float elapsed = 0f;
         float dist = Vector3.Distance(transform.position, spawnPos);
@@ -148,6 +149,7 @@ public class CharacterBase: MonoBehaviour
         playerMove.enabled = true;
         SetState(playerState.Idle);
         mesh.SetActive(true);
+        cc.enabled = true;
 
         for (int i = 0; i < graceLength * 2; i++)
         {
@@ -157,6 +159,6 @@ public class CharacterBase: MonoBehaviour
             mesh.SetActive(true);
         }
 
-        cc.enabled = true;
+        gameObject.tag = "Player";
     }
 }

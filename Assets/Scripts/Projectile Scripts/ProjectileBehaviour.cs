@@ -42,7 +42,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other != thrower)
+        if (other != thrower && !other.isTrigger)
         {
             thisHit = Instantiate(hit, transform.position, transform.rotation);
             HitBehaviour hitScript = thisHit.GetComponent<HitBehaviour>();
