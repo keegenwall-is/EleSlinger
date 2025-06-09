@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Electricity : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
 
     private CapsuleCollider cc;
+    private MinigameManager managerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CapsuleCollider>();
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
     }
 
     // Update is called once per frame
@@ -60,7 +62,8 @@ public class Electricity : MonoBehaviour
             thisPlayerBase.SetState(CharacterBase.playerState.Idle);
             thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
             thisPlayerBase.SetState(CharacterBase.playerState.Dead);
-            //other.gameObject.transform.position = spawnPoint.transform.position;
+
+            managerScript.TriggerObstacleEvent(other.gameObject);
         }
     }
 }

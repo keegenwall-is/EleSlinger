@@ -10,6 +10,7 @@ public class TakeHit : MonoBehaviour
     private Vector3 direction;
     private PlayerAttack PAscript;
     private CharacterBase baseScript;
+    private GameObject attacker;
 
     public float flySpeed;
 
@@ -45,6 +46,16 @@ public class TakeHit : MonoBehaviour
         this.projPower = projPower;
     }
 
+    public void SetAttacker(GameObject attacker)
+    {
+        this.attacker = attacker;
+    }
+
+    public GameObject GetAttacker()
+    {
+        return attacker;
+    }
+
     IEnumerator FlyAway()
     {
         if (baseScript.GetState() == CharacterBase.playerState.Attacking)
@@ -58,5 +69,6 @@ public class TakeHit : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         baseScript.SetState(CharacterBase.playerState.Idle);
         rb.velocity = new Vector3(0, 0, 0);
+        attacker = null;
     }
 }

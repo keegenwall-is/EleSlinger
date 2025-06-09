@@ -53,6 +53,7 @@ public class ProjectileBehaviour : MonoBehaviour
                 TakeHit takeHitScript = other.GetComponent<TakeHit>();
                 takeHitScript.SetDirection(transform.forward);
                 takeHitScript.SetProjPower(transform.localScale.x);
+                takeHitScript.SetAttacker(thrower);
                 takeHitScript.HitReaction();
             }
 
