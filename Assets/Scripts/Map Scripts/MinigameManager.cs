@@ -61,6 +61,11 @@ public class MinigameManager : MonoBehaviour
         //Default is to do nothing (obstacles don't have the same effect in all minigames)
     }
 
+    public virtual void HandleItemPickup(GameObject item, GameObject actor)
+    {
+
+    }
+
     protected virtual void OnMinigameEnd()
     {
         //Determine winner

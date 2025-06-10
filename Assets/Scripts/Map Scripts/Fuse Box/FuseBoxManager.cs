@@ -8,12 +8,24 @@ public class FuseBoxManager : MinigameManager
 
     public List<Text> scores = new List<Text>();
     public GameObject[] items;
+    public List<Image> p1ItemIcons = new List<Image>();
+    public List<Image> p2ItemIcons = new List<Image>();
+    public List<Image> p3ItemIcons = new List<Image>();
+    public List<Image> p4ItemIcons = new List<Image>();
+    public Sprite[] hasItemIcons;
+    public List<Sprite> p1NoItemIcons = new List<Sprite>();
+    public List<Sprite> p2NoItemIcons = new List<Sprite>();
+    public List<Sprite> p3NoItemIcons = new List<Sprite>();
+    public List<Sprite> p4NoItemIcons = new List<Sprite>();
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private GameObject[] itemSpawners;
     private bool[] itemSpawned = { false, false, false };
     private float[] spawnTimes = { 0, 0, 0 };
     private bool[] spawnerHasItem = { false, false, false, false, false };
+    private float[] numOfItems = { -1, -1, -1, -1 };
+    private List<List<Image>> itemIcons = new List<List<Image>>();
+    private List<List<Sprite>> baseItemIcons = new List<List<Sprite>>();
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +33,17 @@ public class FuseBoxManager : MinigameManager
         for (int i = 0; i < playerNo; i++)
         {
             playerScores[i] = 0;
+            numOfItems[i] = 0;
         }
+
+        itemIcons.Add(p1ItemIcons);
+        itemIcons.Add(p2ItemIcons);
+        itemIcons.Add(p3ItemIcons);
+        itemIcons.Add(p4ItemIcons);
+        baseItemIcons.Add(p1NoItemIcons);
+        baseItemIcons.Add(p2NoItemIcons);
+        baseItemIcons.Add(p3NoItemIcons);
+        baseItemIcons.Add(p4NoItemIcons);
 
         itemSpawners = GameObject.FindGameObjectsWithTag("Item Spawner");
 
@@ -55,9 +77,40 @@ public class FuseBoxManager : MinigameManager
         }
     }
 
+    public override void HandleItemPickup(GameObject pickedupItem, GameObject playerWithItem)
+    {
+        //Change the UI for the player picking up the item to show the correct item in their inventory
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == playerWithItem)
+            {
+                for (int j = 0; j < items.Length; j++)
+                {
+                    if (items[j].tag == pickedupItem.tag)
+                    {
+                        itemIcons[i][j].sprite = hasItemIcons[j];
+                    }
+                }
+            }
+        }
+    }
+
     protected override void OnObstacleEvent(GameObject player)
     {
         UpdateScore(player);
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                for (int j = 0; j < items.Length; j++)
+                {
+                    if (itemIcons[i][j].sprite = hasItemIcons[j])
+                    {
+                        itemIcons[i][j].sprite = baseItemIcons[i][j];
+                    }
+                }
+            }
+        }
     }
 
     private void UpdateScore(GameObject player)
