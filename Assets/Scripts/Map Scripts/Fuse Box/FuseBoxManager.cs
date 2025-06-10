@@ -17,25 +17,30 @@ public class FuseBoxManager : MinigameManager
     public List<Sprite> p2NoItemIcons = new List<Sprite>();
     public List<Sprite> p3NoItemIcons = new List<Sprite>();
     public List<Sprite> p4NoItemIcons = new List<Sprite>();
+    public float minItemRespawnTime;
+    public float maxItemRespawnTime;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private GameObject[] itemSpawners;
-    private bool[] itemSpawned = { false, false, false };
+    public bool[] itemSpawned = { false, false, false };
     private float[] spawnTimes = { 0, 0, 0 };
-    private bool[] spawnerHasItem = { false, false, false, false, false };
+    public string[] spawnerHasItem = { "none", "none", "none", "none", "none" };
     private float[] numOfItems = { -1, -1, -1, -1 };
     private List<List<Image>> itemIcons = new List<List<Image>>();
     private List<List<Sprite>> baseItemIcons = new List<List<Sprite>>();
+    private bool[,] playerInventories = { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
 
     // Start is called before the first frame update
     void Start()
     {
+        //set numOfItems and player scores to 0 for active players
         for (int i = 0; i < playerNo; i++)
         {
             playerScores[i] = 0;
             numOfItems[i] = 0;
         }
 
+        //Fill 2D Lists of Images and Sprites
         itemIcons.Add(p1ItemIcons);
         itemIcons.Add(p2ItemIcons);
         itemIcons.Add(p3ItemIcons);
@@ -57,6 +62,7 @@ public class FuseBoxManager : MinigameManager
 
     protected override void OnTick()
     {
+        //Spawns items as the timer goes down
         for (int i = 0; i < items.Length; i++)
         {
             if (gameLength <= spawnTimes[i])
@@ -65,13 +71,13 @@ public class FuseBoxManager : MinigameManager
                 {
                     int randomSpawner = Random.Range(0, itemSpawners.Length);
                     //Stops two items from spawning at the same point
-                    while (spawnerHasItem[randomSpawner])
+                    while (spawnerHasItem[randomSpawner] != "none")
                     {
                         randomSpawner = Random.Range(0, itemSpawners.Length);
                     }
                     Instantiate(items[i], itemSpawners[randomSpawner].transform.position, itemSpawners[randomSpawner].transform.rotation);
                     itemSpawned[i] = true;
-                    spawnerHasItem[randomSpawner] = true;
+                    spawnerHasItem[randomSpawner] = items[i].tag;
                 }
             }
         }
@@ -89,6 +95,16 @@ public class FuseBoxManager : MinigameManager
                     if (items[j].tag == pickedupItem.tag)
                     {
                         itemIcons[i][j].sprite = hasItemIcons[j];
+                        playerInventories[i, j] = true;
+
+                        //When item is picked up, allow new items to spawn on this spawner
+                        for (int n = 0; n < spawnerHasItem.Length; n++)
+                        {
+                            if (spawnerHasItem[n] == items[j].tag)
+                            {
+                                spawnerHasItem[n] = "none";
+                            }
+                        }
                     }
                 }
             }
@@ -98,15 +114,21 @@ public class FuseBoxManager : MinigameManager
     protected override void OnObstacleEvent(GameObject player)
     {
         UpdateScore(player);
+
+        //Remove items from inventory
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i] == player)
             {
                 for (int j = 0; j < items.Length; j++)
                 {
-                    if (itemIcons[i][j].sprite = hasItemIcons[j])
+                    if (playerInventories[i, j] == true)
                     {
                         itemIcons[i][j].sprite = baseItemIcons[i][j];
+                        playerInventories[i, j] = false;
+                        float newSpawnTime = Random.Range(minItemRespawnTime, maxItemRespawnTime);
+                        spawnTimes[j] = gameLength - newSpawnTime;
+                        itemSpawned[j] = false;
                     }
                 }
             }

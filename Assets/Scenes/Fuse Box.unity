@@ -2128,7 +2128,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 643862611}
-  gameLength: 30
+  gameLength: 180
   gameLengthStart: 0
   scores:
   - {fileID: 1777097690}
@@ -2175,6 +2175,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f636887d09107894b9d178bb1446474b, type: 3}
   - {fileID: 21300000, guid: 35e8cc7382fc256469d0a62584a653f9, type: 3}
   - {fileID: 21300000, guid: 27a3d2c8a39476e4ca6a3c1682fc5e87, type: 3}
+  minItemRespawnTime: 3
+  maxItemRespawnTime: 6
 --- !u!1 &638720749
 GameObject:
   m_ObjectHideFlags: 0
