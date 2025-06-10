@@ -11,6 +11,7 @@ public class MinigameManager : MonoBehaviour
     public List<GameObject> effectedObjects = new List<GameObject>();
     public Text countdown;
     public float gameLength;
+    public float gameLengthStart;
 
     private GameController gameController;
     private bool roundOver = false;
@@ -21,6 +22,7 @@ public class MinigameManager : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("Game Controller").GetComponent<GameController>();
         players = gameController.GetPlayers();
         playerNo = gameController.GetPlayerNo();
+        gameLengthStart = gameLength;
     }
 
     // Update is called once per frame
@@ -30,13 +32,16 @@ public class MinigameManager : MonoBehaviour
         {
             if (gameLength >= 0)
             {
+                //Handles round timer
                 gameLength -= Time.deltaTime;
                 TimeSpan timeText = TimeSpan.FromSeconds(gameLength);
                 countdown.text = string.Format("{0}:{1:00}", timeText.Minutes, timeText.Seconds);
+                OnTick();
             }
             else
             {
                 roundOver = true;
+                OnMinigameEnd();
             }
         }
     }
@@ -46,6 +51,11 @@ public class MinigameManager : MonoBehaviour
         OnObstacleEvent(actor);
     }
 
+    protected virtual void OnTick()
+    {
+        //Default is do nothing
+    }
+
     protected virtual void OnObstacleEvent(GameObject actor)
     {
         //Default is to do nothing (obstacles don't have the same effect in all minigames)
@@ -53,6 +63,6 @@ public class MinigameManager : MonoBehaviour
 
     protected virtual void OnMinigameEnd()
     {
-        //Show end game screen
+        //Determine winner
     }
 }
