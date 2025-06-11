@@ -19,12 +19,13 @@ public class FuseBoxManager : MinigameManager
     public List<Sprite> p4NoItemIcons = new List<Sprite>();
     public float minItemRespawnTime;
     public float maxItemRespawnTime;
+    public float electricPowerLength;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private GameObject[] itemSpawners;
-    public bool[] itemSpawned = { false, false, false };
+    private bool[] itemSpawned = { false, false, false };
     private float[] spawnTimes = { 0, 0, 0 };
-    public string[] spawnerHasItem = { "none", "none", "none", "none", "none" };
+    private string[] spawnerHasItem = { "none", "none", "none", "none", "none" };
     private float[] numOfItems = { -1, -1, -1, -1 };
     private List<List<Image>> itemIcons = new List<List<Image>>();
     private List<List<Sprite>> baseItemIcons = new List<List<Sprite>>();
@@ -98,17 +99,41 @@ public class FuseBoxManager : MinigameManager
                         playerInventories[i, j] = true;
 
                         //When item is picked up, allow new items to spawn on this spawner
-                        for (int n = 0; n < spawnerHasItem.Length; n++)
+                        for (int k = 0; k < spawnerHasItem.Length; k++)
                         {
-                            if (spawnerHasItem[n] == items[j].tag)
+                            if (spawnerHasItem[k] == items[j].tag)
                             {
-                                spawnerHasItem[n] = "none";
+                                spawnerHasItem[k] = "none";
                             }
                         }
+
+                        bool allItems = true;
+
+                        for (int k = 0; k < items.Length; k++)
+                        {
+                            if (playerInventories[i, k] == false)
+                            {
+                                allItems = false;
+                            }
+                        }
+
+                        if (allItems)
+                        {
+                            StartCoroutine(ElectricPower(players[i]));
+                        }
+                        break;
                     }
                 }
             }
         }
+    }
+
+    private IEnumerator ElectricPower(GameObject player)
+    {
+        print("Power On");
+        //Instantiate();
+        yield return new WaitForSeconds(electricPowerLength);
+        print("Power Off");
     }
 
     protected override void OnObstacleEvent(GameObject player)
@@ -131,6 +156,7 @@ public class FuseBoxManager : MinigameManager
                         itemSpawned[j] = false;
                     }
                 }
+                break;
             }
         }
     }
