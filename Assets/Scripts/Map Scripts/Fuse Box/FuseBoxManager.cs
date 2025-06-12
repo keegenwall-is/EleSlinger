@@ -130,35 +130,19 @@ public class FuseBoxManager : MinigameManager
 
     private IEnumerator ElectricPower(GameObject player)
     {
-        print("Power On");
+        player.tag = "Immune";
         //Instantiate();
         yield return new WaitForSeconds(electricPowerLength);
-        print("Power Off");
+
+        RemoveItemsFromInventory(player);
+        player.tag = "Player";
     }
 
     protected override void OnObstacleEvent(GameObject player)
     {
         UpdateScore(player);
 
-        //Remove items from inventory
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (players[i] == player)
-            {
-                for (int j = 0; j < items.Length; j++)
-                {
-                    if (playerInventories[i, j] == true)
-                    {
-                        itemIcons[i][j].sprite = baseItemIcons[i][j];
-                        playerInventories[i, j] = false;
-                        float newSpawnTime = Random.Range(minItemRespawnTime, maxItemRespawnTime);
-                        spawnTimes[j] = gameLength - newSpawnTime;
-                        itemSpawned[j] = false;
-                    }
-                }
-                break;
-            }
-        }
+        RemoveItemsFromInventory(player);
     }
 
     private void UpdateScore(GameObject player)
@@ -189,6 +173,30 @@ public class FuseBoxManager : MinigameManager
                         scores[i].text = playerScores[i].ToString();
                     }
                 }
+            }
+        }
+    }
+
+    private void RemoveItemsFromInventory(GameObject player)
+    {
+        //Remove items from inventory
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                for (int j = 0; j < items.Length; j++)
+                {
+                    if (playerInventories[i, j] == true)
+                    {
+                        itemIcons[i][j].sprite = baseItemIcons[i][j];
+                        playerInventories[i, j] = false;
+                        //Allow items to be respawned
+                        float newSpawnTime = Random.Range(minItemRespawnTime, maxItemRespawnTime);
+                        spawnTimes[j] = gameLength - newSpawnTime;
+                        itemSpawned[j] = false;
+                    }
+                }
+                break;
             }
         }
     }
