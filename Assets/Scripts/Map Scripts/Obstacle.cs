@@ -62,6 +62,15 @@ public class Obstacle : MonoBehaviour
             thisPlayerBase.SetState(CharacterBase.playerState.Idle);
             thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
             thisPlayerBase.SetState(CharacterBase.playerState.Dead);
+            
+            if (transform.parent != null)
+            {
+                if (transform.parent.gameObject.tag == "Immune")
+                {
+                    TakeHit thisTakeHit = other.gameObject.GetComponent<TakeHit>();
+                    thisTakeHit.SetAttacker(transform.parent.gameObject);
+                }
+            }
 
             managerScript.TriggerObstacleEvent(other.gameObject);
         }

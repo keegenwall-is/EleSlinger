@@ -20,6 +20,8 @@ public class FuseBoxManager : MinigameManager
     public float minItemRespawnTime;
     public float maxItemRespawnTime;
     public float electricPowerLength;
+    public GameObject electricPower;
+    public float ePowerSpeedBuff;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private GameObject[] itemSpawners;
@@ -131,10 +133,22 @@ public class FuseBoxManager : MinigameManager
     private IEnumerator ElectricPower(GameObject player)
     {
         player.tag = "Immune";
-        //Instantiate();
+        Vector3 spawnPos = player.transform.position;
+        spawnPos.y += 4.0f;
+        GameObject thisElectricPower = Instantiate(electricPower, spawnPos, player.transform.rotation, player.transform);
+
+        CharacterBase characterBase = player.GetComponent<CharacterBase>();
+        characterBase.SetMaterial("Electric");
+
+        PlayerMove playerMove = player.GetComponent<PlayerMove>();
+        playerMove.IncreaseSpeed(ePowerSpeedBuff);
+
         yield return new WaitForSeconds(electricPowerLength);
 
         RemoveItemsFromInventory(player);
+        Destroy(thisElectricPower);
+        playerMove.DecreaseSpeed(ePowerSpeedBuff);
+        characterBase.SetMaterial("Material");
         player.tag = "Player";
     }
 

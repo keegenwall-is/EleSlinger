@@ -117,4 +117,13 @@ public class PlayerMove : MonoBehaviour
         moveSpeed = moveSpeed / 2;
     }
 
+    public void IncreaseSpeed(float speedMultiplier)
+    {
+        moveSpeed *= speedMultiplier;
+    }
+
+    public void DecreaseSpeed(float speedDivider)
+    {
+        moveSpeed /= speedDivider;
+    }
 }

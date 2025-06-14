@@ -738,6 +738,9 @@ MonoBehaviour:
   graceLength: 2
   mesh: {fileID: 4923852485758663766}
   KO: {fileID: 1871634612635050819, guid: c897ace78b27843408acedc7b1026409, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 377f6bce3abc8684981ae434dc1b6157, type: 2}
+  - {fileID: 2100000, guid: 6ed661f94fcae1d4a86640c54bfc2b79, type: 2}
 --- !u!114 &5753746768392326714
 MonoBehaviour:
   m_ObjectHideFlags: 0

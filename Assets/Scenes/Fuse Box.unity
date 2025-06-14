@@ -2160,7 +2160,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 643862611}
-  gameLength: 180
+  gameLength: 60
   gameLengthStart: 0
   scores:
   - {fileID: 1777097690}
@@ -2209,7 +2209,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 27a3d2c8a39476e4ca6a3c1682fc5e87, type: 3}
   minItemRespawnTime: 8
   maxItemRespawnTime: 15
-  electricPowerLength: 5
+  electricPowerLength: 10
+  electricPower: {fileID: 380319070870347051, guid: dd66081abcd026c44814c931f2d801b8, type: 3}
+  ePowerSpeedBuff: 2
 --- !u!1 &638720749
 GameObject:
   m_ObjectHideFlags: 0

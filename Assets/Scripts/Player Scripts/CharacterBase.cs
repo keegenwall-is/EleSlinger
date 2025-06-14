@@ -26,6 +26,7 @@ public class CharacterBase: MonoBehaviour
     public float graceLength = 2.0f;
     public GameObject mesh;
     public GameObject KO;
+    public Material[] materials;
 
     private AnimationClip[] clips;
 
@@ -64,14 +65,24 @@ public class CharacterBase: MonoBehaviour
         }
     }
 
-    public playerState GetState()
-    {
-        return currentState;
-    }
-
     public void SetSpawnPos(Vector3 spawnPos)
     {
         this.spawnPos = spawnPos;
+    }
+
+    public void SetMaterial(string matName)
+    {
+        foreach (Material mat in materials){
+            if (mat.name.Contains(matName))
+            {
+                mesh.GetComponent<Renderer>().material = mat;
+            }
+        }
+    }
+
+    public playerState GetState()
+    {
+        return currentState;
     }
 
     public void OnStateEnter(playerState state)
