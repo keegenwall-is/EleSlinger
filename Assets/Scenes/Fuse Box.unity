@@ -2160,7 +2160,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 643862611}
-  gameLength: 60
+  gameLength: 30
   gameLengthStart: 0
   scores:
   - {fileID: 1777097690}
