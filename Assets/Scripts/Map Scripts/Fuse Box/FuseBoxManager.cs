@@ -32,6 +32,7 @@ public class FuseBoxManager : MinigameManager
     private List<List<Image>> itemIcons = new List<List<Image>>();
     private List<List<Sprite>> baseItemIcons = new List<List<Sprite>>();
     private bool[,] playerInventories = { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
+    private float winningScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +84,11 @@ public class FuseBoxManager : MinigameManager
                     spawnerHasItem[randomSpawner] = items[i].tag;
                 }
             }
+        }
+
+        if (overTime)
+        {
+            OnMinigameEnd();
         }
     }
 
@@ -265,6 +271,79 @@ public class FuseBoxManager : MinigameManager
                     }
                 }
                 break;
+            }
+        }
+    }
+
+    protected override void OnMinigameEnd()
+    {
+        if (overTime)
+        {
+            //As soon as a player beats the
+            int maxScoreCounter = 0;
+            for (int i = 0; i < playerScores.Length; i++)
+            {
+                if (playerScores[i] == winningScore + 1)
+                {
+                    overTime = false;
+                    gameController.IncreaseRoundWins(players[i]);
+                    return;
+                }
+                else if (playerScores[i] == winningScore)
+                {
+                    maxScoreCounter++;
+                }
+            }
+
+            if (maxScoreCounter == 1)
+            {
+                for (int i = 0; i < playerScores.Length; i++)
+                {
+                    if (playerScores[i] == winningScore)
+                    {
+                        overTime = false;
+                        gameController.IncreaseRoundWins(players[i]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            //Check for biggest score
+            for (int i = 0; i < playerScores.Length; i++)
+            {
+                if (playerScores[i] > winningScore)
+                {
+                    winningScore = playerScores[i];
+                }
+            }
+
+            //if more than one player has the winning score then go into overtime
+            int maxScoreCounter = 0;
+            for (int i = 0; i < playerScores.Length; i++)
+            {
+                if (playerScores[i] == winningScore)
+                {
+                    maxScoreCounter++;
+                }
+                if (maxScoreCounter > 1)
+                {
+                    overTime = true;
+                    countdown.text = "OVERTIME";
+                    countdown.color = Color.red;
+                    break;
+                }
+            }
+
+            if (!overTime)
+            {
+                for (int i = 0; i < playerScores.Length; i++)
+                {
+                    if (playerScores[i] == winningScore)
+                    {
+                        gameController.IncreaseRoundWins(players[i]);
+                    }
+                }
             }
         }
     }

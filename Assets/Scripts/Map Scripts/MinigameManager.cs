@@ -12,8 +12,9 @@ public class MinigameManager : MonoBehaviour
     public Text countdown;
     public float gameLength;
     public float gameLengthStart;
+    public GameController gameController;
+    public bool overTime = false;
 
-    private GameController gameController;
     private bool roundOver = false;
 
     // Start is called before the first frame update
@@ -43,6 +44,11 @@ public class MinigameManager : MonoBehaviour
                 roundOver = true;
                 OnMinigameEnd();
             }
+        }
+
+        if (overTime && gameLength <= 0)
+        {
+            OnTick();
         }
     }
 

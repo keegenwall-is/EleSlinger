@@ -1168,6 +1168,8 @@ MonoBehaviour:
   characters:
   - {fileID: 4834618470884619107, guid: 976a68549324c8c44a5296cdfe3cebb1, type: 3}
   - {fileID: 2309764527717522210, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
+  scoreBoard: {fileID: 3871125865860965570, guid: fd2c0c0128dec8c4199f2da5cdcd3f87, type: 3}
+  maxRounds: 5
 --- !u!4 &729165132
 Transform:
   m_ObjectHideFlags: 0
