@@ -206,5 +206,7 @@ public class GameController : MonoBehaviour
         {
             //do something when the game is over
         }
+
+        //display continue button
     }
 }

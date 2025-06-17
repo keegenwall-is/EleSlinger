@@ -279,7 +279,7 @@ public class FuseBoxManager : MinigameManager
     {
         if (overTime)
         {
-            //As soon as a player beats the
+            //As soon as a player beats the winning score or only 1 player is left with the winning score, the game ends
             int maxScoreCounter = 0;
             for (int i = 0; i < playerScores.Length; i++)
             {
