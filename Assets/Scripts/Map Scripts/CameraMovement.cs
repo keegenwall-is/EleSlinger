@@ -16,10 +16,11 @@ public class CameraMovement : MonoBehaviour
     public float minZOffset;
     public float maxZOffset;
 
-    private float minX;
-    private float maxX;
-    private float minZ;
-    private float maxZ;
+    [Header("Camera Position")]
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
 
     private void Start()
     {
@@ -45,21 +46,21 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 centerPoint = GetCenterPoint();
 
-        // Adjust offset.z based on FOV
-        offset.z = Mathf.Lerp(minZOffset, maxZOffset, Mathf.InverseLerp(minFOV, maxFOV, cam.fieldOfView));
-
-        // Adjust how much we clamp the camera based on FOV
+        // Determine zoom level
         float fovPercent = Mathf.InverseLerp(minFOV, maxFOV, cam.fieldOfView);
 
+        // Interpolate offset based on zoom level
+        offset.z = Mathf.Lerp(minZOffset, maxZOffset, fovPercent);
+
         // Interpolate clamp bounds
-        float adjustedMinX = Mathf.Lerp(-55f, 0f, fovPercent);
-        float adjustedMaxX = Mathf.Lerp(55f, 0f, fovPercent);
+        float adjustedMinX = Mathf.Lerp(minX, 0f, fovPercent);
+        float adjustedMaxX = Mathf.Lerp(maxX, 0f, fovPercent);
 
         // Clamp Z based on camera position = center + offset
-        float adjustedMinZ = Mathf.Lerp(-70f - offset.z, 0f, fovPercent);
-        float adjustedMaxZ = Mathf.Lerp(-5f - offset.z, 0f, fovPercent);
+        float adjustedMinZ = Mathf.Lerp(minZ, 0f, fovPercent);
+        float adjustedMaxZ = Mathf.Lerp(maxZ, 0f, fovPercent);
 
-        // Clamp the camera’s center position
+        // Clamp center
         float clampedX = Mathf.Clamp(centerPoint.x, adjustedMinX, adjustedMaxX);
         float clampedZ = Mathf.Clamp(centerPoint.z, adjustedMinZ, adjustedMaxZ);
 
