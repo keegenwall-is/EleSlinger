@@ -4130,6 +4130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chordCD: 5
   numOfCurrents: 5
+  mainChance: 10
+  mainAnim: {fileID: 2141903809}
 --- !u!4 &1132028488
 Transform:
   m_ObjectHideFlags: 0

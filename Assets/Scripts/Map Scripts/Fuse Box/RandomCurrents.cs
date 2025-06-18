@@ -7,10 +7,14 @@ public class RandomCurrents : MonoBehaviour
 
     public float chordCD;
     public int numOfCurrents;
+    public int mainChance;
+    public Animator mainAnim;
 
     private GameObject[] currents;
     private float chordCurrent = 0f;
-    
+    private int origNumOfCurrents;
+    private int randomMainSwitch;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +40,21 @@ public class RandomCurrents : MonoBehaviour
         for (int i = 0; i < currents.Length; i++)
         {
             currents[i].SetActive(false);
+        }
+
+        if (randomMainSwitch == mainChance)
+        {
+            mainAnim.SetBool("Switch On", false);
+            numOfCurrents = origNumOfCurrents;
+        }
+
+        randomMainSwitch = Random.Range(mainChance, 0);
+
+        if (randomMainSwitch == mainChance)
+        {
+            mainAnim.SetBool("Switch On", true);
+            origNumOfCurrents = numOfCurrents;
+            numOfCurrents = currents.Length;
         }
 
         for (int i = 0; i < numOfCurrents; i++)
