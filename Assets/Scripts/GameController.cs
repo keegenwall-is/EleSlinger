@@ -166,9 +166,11 @@ public class GameController : MonoBehaviour
             PlayerMove thisMoveScript = players[i].GetComponent<PlayerMove>();
             PlayerAttack thisAttackScript = players[i].GetComponent<PlayerAttack>();
             CharacterBase thisBaseScript = players[i].GetComponent<CharacterBase>();
+            PlayerMelee thisMeleeScript = players[i].GetComponent<PlayerMelee>();
             Destroy(thisMoveScript);
             Destroy(thisAttackScript);
             Destroy(thisBaseScript);
+            Destroy(thisMeleeScript);
         }
     }
 
