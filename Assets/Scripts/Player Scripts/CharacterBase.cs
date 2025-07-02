@@ -35,6 +35,7 @@ public class CharacterBase: MonoBehaviour
         Idle,
         Running,
         Attacking,
+        Melee,
         Dashing,
         TakingHit,
         Blocking,
@@ -102,6 +103,10 @@ public class CharacterBase: MonoBehaviour
             case playerState.Attacking:
                 anim.CrossFade(FindAnimation("Attack"), animFadeDur);
                 face.sprite = attackFace;
+                canMove = false;
+                break;
+            case playerState.Melee:
+                anim.CrossFade(FindAnimation("Selected"), animFadeDur - 0.1f);
                 canMove = false;
                 break;
             case playerState.Dashing:

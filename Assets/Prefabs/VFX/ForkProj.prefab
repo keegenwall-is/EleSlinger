@@ -9785,8 +9785,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdcdfadaa8563e46b3abe7232f012ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  thrower: {fileID: 0}
+  deleteTime: 0.8
   hit: {fileID: 4179225611343441369, guid: 5c6e08fff0886c5498eb432dfa694b0c, type: 3}
+  speed: 50
 --- !u!1 &1038630477872762918
 GameObject:
   m_ObjectHideFlags: 0
