@@ -54,14 +54,17 @@ public class Obstacle : MonoBehaviour
             }
 
             CharacterBase thisPlayerBase = other.gameObject.GetComponent<CharacterBase>();
-            if (thisPlayerBase.GetState() == CharacterBase.playerState.Attacking)
+            if (thisPlayerBase != null)
             {
-                PlayerAttack thisPlayerAttack = other.gameObject.GetComponent<PlayerAttack>();
-                thisPlayerAttack.CancelAttack();
+                if (thisPlayerBase.GetState() == CharacterBase.playerState.Attacking)
+                {
+                    PlayerAttack thisPlayerAttack = other.gameObject.GetComponent<PlayerAttack>();
+                    thisPlayerAttack.CancelAttack();
+                }
+                thisPlayerBase.SetState(CharacterBase.playerState.Idle);
+                thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
+                thisPlayerBase.SetState(CharacterBase.playerState.Dead);
             }
-            thisPlayerBase.SetState(CharacterBase.playerState.Idle);
-            thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
-            thisPlayerBase.SetState(CharacterBase.playerState.Dead);
             
             if (transform.parent != null)
             {

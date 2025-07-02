@@ -6,15 +6,15 @@ public class AttackBase : MonoBehaviour
 {
 
     public GameObject thrower;
-    public float deleteTime;
     public GameObject hit;
 
     private GameObject thisHit;
+    private float deleteTime;
 
     // Start is called before the first frame update
     void Awake()
     {
-        SetDeleteTime();
+        deleteTime = SetDeleteTime();
         StartCoroutine(Delete());
     }
 
@@ -52,13 +52,13 @@ public class AttackBase : MonoBehaviour
 
     IEnumerator Delete()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(deleteTime);
         Destroy(gameObject);
     }
 
-    protected virtual void SetDeleteTime()
+    protected virtual float SetDeleteTime()
     {
-
+        return 0.8f;
     }
 
     protected virtual Vector3 GetDirection(GameObject enemy)

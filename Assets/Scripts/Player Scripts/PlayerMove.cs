@@ -112,7 +112,10 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.1f);
 
-        baseScript.SetState(CharacterBase.playerState.Idle);
+        if (baseScript.GetState() != CharacterBase.playerState.Dead)
+        {
+            baseScript.SetState(CharacterBase.playerState.Idle);
+        }
         isDashing = false;
         moveSpeed = moveSpeed / 2;
     }

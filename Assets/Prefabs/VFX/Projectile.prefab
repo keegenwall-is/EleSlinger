@@ -9786,9 +9786,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrower: {fileID: 0}
-  deleteTime: 0.8
   hit: {fileID: 4179225611343441369, guid: 0badd8103694b964da59dcce8a848482, type: 3}
   speed: 50
+  projTime: 0.8
 --- !u!1 &1038630477872762918
 GameObject:
   m_ObjectHideFlags: 0

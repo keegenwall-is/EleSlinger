@@ -14644,9 +14644,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrower: {fileID: 0}
-  deleteTime: 0.2
   hit: {fileID: 4179225611343441369, guid: 0badd8103694b964da59dcce8a848482, type: 3}
   meleePower: 4
+  meleeTime: 0.3
 --- !u!135 &6226303285188898272
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14658,7 +14658,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2958162025600966746
 GameObject:

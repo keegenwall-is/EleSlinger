@@ -9,6 +9,7 @@ public class ProjectileBehaviour : AttackBase
     private ParticleSystem ps;
 
     public float speed;
+    public float projTime;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,9 @@ public class ProjectileBehaviour : AttackBase
         rb.velocity = transform.forward * speed;
     }
 
-    protected override void SetDeleteTime()
+    protected override float SetDeleteTime()
     {
-        deleteTime = 0.8f;
+        return projTime;
     }
 
     protected override Vector3 GetDirection(GameObject enemy)

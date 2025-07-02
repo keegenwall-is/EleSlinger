@@ -6,6 +6,7 @@ public class MeleeBehaviour : AttackBase
 {
 
     public float meleePower;
+    public float meleeTime;
 
     // Start is called before the first frame update
     void Start()
@@ -13,9 +14,9 @@ public class MeleeBehaviour : AttackBase
 
     }
 
-    protected override void SetDeleteTime()
+    protected override float SetDeleteTime()
     {
-        deleteTime = 0.3f;
+        return meleeTime;
     }
 
     protected override Vector3 GetDirection(GameObject enemy)
