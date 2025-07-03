@@ -16,6 +16,8 @@ public class MinigameManager : MonoBehaviour
     public bool overTime = false;
 
     private bool roundOver = false;
+    private bool roundBegun = false;
+    private int noPlayersReady = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -29,26 +31,50 @@ public class MinigameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!roundOver)
+        if (!roundBegun)
         {
-            if (gameLength >= 0)
+            CheckReady();
+        }
+        else
+        {
+
+            if (!roundOver)
             {
-                //Handles round timer
-                gameLength -= Time.deltaTime;
-                TimeSpan timeText = TimeSpan.FromSeconds(gameLength);
-                countdown.text = string.Format("{0}:{1:00}", timeText.Minutes, timeText.Seconds);
+                if (gameLength >= 0)
+                {
+                    //Handles round timer
+                    gameLength -= Time.deltaTime;
+                    TimeSpan timeText = TimeSpan.FromSeconds(gameLength);
+                    countdown.text = string.Format("{0}:{1:00}", timeText.Minutes, timeText.Seconds);
+                    OnTick();
+                }
+                else
+                {
+                    roundOver = true;
+                    OnMinigameEnd();
+                }
+            }
+
+            if (overTime && gameLength <= 0)
+            {
                 OnTick();
             }
-            else
+        }
+    }
+
+    private void CheckReady()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            /*if ()
             {
-                roundOver = true;
-                OnMinigameEnd();
-            }
+
+            }*/
         }
 
-        if (overTime && gameLength <= 0)
+        if (noPlayersReady == players.Count)
         {
-            OnTick();
+            roundBegun = true;
         }
     }
 

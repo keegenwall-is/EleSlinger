@@ -112,7 +112,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.1f);
 
-        if (baseScript.GetState() != CharacterBase.playerState.Dead)
+        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
