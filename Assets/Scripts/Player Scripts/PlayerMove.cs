@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float moveSpeed;
     public float rotateSpeed;
     public Rigidbody rb;
+    public float dashSpeed;
 
     private Vector3 moveDir;
     private CharacterBase baseScript;
@@ -105,7 +106,7 @@ public class PlayerMove : MonoBehaviour
     {
         baseScript.SetState(CharacterBase.playerState.Dashing);
         isDashing = true;
-        moveSpeed = moveSpeed * 2;
+        moveSpeed = moveSpeed * dashSpeed;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
 
         yield return new WaitForSeconds(0.1f);
@@ -117,7 +118,7 @@ public class PlayerMove : MonoBehaviour
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
         isDashing = false;
-        moveSpeed = moveSpeed / 2;
+        moveSpeed = moveSpeed / dashSpeed;
     }
 
     public void IncreaseSpeed(float speedMultiplier)

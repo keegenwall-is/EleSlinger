@@ -747,6 +747,7 @@ MonoBehaviour:
   moveSpeed: 15
   rotateSpeed: 500
   rb: {fileID: 0}
+  dashSpeed: 1.75
 --- !u!114 &5753746768392326716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,8 +792,8 @@ MonoBehaviour:
   charge: {fileID: 700600728685169191, guid: a8c7a3fff7940ba439b37455cb5c56d4, type: 3}
   magicSpawner: {fileID: 5753746769745098779}
   indicator: {fileID: 5753746769399493487}
-  aimSpeed: 250
-  chargeSpeed: 4
+  aimSpeed: 350
+  chargeSpeed: 6
   maxSize: 8
 --- !u!114 &6249560141572579044
 MonoBehaviour:

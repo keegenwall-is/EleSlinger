@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.InputSystem;
 
 public class MinigameManager : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class MinigameManager : MonoBehaviour
     public float gameLengthStart;
     public GameController gameController;
     public bool overTime = false;
+    public GameObject readyMenu;
+    public GameObject gameUI;
 
     private bool roundOver = false;
     private bool roundBegun = false;
-    private int noPlayersReady = 0;
+    private bool[] playersReady = { false, false, false, false };
+    private List<InputDevice> playerControllers = new List<InputDevice>();
+    private GameObject[] playerInterfaces;
+    private List<Text> readyTexts = new List<Text>();
 
     // Start is called before the first frame update
     void Awake()
@@ -25,7 +31,19 @@ public class MinigameManager : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("Game Controller").GetComponent<GameController>();
         players = gameController.GetPlayers();
         playerNo = gameController.GetPlayerNo();
+        playerControllers = gameController.GetControllers();
+        GameObject[] readyTextObjects = GameObject.FindGameObjectsWithTag("Ready Text");
+        readyTexts = new List<Text>();
+        foreach (GameObject obj in readyTextObjects)
+        {
+            Text text = obj.GetComponent<Text>();
+            if (text != null)
+            {
+                readyTexts.Add(text);
+            }
+        }
         gameLengthStart = gameLength;
+        ActivateUI("Ready Check");
     }
 
     // Update is called once per frame
@@ -62,19 +80,85 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
+    private void ActivateUI(string UIType)
+    {
+        if (playerNo != 0)
+        {
+            playerInterfaces = GameObject.FindGameObjectsWithTag(UIType);
+
+            DeactivateUnusedUI(playerInterfaces);
+
+        }
+    }
+
+    private void DeactivateUnusedUI(GameObject[] UIElements)
+    {
+        if (UIElements != null)
+        {
+            for (int i = 0; i < 4/*max player number*/; i++)
+            {
+                if (i > playerNo - 1)
+                {
+                    UIElements[i].SetActive(false);
+                }
+            }
+        }
+    }
+
     private void CheckReady()
     {
         for (int i = 0; i < players.Count; i++)
         {
-            /*if ()
+            if (playerControllers[i] is Keyboard keyboard)
             {
-
-            }*/
+                if (keyboard.enterKey.wasPressedThisFrame)
+                {
+                    if (playersReady[i] == false)
+                    {
+                        playersReady[i] = true;
+                        readyTexts[i].text = "Ready";
+                    }
+                    else
+                    {
+                        playersReady[i] = false;
+                        readyTexts[i].text = "Not Ready";
+                    }
+                }
+            }
+            else if (playerControllers[i] is Gamepad gamepad)
+            {
+                if (gamepad.buttonEast.wasPressedThisFrame)
+                {
+                    if (playersReady[i] == false)
+                    {
+                        playersReady[i] = true;
+                        readyTexts[i].text = "Ready";
+                    }
+                    else
+                    {
+                        playersReady[i] = false;
+                        readyTexts[i].text = "Not Ready";
+                    }
+                }
+            }
         }
 
-        if (noPlayersReady == players.Count)
+        bool allReady = true;
+        for (int i = 0; i < playerNo; i++)
+        {
+            if (!playersReady[i])
+            {
+                allReady = false;
+                break;
+            }
+        }
+
+        if (allReady)
         {
             roundBegun = true;
+            readyMenu.SetActive(false);
+            gameUI.SetActive(true);
+            ActivateUI("Player UI");
         }
     }
 

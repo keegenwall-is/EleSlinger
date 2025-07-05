@@ -48,6 +48,11 @@ public class GameController : MonoBehaviour
         return players;
     }
 
+    public List<InputDevice> GetControllers()
+    {
+        return playerControllers;
+    }
+
     public void AddController(InputDevice device)
     {
         playerControllers.Add(device);
@@ -63,25 +68,6 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(1);
         players.Clear();
         StartCoroutine(SpawnAfterSceneLoaded());
-        StartCoroutine(ActivateUIAfterSceneLoaded());
-    }
-
-    private IEnumerator ActivateUIAfterSceneLoaded()
-    {
-        yield return null;
-
-        ActivateUI();
-    }
-
-    private void ActivateUI()
-    {
-        if (playerNo != 0)
-        {
-            playerInterfaces = GameObject.FindGameObjectsWithTag("Player UI");
-
-            DeactivateUnusedUI(playerInterfaces);
-            
-        }
     }
 
     private void DeactivateUnusedUI(GameObject[] UIElements)

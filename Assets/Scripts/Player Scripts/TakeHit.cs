@@ -67,7 +67,10 @@ public class TakeHit : MonoBehaviour
         baseScript.SetState(CharacterBase.playerState.TakingHit);
         rb.velocity =  direction.normalized * projPower * flySpeed;
         yield return new WaitForSeconds(0.5f);
-        baseScript.SetState(CharacterBase.playerState.Idle);
+        if (baseScript.GetState() != CharacterBase.playerState.Dead)
+        {
+            baseScript.SetState(CharacterBase.playerState.Idle);
+        }
         rb.velocity = new Vector3(0, 0, 0);
         attacker = null;
     }
