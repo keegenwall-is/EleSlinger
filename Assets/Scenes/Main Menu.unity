@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &31990414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 31990415}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &31990415
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 31990414}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.02929, y: 25.162275, z: -31.110712}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &194276526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1175,7 @@ MonoBehaviour:
   - {fileID: 3753038096202450844, guid: fa881fbd187c40743b54c8be10320540, type: 3}
   scoreBoard: {fileID: 3871125865860965570, guid: fd2c0c0128dec8c4199f2da5cdcd3f87, type: 3}
   maxRounds: 5
+  continueUI: {fileID: 1223167775849547754, guid: 4496e7ce320540341a91d8f321edb1e2, type: 3}
 --- !u!4 &729165132
 Transform:
   m_ObjectHideFlags: 0

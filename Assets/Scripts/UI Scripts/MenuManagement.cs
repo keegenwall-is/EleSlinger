@@ -321,6 +321,6 @@ public class MenuManagement : MonoBehaviour
             GCscript.SetCharacter(playerCharacterSelections[i]);
         }
 
-        GCscript.StartTutorial();
+        GCscript.LoadRandomMinigame();
     }
 }

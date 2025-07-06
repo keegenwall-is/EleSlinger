@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> characters = new List<GameObject>();
     public GameObject scoreBoard;
     public int maxRounds;
+    public GameObject continueUI;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private List<int> playerCharacterSelections = new List<int>();
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
     private GameObject[] playerInterfaces;
     private int[] roundWins = { 0, 0, 0, 0 };
     private bool gameOver = false;
+    private bool canContinue = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,40 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canContinue)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (playerControllers[i] is Keyboard keyboard)
+                {
+                    if (keyboard.enterKey.wasPressedThisFrame)
+                    {
+                        if (gameOver)
+                        {
 
+                        }
+                        else
+                        {
+                            LoadRandomMinigame();
+                        }
+                    }
+                }
+                else if (playerControllers[i] is Gamepad gamepad)
+                {
+                    if (gamepad.buttonEast.wasPressedThisFrame)
+                    {
+                        if (gameOver)
+                        {
+
+                        }
+                        else
+                        {
+                            LoadRandomMinigame();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void SetPlayerNo(int playerNo)
@@ -63,11 +98,12 @@ public class GameController : MonoBehaviour
         playerCharacterSelections.Add(characterID);
     }
 
-    public void StartTutorial()
+    public void LoadRandomMinigame()
     {
+        canContinue = false;
         SceneManager.LoadScene(1);
+        //Clear players as new versions of the players will spawn each minigame
         players.Clear();
-        StartCoroutine(SpawnAfterSceneLoaded());
     }
 
     private void DeactivateUnusedUI(GameObject[] UIElements)
@@ -84,14 +120,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnAfterSceneLoaded()
-    {
-        yield return null;
-
-        SpawnPlayers();
-    }
-
-    private void SpawnPlayers()
+    public void SpawnPlayers()
     {
         if (playerNo != 0)
         {
@@ -123,7 +152,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        GameObject thisScoreBoard = Instantiate(scoreBoard, gameObject.transform);
+        GameObject thisScoreBoard = Instantiate(scoreBoard, Vector3.zero, Quaternion.identity);
 
         GameObject[] scoreBackgrounds = new GameObject[thisScoreBoard.transform.childCount];
         for (int i = 0; i < thisScoreBoard.transform.childCount; i++)
@@ -190,11 +219,8 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
 
-        if (gameOver)
-        {
-            //do something when the game is over
-        }
-
-        //display continue button
+        //display continue text
+        Instantiate(continueUI, Vector3.zero, Quaternion.identity);
+        canContinue = true;
     }
 }

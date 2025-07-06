@@ -107,7 +107,7 @@ public class MinigameManager : MonoBehaviour
 
     private void CheckReady()
     {
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playerControllers.Count; i++)
         {
             if (playerControllers[i] is Keyboard keyboard)
             {
@@ -158,6 +158,7 @@ public class MinigameManager : MonoBehaviour
             roundBegun = true;
             readyMenu.SetActive(false);
             gameUI.SetActive(true);
+            gameController.SpawnPlayers();
             ActivateUI("Player UI");
         }
     }

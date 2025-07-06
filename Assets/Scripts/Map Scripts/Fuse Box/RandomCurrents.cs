@@ -9,6 +9,7 @@ public class RandomCurrents : MonoBehaviour
     public int numOfCurrents;
     public int mainChance;
     public Animator mainAnim;
+    //public FuseBoxManager;
 
     private GameObject[] currents;
     private float chordCurrent = 0f;

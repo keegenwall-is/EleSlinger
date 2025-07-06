@@ -3103,7 +3103,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 643862611}
-  gameLength: 180
+  gameLength: 10
   gameLengthStart: 0
   gameController: {fileID: 0}
   overTime: 0
