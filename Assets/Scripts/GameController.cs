@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
     public void LoadRandomMinigame()
     {
         canContinue = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();
     }

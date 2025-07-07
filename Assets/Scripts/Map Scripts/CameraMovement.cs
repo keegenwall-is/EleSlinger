@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private GameObject[] players;
+    private List<GameObject> players = new List<GameObject>();
     private Camera cam;
 
     [Header("Camera Settings")]
@@ -30,12 +30,14 @@ public class CameraMovement : MonoBehaviour
 
     public void FindPlayers()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
+        players.Clear();
+        players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        players.AddRange(GameObject.FindGameObjectsWithTag("Immune"));
     }
 
     private void LateUpdate()
     {
-        if (players == null || players.Length == 0)
+        if (players == null || players.Count == 0)
             return;
 
         MoveCamera();
@@ -79,11 +81,11 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 GetCenterPoint()
     {
-        if (players.Length == 1)
+        if (players.Count == 1)
             return players[0].transform.position;
 
         Bounds bounds = new Bounds(players[0].transform.position, Vector3.zero);
-        for (int i = 1; i < players.Length; i++)
+        for (int i = 1; i < players.Count; i++)
         {
             bounds.Encapsulate(players[i].transform.position);
         }
@@ -94,7 +96,7 @@ public class CameraMovement : MonoBehaviour
     private float GetGreatestDistance()
     {
         Bounds bounds = new Bounds(players[0].transform.position, Vector3.zero);
-        for (int i = 1; i < players.Length; i++)
+        for (int i = 1; i < players.Count; i++)
         {
             bounds.Encapsulate(players[i].transform.position);
         }

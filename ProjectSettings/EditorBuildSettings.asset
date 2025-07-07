@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fuse Box.unity
     guid: 0bcfbd0209279264d82b60b59f97fd16
+  - enabled: 1
+    path: Assets/Scenes/Rumpus Room.unity
+    guid: 398b3ae5bd5f9f3429e7f9e862a76e66
   m_configObjects: {}

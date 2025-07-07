@@ -17,6 +17,7 @@ public class MinigameManager : MonoBehaviour
     public bool overTime = false;
     public GameObject readyMenu;
     public GameObject gameUI;
+    public GameObject[] spawnPoints;
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -43,6 +44,7 @@ public class MinigameManager : MonoBehaviour
             }
         }
         gameLengthStart = gameLength;
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         ActivateUI("Ready Check");
     }
 
@@ -55,7 +57,6 @@ public class MinigameManager : MonoBehaviour
         }
         else
         {
-
             if (!roundOver)
             {
                 if (gameLength >= 0)
@@ -161,6 +162,52 @@ public class MinigameManager : MonoBehaviour
             gameController.SpawnPlayers();
             ActivateUI("Player UI");
         }
+    }
+
+    public void KillPlayer(GameObject player, GameObject spawnPoint)
+    {
+        //Cancel player attack if charging
+        CharacterBase thisPlayerBase = player.gameObject.GetComponent<CharacterBase>();
+        if (thisPlayerBase != null)
+        {
+            if (thisPlayerBase.GetState() == CharacterBase.playerState.Attacking)
+            {
+                PlayerAttack thisPlayerAttack = player.gameObject.GetComponent<PlayerAttack>();
+                thisPlayerAttack.CancelAttack();
+            }
+            thisPlayerBase.SetState(CharacterBase.playerState.Idle);
+            thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
+            thisPlayerBase.SetState(CharacterBase.playerState.Dead);
+        }
+    }
+
+    public GameObject SetPlayerSpawn(GameObject player)
+    {
+        //Finding the largest, minimum player distance from any spawner
+        float maxSpawnDist = 0;
+        GameObject spawnPoint = spawnPoints[0];
+
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            float minPlayerDist = float.MaxValue;
+            for (int j = 0; j < players.Count; j++)
+            {
+                float thisDist = Vector3.Distance(spawnPoints[i].transform.position, players[j].transform.position);
+                if (thisDist < minPlayerDist)
+                {
+                    minPlayerDist = thisDist;
+                }
+            }
+
+            //Check if the minimum player distance to each spawner is greater than to other spawners
+            if (minPlayerDist > maxSpawnDist)
+            {
+                maxSpawnDist = minPlayerDist;
+                spawnPoint = spawnPoints[i];
+            }
+        }
+
+        return spawnPoint;
     }
 
     public void TriggerObstacleEvent(GameObject actor)

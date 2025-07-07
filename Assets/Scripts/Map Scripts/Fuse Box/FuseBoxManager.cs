@@ -57,11 +57,11 @@ public class FuseBoxManager : MinigameManager
         itemSpawners = GameObject.FindGameObjectsWithTag("Item Spawner");
 
         //Random a time in the first 6th of the game
-        spawnTimes[0] = Random.Range(gameLengthStart * 5/6, gameLengthStart);
+        spawnTimes[0] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart);
         //Random a time in the second 6th of the game
-        spawnTimes[1] = Random.Range(gameLengthStart * 2/3, gameLengthStart * 5/6);
+        spawnTimes[1] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
         //Random a time in the third 6th of the game, all items have spawned by half way through the game
-        spawnTimes[2] = Random.Range(gameLengthStart * 1/2, gameLengthStart * 2/3);
+        spawnTimes[2] = Random.Range(gameLengthStart * 1 / 2, gameLengthStart * 2 / 3);
     }
 
     protected override void OnTick()
@@ -214,6 +214,9 @@ public class FuseBoxManager : MinigameManager
 
     protected override void OnObstacleEvent(GameObject player)
     {
+        GameObject spawn = SetPlayerSpawn(player);
+        KillPlayer(player, spawn);
+
         UpdateScore(player);
 
         RemoveItemsFromInventory(player);

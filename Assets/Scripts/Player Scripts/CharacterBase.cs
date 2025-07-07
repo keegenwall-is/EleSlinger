@@ -12,6 +12,7 @@ public class CharacterBase: MonoBehaviour
     private Vector3 spawnPos;
     private PlayerMove playerMove;
     private GameObject thisKO;
+    private GameObject jail;
 
     public InputDevice thisController;
     public Animator anim;
@@ -39,7 +40,8 @@ public class CharacterBase: MonoBehaviour
         Dashing,
         TakingHit,
         Blocking,
-        Dead
+        Dead,
+        Out
     }
 
     void Awake()
@@ -50,6 +52,7 @@ public class CharacterBase: MonoBehaviour
         clips = anim.runtimeAnimatorController.animationClips;
         cc = GetComponent<CapsuleCollider>();
         playerMove = GetComponent<PlayerMove>();
+        jail = GameObject.FindGameObjectWithTag("Jail");
     }
 
     public void SetController(InputDevice device)
@@ -124,6 +127,17 @@ public class CharacterBase: MonoBehaviour
                 face.sprite = hitFace;
                 StartCoroutine(Respawn());
                 thisKO = Instantiate(KO, transform.position, transform.rotation);
+                break;
+            case playerState.Out:
+                playerMove.rb.velocity = Vector3.zero;
+                playerMove.enabled = false;
+                cc.enabled = false;
+                mesh.SetActive(false);
+                thisKO = Instantiate(KO, transform.position, transform.rotation);
+                transform.position = jail.transform.position;
+                gameObject.tag = "Out";
+                CameraMovement camMoveScript = Camera.main.GetComponent<CameraMovement>();
+                camMoveScript.FindPlayers();
                 break;
         }
     }
