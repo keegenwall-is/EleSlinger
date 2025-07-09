@@ -7,6 +7,9 @@ TagManager:
   - SpawnPoint
   - Current
   - Immune
+  - Game Controller
+  - Jail
+  - Out
   layers:
   - Default
   - TransparentFX
