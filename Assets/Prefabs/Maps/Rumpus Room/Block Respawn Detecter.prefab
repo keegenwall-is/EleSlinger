@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1843287163375301083
 BoxCollider:
@@ -59,6 +59,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numOfBlocks: 6
-  blocks: {fileID: 1231439150600544145, guid: b1ea3c2f1203392449a7921dab4c3221, type: 3}
+  blocks:
+  - {fileID: 1231439150600544145, guid: b1ea3c2f1203392449a7921dab4c3221, type: 3}
+  - {fileID: 4678035324381913247, guid: cec4c3c95822623449d840156358165e, type: 3}
+  - {fileID: 4499396785370859504, guid: eb5cb65425f2db246a02b5d49758ad2b, type: 3}
+  - {fileID: 479797450037728702, guid: 9b6bd5d8136b2d6478c81b153c88fd80, type: 3}
   spawnHeight: 30
   respawnDur: 3

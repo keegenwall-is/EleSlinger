@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlockRespawnDetecter : MonoBehaviour
 {
     public int numOfBlocks = 6;
-    public GameObject blocks;
+    public GameObject[] blocks;
     public float spawnHeight;
     public float respawnDur;
 
@@ -48,6 +48,7 @@ public class BlockRespawnDetecter : MonoBehaviour
         int randomDir = Random.Range(0, 4);
         Vector3 rot = transform.rotation.eulerAngles;
         rot.y += randomDir * 90;
+        Quaternion spawnRot = Quaternion.Euler(rot);
 
         int randomPos = Random.Range(0, 3);
         Vector3 currentPos = transform.position;
@@ -68,8 +69,9 @@ public class BlockRespawnDetecter : MonoBehaviour
         Vector3 spawnPos = transform.position;
         spawnPos.y += spawnHeight;
 
-        Quaternion spawnRot = Quaternion.Euler(rot);
-        Instantiate(blocks, spawnPos, spawnRot);
+        int randomSet = Random.Range(0, blocks.Length);
+
+        Instantiate(blocks[randomSet], spawnPos, spawnRot);
         respawning = false;
     }
 }
