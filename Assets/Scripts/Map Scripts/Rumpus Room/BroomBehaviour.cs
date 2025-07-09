@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BroomBehaviour : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BroomBehaviour : MonoBehaviour
     public float maxBroomPosX;
     public float minBroomPosZ;
     public float maxBroomPosZ;
+    public Image indicator;
+    public float speedIncrement;
 
     private broomState currentState;
     private Rigidbody rb;
@@ -85,9 +88,7 @@ public class BroomBehaviour : MonoBehaviour
             if ((transform.position.x < minBroomPosX && movingLeft) || (transform.position.x > maxBroomPosX && !movingLeft))
             {
                 movingLeft = !movingLeft;
-                Vector3 currentRot = transform.eulerAngles;
-                currentRot.y += 180f;
-                transform.eulerAngles = currentRot;
+                transform.forward = -transform.forward;
                 SetState(broomState.Searching);
             }
         }
@@ -107,11 +108,19 @@ public class BroomBehaviour : MonoBehaviour
         switch (state)
         {
             case broomState.Searching:
+                indicator.color = new Color(1, 1, 0);
                 break;
             case broomState.Found:
+                indicator.color = new Color(1, 0, 0);
                 StartCoroutine(SweepAlert());
                 break;
             case broomState.Sweeping:
+                broomSpeed += speedIncrement;
+                //Speed capped because if broom is too fast ray cast wont capture it.
+                if (searchSpeed <= 175)
+                {
+                    searchSpeed += speedIncrement;
+                }
                 break;
         }
     }

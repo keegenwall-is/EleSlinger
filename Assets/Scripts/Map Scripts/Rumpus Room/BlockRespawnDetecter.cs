@@ -10,6 +10,7 @@ public class BlockRespawnDetecter : MonoBehaviour
     public float respawnDur;
 
     private int numOfBlocksLeft;
+    private bool respawning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,10 @@ public class BlockRespawnDetecter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (respawning)
+        {
+            numOfBlocksLeft = 0;
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -31,18 +35,41 @@ public class BlockRespawnDetecter : MonoBehaviour
             //If all the blocks that originally spawned have left the respawn range then spawn new blocks
             if (numOfBlocksLeft >= numOfBlocks)
             {
-                numOfBlocksLeft = 0;
-                Vector3 spawnPos = transform.position;
-                spawnPos.y += spawnHeight;
-                StartCoroutine(SpawnReplacementBlock(spawnPos));
+                StartCoroutine(SpawnReplacementBlock());
             }
         }
     }
 
-    private IEnumerator SpawnReplacementBlock(Vector3 spawnPos)
+    private IEnumerator SpawnReplacementBlock()
     {
+        respawning = true;
         yield return new WaitForSeconds(respawnDur);
 
-        Instantiate(blocks, spawnPos, transform.rotation);
+        int randomDir = Random.Range(0, 4);
+        Vector3 rot = transform.rotation.eulerAngles;
+        rot.y += randomDir * 90;
+
+        int randomPos = Random.Range(0, 3);
+        Vector3 currentPos = transform.position;
+        switch (randomPos)
+        {
+            case 0:
+                currentPos.x = -25f;
+                break;
+            case 1:
+                currentPos.x = 0f;
+                break;
+            case 2:
+                currentPos.x = 25f;
+                break;
+        }
+        transform.position = currentPos;
+
+        Vector3 spawnPos = transform.position;
+        spawnPos.y += spawnHeight;
+
+        Quaternion spawnRot = Quaternion.Euler(rot);
+        Instantiate(blocks, spawnPos, spawnRot);
+        respawning = false;
     }
 }
