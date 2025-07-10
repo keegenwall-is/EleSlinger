@@ -1760,12 +1760,13 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 643862611}
-  gameLength: 10
+  gameLength: 180
   gameLengthStart: 0
   gameController: {fileID: 0}
   overTime: 0
   readyMenu: {fileID: 663723514}
   gameUI: {fileID: 1747838000}
+  spawnPoints: []
   scores:
   - {fileID: 1777097690}
   - {fileID: 298596239}
