@@ -12,6 +12,7 @@ public class FootBehaviour : MonoBehaviour
     public float footHeight;
     public Transform shadowTransform;
     public int stunMashes;
+    public float gracePeriod;
 
     private footState currentState;
     private GameController gameScript;
@@ -19,6 +20,7 @@ public class FootBehaviour : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDir = new Vector3(0, 0, 0);
     private GameObject closestPlayer;
+    private GameObject lastStomped;
 
     public enum footState
     {
@@ -42,19 +44,28 @@ public class FootBehaviour : MonoBehaviour
         if (currentState == footState.Searching)
         {
             //Detect players to see when to stomp
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            if (lastStomped == null)
             {
-                if (hit.collider.CompareTag("Player"))
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, -transform.up, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
                 {
-                    SetState(footState.Stomping);
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        SetState(footState.Stomping);
+                    }
                 }
+                Debug.DrawRay(transform.position, -transform.up * rayDistance, Color.red);
             }
-            Debug.DrawRay(transform.position, -transform.up * rayDistance, Color.red);
 
             float minDist = 354f; /*Hypotenuse of the floor boards plane ie. max distance*/
             for (int i = 0; i < players.Count; i++)
             {
+
+                if (players[i] == lastStomped)
+                {
+                    continue;
+                }
+
                 float thisDist = Vector3.Distance(transform.position, players[i].transform.position);
                 if (thisDist < minDist)
                 {
@@ -119,11 +130,20 @@ public class FootBehaviour : MonoBehaviour
             PlayerStunned stunnedScript = collision.gameObject.GetComponent<PlayerStunned>();
             stunnedScript.SetMashes(stunMashes);
             stunnedScript.Stunned();
+            lastStomped = collision.gameObject;
+            StartCoroutine(NoLastStomped());
         }
 
         if (currentState == footState.Stomping)
         {
             SetState(footState.Lifting);
         }
+    }
+
+    private IEnumerator NoLastStomped()
+    {
+        yield return new WaitForSeconds(gracePeriod);
+
+        lastStomped = null;
     }
 }

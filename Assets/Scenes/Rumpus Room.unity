@@ -1968,7 +1968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1752684681
 Transform:
   m_ObjectHideFlags: 0
@@ -2065,15 +2065,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 30.000002
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 30.000002
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30.000002
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2081,7 +2081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2117,7 +2117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
       propertyPath: m_CastShadows
@@ -2155,13 +2155,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2820869ef27f99a49a72e09daf5df6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 50
+  rayDistance: 80
   searchSpeed: 18
-  stompSpeed: 50
-  liftSpeed: 25
-  footHeight: 50
+  stompSpeed: 80
+  liftSpeed: 55
+  footHeight: 80
   shadowTransform: {fileID: 1705478371}
   stunMashes: 10
+  gracePeriod: 4
 --- !u!4 &1774979632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}

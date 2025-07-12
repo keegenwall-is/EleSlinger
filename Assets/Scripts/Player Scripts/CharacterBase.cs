@@ -28,6 +28,7 @@ public class CharacterBase: MonoBehaviour
     public GameObject mesh;
     public GameObject KO;
     public Material[] materials;
+    public GameObject instruction;
 
     private AnimationClip[] clips;
 
@@ -97,6 +98,7 @@ public class CharacterBase: MonoBehaviour
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 face.sprite = normalFace;
                 canMove = true;
+                instruction.SetActive(false);
                 break;
             case playerState.Running:
                 anim.CrossFade(FindAnimation("Run"), animFadeDur);
@@ -121,10 +123,14 @@ public class CharacterBase: MonoBehaviour
                 anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
                 face.sprite = hitFace;
                 canMove = false;
+                instruction.SetActive(false);
                 break;
             case playerState.Stunned:
+                anim.Play(FindAnimation("Stunned"));
                 face.sprite = hitFace;
                 canMove = false;
+                instruction.SetActive(true);
+                instruction.transform.forward = new Vector3(0, 0, 1);
                 break;
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
