@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 5753746768392326714}
   - component: {fileID: 6249560141572579044}
   - component: {fileID: 5329733251557438757}
+  - component: {fileID: 5483717888363094552}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Player
@@ -822,6 +823,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   melee: {fileID: 2958162025016539127, guid: a1e3e7f92fda4384dbe5f137ca1349b4, type: 3}
   meleeSpawner: {fileID: 2232908257413296341}
+--- !u!114 &5483717888363094552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834618470884619107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b89a595a2d2dec4db0d712b5ebedc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4923852485758663766
 GameObject:
   m_ObjectHideFlags: 0

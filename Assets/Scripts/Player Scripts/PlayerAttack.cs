@@ -162,7 +162,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator EndAttack()
     {
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - animCut);
-        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit)
+        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Stunned)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }

@@ -11,6 +11,7 @@ public class TakeHit : MonoBehaviour
     private PlayerAttack PAscript;
     private CharacterBase baseScript;
     private GameObject attacker;
+    private PlayerStunned stunnedScript;
 
     public float flySpeed;
 
@@ -20,6 +21,7 @@ public class TakeHit : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         PAscript = GetComponent<PlayerAttack>();
         baseScript = GetComponent<CharacterBase>();
+        stunnedScript = GetComponent<PlayerStunned>();
     }
 
     // Update is called once per frame
@@ -71,7 +73,7 @@ public class TakeHit : MonoBehaviour
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
-        rb.velocity = new Vector3(0, 0, 0);
+        rb.velocity = Vector3.zero;
         attacker = null;
     }
 }

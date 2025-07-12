@@ -56,7 +56,7 @@ public class PlayerMelee : MonoBehaviour
     private IEnumerator EndMelee()
     {
         yield return new WaitForSeconds(0.3f);
-        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit)
+        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Stunned)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }

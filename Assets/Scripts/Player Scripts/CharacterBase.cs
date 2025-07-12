@@ -39,7 +39,7 @@ public class CharacterBase: MonoBehaviour
         Melee,
         Dashing,
         TakingHit,
-        Blocking,
+        Stunned,
         Dead,
         Out
     }
@@ -119,6 +119,10 @@ public class CharacterBase: MonoBehaviour
                 break;
             case playerState.TakingHit:
                 anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
+                face.sprite = hitFace;
+                canMove = false;
+                break;
+            case playerState.Stunned:
                 face.sprite = hitFace;
                 canMove = false;
                 break;
