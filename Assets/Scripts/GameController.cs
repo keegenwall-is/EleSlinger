@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     private int[] roundWins = { 0, 0, 0, 0 };
     private bool gameOver = false;
     private bool canContinue = false;
+    private bool stage1 = true;
 
     // Start is called before the first frame update
     void Start()
@@ -101,7 +102,16 @@ public class GameController : MonoBehaviour
     public void LoadRandomMinigame()
     {
         canContinue = false;
-        SceneManager.LoadScene(2);
+        if (stage1)
+        {
+            SceneManager.LoadScene(1);
+            stage1 = false;
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+            stage1 = true;
+        }
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();
     }

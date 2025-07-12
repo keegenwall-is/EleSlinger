@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerStunned : MonoBehaviour
 {
+    public Animator mashAnim;
+
     private CharacterBase baseScript;
     private PlayerAttack PAscript;
     private Rigidbody rb;
@@ -62,6 +64,7 @@ public class PlayerStunned : MonoBehaviour
     private void CheckMashes()
     {
         currentMashes++;
+        mashAnim.Play("MashInstruction");
         if (currentMashes >= maxMashes)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);

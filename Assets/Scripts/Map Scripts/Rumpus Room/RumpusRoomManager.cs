@@ -40,6 +40,7 @@ public class RumpusRoomManager : MinigameManager
                 }
 
                 UpdateScore(player);
+                CheckGameEnd();
             }
         }
     }
@@ -51,6 +52,29 @@ public class RumpusRoomManager : MinigameManager
             if (players[i] == player)
             {
                 livesTxts[i].text = lives[i].ToString();
+            }
+        }
+    }
+
+    private void CheckGameEnd()
+    {
+        int stillIn = 0;
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].tag != "Out")
+            {
+                stillIn++;
+            }
+        }
+
+        if (stillIn == 1)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i].tag != "Out")
+                {
+                    gameController.IncreaseRoundWins(players[i]);
+                }
             }
         }
     }
