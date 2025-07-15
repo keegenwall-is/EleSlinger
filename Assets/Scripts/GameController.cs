@@ -101,17 +101,20 @@ public class GameController : MonoBehaviour
 
     public void LoadRandomMinigame()
     {
-        canContinue = false;
+        /*canContinue = false;
         if (stage1)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
             stage1 = false;
         }
         else
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
             stage1 = true;
-        }
+        }*/
+
+        SceneManager.LoadScene(1);
+
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();
     }

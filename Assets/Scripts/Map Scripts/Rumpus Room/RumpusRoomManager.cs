@@ -7,6 +7,7 @@ public class RumpusRoomManager : MinigameManager
 {
     public int maxLives;
     public List<Text> livesTxts = new List<Text>();
+    public GameObject broom;
 
     private int[] lives = { 0, 0, 0, 0 };
 
@@ -74,6 +75,7 @@ public class RumpusRoomManager : MinigameManager
                 if (players[i].tag != "Out")
                 {
                     gameController.IncreaseRoundWins(players[i]);
+                    Destroy(broom);
                 }
             }
         }

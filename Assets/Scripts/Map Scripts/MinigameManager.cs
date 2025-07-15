@@ -45,7 +45,14 @@ public class MinigameManager : MonoBehaviour
         }
         gameLengthStart = gameLength;
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        ActivateUI("Ready Check");
+        if (readyMenu != null)
+        {
+            ActivateUI("Ready Check");
+        }
+        else
+        {
+            gameController.SpawnPlayers();
+        }
     }
 
     // Update is called once per frame
@@ -53,7 +60,10 @@ public class MinigameManager : MonoBehaviour
     {
         if (!roundBegun)
         {
-            CheckReady();
+            if (readyMenu != null)
+            {
+                CheckReady();
+            }
         }
         else
         {
@@ -108,6 +118,7 @@ public class MinigameManager : MonoBehaviour
 
     private void CheckReady()
     {
+        print("hi");
         for (int i = 0; i < playerControllers.Count; i++)
         {
             if (playerControllers[i] is Keyboard keyboard)

@@ -1522,6 +1522,7 @@ MonoBehaviour:
   - {fileID: 1786166442}
   - {fileID: 1786166441}
   - {fileID: 1786166440}
+  broom: {fileID: 1752684680}
 --- !u!1 &1408783365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,7 +2055,7 @@ MonoBehaviour:
   minBroomPosZ: -50
   maxBroomPosZ: 90
   indicator: {fileID: 739970406}
-  speedIncrement: 2
+  speedIncrement: 1.5
 --- !u!1001 &1774979629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2160,8 +2161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayDistance: 80
-  searchSpeed: 18
-  stompSpeed: 80
+  searchSpeed: 25
+  stompSpeed: 150
   liftSpeed: 55
   footHeight: 80
   shadowTransform: {fileID: 1705478371}
