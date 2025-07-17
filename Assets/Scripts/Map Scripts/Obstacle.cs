@@ -34,7 +34,6 @@ public class Obstacle : MonoBehaviour
                     thisTakeHit.SetAttacker(transform.parent.gameObject);
                 }
             }
-
             managerScript.TriggerObstacleEvent(other.gameObject);
         }
     }

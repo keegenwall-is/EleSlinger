@@ -52,6 +52,7 @@ public class MinigameManager : MonoBehaviour
         else
         {
             gameController.SpawnPlayers();
+            ActivateUI("Player UI");
         }
     }
 
@@ -118,7 +119,6 @@ public class MinigameManager : MonoBehaviour
 
     private void CheckReady()
     {
-        print("hi");
         for (int i = 0; i < playerControllers.Count; i++)
         {
             if (playerControllers[i] is Keyboard keyboard)
@@ -226,6 +226,11 @@ public class MinigameManager : MonoBehaviour
         OnObstacleEvent(actor);
     }
 
+    public void TriggerInteractiveObjectEvent(GameObject obj)
+    {
+        OnInteractiveObjectEvent(obj);
+    }
+
     protected virtual void OnTick()
     {
         //Default is do nothing
@@ -234,6 +239,11 @@ public class MinigameManager : MonoBehaviour
     protected virtual void OnObstacleEvent(GameObject actor)
     {
         //Default is to do nothing (obstacles don't have the same effect in all minigames)
+    }
+
+    protected virtual void OnInteractiveObjectEvent(GameObject obj)
+    {
+        //Default is do nothing
     }
 
     public virtual void HandleItemPickup(GameObject item, GameObject actor)

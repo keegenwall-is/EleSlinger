@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
                     {
                         if (gameOver)
                         {
-
+                            //Do something
                         }
                         else
                         {
@@ -101,8 +101,8 @@ public class GameController : MonoBehaviour
 
     public void LoadRandomMinigame()
     {
-        /*canContinue = false;
-        if (stage1)
+        canContinue = false;
+        /*if (stage1)
         {
             SceneManager.LoadScene(2);
             stage1 = false;
