@@ -226,9 +226,9 @@ public class MinigameManager : MonoBehaviour
         OnObstacleEvent(actor);
     }
 
-    public void TriggerInteractiveObjectEvent(GameObject obj)
+    public void TriggerInteractiveObjectEvent(GameObject obj, GameObject player)
     {
-        OnInteractiveObjectEvent(obj);
+        OnInteractiveObjectEvent(obj, player);
     }
 
     protected virtual void OnTick()
@@ -241,7 +241,7 @@ public class MinigameManager : MonoBehaviour
         //Default is to do nothing (obstacles don't have the same effect in all minigames)
     }
 
-    protected virtual void OnInteractiveObjectEvent(GameObject obj)
+    protected virtual void OnInteractiveObjectEvent(GameObject obj, GameObject player)
     {
         //Default is do nothing
     }

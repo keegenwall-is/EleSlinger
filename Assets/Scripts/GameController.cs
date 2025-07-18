@@ -99,10 +99,15 @@ public class GameController : MonoBehaviour
         playerCharacterSelections.Add(characterID);
     }
 
+    public void LoadTutorial()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void LoadRandomMinigame()
     {
         canContinue = false;
-        /*if (stage1)
+        if (stage1)
         {
             SceneManager.LoadScene(2);
             stage1 = false;
@@ -111,9 +116,7 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene(3);
             stage1 = true;
-        }*/
-
-        SceneManager.LoadScene(1);
+        }
 
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();

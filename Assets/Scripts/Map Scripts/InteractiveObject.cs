@@ -6,6 +6,7 @@ public class InteractiveObject : MonoBehaviour
 {
 
     private MinigameManager managerScript;
+    private GameObject thrower;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,9 @@ public class InteractiveObject : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Proj"))
         {
-            managerScript.TriggerInteractiveObjectEvent(gameObject);
+            AttackBase attackScript = other.gameObject.GetComponent<AttackBase>();
+            thrower = attackScript.GetThrower();
+            managerScript.TriggerInteractiveObjectEvent(gameObject, thrower);
         }
     }
 }

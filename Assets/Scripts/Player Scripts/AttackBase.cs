@@ -29,6 +29,11 @@ public class AttackBase : MonoBehaviour
         this.thrower = thrower;
     }
 
+    public GameObject GetThrower()
+    {
+        return thrower;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other != thrower && !other.isTrigger)
