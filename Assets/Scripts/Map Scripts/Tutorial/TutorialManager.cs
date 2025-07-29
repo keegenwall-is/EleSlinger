@@ -47,7 +47,14 @@ public class TutorialManager : MinigameManager
 
         if (allReady)
         {
-            gameController.LoadRandomMinigame();
+            StartCoroutine(LoadMinigameAfterTime());
         }
+    }
+
+    private IEnumerator LoadMinigameAfterTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        gameController.LoadRandomMinigame();
     }
 }

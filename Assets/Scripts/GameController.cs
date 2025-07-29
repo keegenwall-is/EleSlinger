@@ -17,7 +17,8 @@ public class GameController : MonoBehaviour
     private List<int> playerCharacterSelections = new List<int>();
     private int playerNo = 0;
     private List<GameObject> players = new List<GameObject>();
-    private GameObject[] spawnPoints;
+    private GameObject spawnPointsParent;
+    private List<GameObject> spawnPoints = new List<GameObject>();
     private GameObject[] playerInterfaces;
     private int[] roundWins = { 0, 0, 0, 0 };
     private bool gameOver = false;
@@ -138,9 +139,16 @@ public class GameController : MonoBehaviour
 
     public void SpawnPlayers()
     {
+        //There are new spawn points in every scene
+        spawnPoints.Clear();
         if (playerNo != 0)
         {
-            spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+            spawnPointsParent = GameObject.FindGameObjectWithTag("SpawnPointsParent");
+
+            for (int i = 0; i < spawnPointsParent.transform.childCount; i++)
+            {
+                spawnPoints.Add(spawnPointsParent.transform.GetChild(i).gameObject);
+            }
 
             //spawn players at spawn points at the start of the game
             for (int i = 0; i < playerNo; i++)
