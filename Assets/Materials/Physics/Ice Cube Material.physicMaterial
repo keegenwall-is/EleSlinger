@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Ice Cube Material
   dynamicFriction: 0.1
   staticFriction: 0.1
-  bounciness: 0
+  bounciness: 0.3
   frictionCombine: 1
   bounceCombine: 0

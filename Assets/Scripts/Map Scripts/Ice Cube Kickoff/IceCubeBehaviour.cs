@@ -47,6 +47,15 @@ public class IceCubeBehaviour : MonoBehaviour
             thrower = attackScript.GetThrower();
 
             rb.AddForce(attackScript.GetDirection(gameObject) * attackScript.GetPower(), ForceMode.Impulse);
+
+            Vector3 randomTorqueDirection = new Vector3(
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f)
+            ).normalized;
+
+            float torqueAmount = attackScript.GetPower() * 0.5f;
+            rb.AddTorque(randomTorqueDirection * torqueAmount, ForceMode.Impulse);
         }
     }
 
