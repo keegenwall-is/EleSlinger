@@ -31,12 +31,12 @@ public class ProjectileBehaviour : AttackBase
         return projTime;
     }
 
-    protected override Vector3 GetDirection(GameObject enemy)
+    public override Vector3 GetDirection(GameObject enemy)
     {
         return transform.forward;
     }
 
-    protected override float GetPower()
+    public override float GetPower()
     {
         return transform.localScale.x;
     }

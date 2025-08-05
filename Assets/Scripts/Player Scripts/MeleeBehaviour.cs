@@ -19,13 +19,13 @@ public class MeleeBehaviour : AttackBase
         return meleeTime;
     }
 
-    protected override Vector3 GetDirection(GameObject enemy)
+    public override Vector3 GetDirection(GameObject enemy)
     {
         Vector3 dir = (enemy.transform.position - thrower.transform.position).normalized;
         return dir;
     }
 
-    protected override float GetPower()
+    public override float GetPower()
     {
         return meleePower;
     }

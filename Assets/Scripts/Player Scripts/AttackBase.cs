@@ -66,12 +66,12 @@ public class AttackBase : MonoBehaviour
         return 0.8f;
     }
 
-    protected virtual Vector3 GetDirection(GameObject enemy)
+    public virtual Vector3 GetDirection(GameObject enemy)
     {
         return Vector3.forward;
     }
 
-    protected virtual float GetPower()
+    public virtual float GetPower()
     {
         return 1f;
     }
