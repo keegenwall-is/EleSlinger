@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
     public void LoadTutorial()
     {
         //SceneManager.LoadScene(1);
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public void LoadRandomMinigame()
@@ -158,6 +158,22 @@ public class GameController : MonoBehaviour
                 GameObject newPlayer = Instantiate(characters[playerCharacterSelections[i]], spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
                 CharacterBase baseScript = newPlayer.GetComponent<CharacterBase>();
                 baseScript.SetController(playerControllers[i]);
+                switch (i)
+                {
+                    case 0:
+                        baseScript.playerIndicator.color = new Color32(0, 255, 231, 255);
+                        break;
+                    case 1:
+                        baseScript.playerIndicator.color = new Color32(255, 59, 48, 255);
+                        break;
+                    case 2:
+                        baseScript.playerIndicator.color = new Color32(166, 255, 77, 255);
+                        break;
+                    case 3:
+                        baseScript.playerIndicator.color = new Color32(255, 165, 0, 255);
+                        break;
+                }
+
                 players.Add(newPlayer);
             }
         }

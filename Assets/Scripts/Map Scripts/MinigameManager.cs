@@ -18,6 +18,7 @@ public class MinigameManager : MonoBehaviour
     public GameObject readyMenu;
     public GameObject gameUI;
     public GameObject[] spawnPoints;
+    public Text[] scoreUpdates;
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -219,6 +220,38 @@ public class MinigameManager : MonoBehaviour
         }
 
         return spawnPoint;
+    }
+
+    public IEnumerator ScoreAnimation(bool increasing, GameObject player)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                if (increasing)
+                {
+                    scoreUpdates[i].text = "+1";
+                    scoreUpdates[i].color = Color.green;
+                    scoreUpdates[i].enabled = true;
+                }
+                else
+                {
+                    scoreUpdates[i].text = "-1";
+                    scoreUpdates[i].color = Color.red;
+                    scoreUpdates[i].enabled = true;
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                scoreUpdates[i].enabled = false;
+            }
+        }
     }
 
     public void TriggerObstacleEvent(GameObject actor)

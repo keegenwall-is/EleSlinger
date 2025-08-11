@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 304195236}
   - component: {fileID: 304195235}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Skirting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1775,6 +1775,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8141775975480243321, guid: 976a68549324c8c44a5296cdfe3cebb1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 976a68549324c8c44a5296cdfe3cebb1, type: 3}
@@ -1926,6 +1930,10 @@ PrefabInstance:
     - target: {fileID: 6533021501890670102, guid: 99b33e2735bf46847b7e6c1c667d1b0c, type: 3}
       propertyPath: m_Name
       value: Teddy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435023534710595716, guid: 99b33e2735bf46847b7e6c1c667d1b0c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -4127,6 +4135,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9097471052076876506, guid: fa881fbd187c40743b54c8be10320540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fa881fbd187c40743b54c8be10320540, type: 3}
@@ -4473,6 +4485,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4595064103129372806, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968280967203563506, guid: 732145b69e4dd704698dc7cdf8c3a351, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

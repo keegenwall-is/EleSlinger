@@ -236,6 +236,7 @@ public class FuseBoxManager : MinigameManager
                     {
                         playerScores[i]--;
                         scores[i].text = playerScores[i].ToString();
+                        StartCoroutine(ScoreAnimation(false, player));
                     }
                 }
             }
@@ -248,6 +249,7 @@ public class FuseBoxManager : MinigameManager
                     {
                         playerScores[i]++;
                         scores[i].text = playerScores[i].ToString();
+                        StartCoroutine(ScoreAnimation(true, players[i]));
                     }
                 }
             }

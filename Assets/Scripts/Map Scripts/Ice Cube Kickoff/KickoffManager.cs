@@ -84,11 +84,13 @@ public class KickoffManager : MinigameManager
                 {
                     playerScores[i]--;
                     scores[i].text = playerScores[i].ToString();
+                    StartCoroutine(ScoreAnimation(false, players[i]));
                 }
             } else if (players[i] == player)
             {
                 playerScores[i]++;
                 scores[i].text = playerScores[i].ToString();
+                StartCoroutine(ScoreAnimation(true, player));
             }
         }
 

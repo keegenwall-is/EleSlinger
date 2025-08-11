@@ -53,6 +53,7 @@ public class RumpusRoomManager : MinigameManager
             if (players[i] == player)
             {
                 livesTxts[i].text = lives[i].ToString();
+                StartCoroutine(ScoreAnimation(false, player));
             }
         }
     }
