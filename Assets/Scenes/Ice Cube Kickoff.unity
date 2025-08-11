@@ -271,7 +271,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 1269176089}
-  gameLength: 180
+  gameLength: 10
   gameLengthStart: 0
   gameController: {fileID: 0}
   overTime: 0
@@ -1766,7 +1766,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9014510876863728364, guid: bae317838c0d710478792ee0baaa8596, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -330
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 9014510876863728364, guid: bae317838c0d710478792ee0baaa8596, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2099,6 +2099,12 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6621627161741306934, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Text
+      value: 'Ice cube scored
+
+        in your goal'
+      objectReference: {fileID: 0}
     - target: {fileID: 6621627162189472640, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Name
       value: Ready Canvas
@@ -2187,6 +2193,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6621627162375205854, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Text
+      value: 'Pick up popsicles
+
+        to Freeze enemies
+
+        with your attacks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162867878318, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Text
+      value: 'Launch Ice Cubes
+
+        into enemy goals'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627163351098402, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4825363ec90a21646ad3ab2ca600d1be, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}

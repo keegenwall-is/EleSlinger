@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
     public void LoadTutorial()
     {
         //SceneManager.LoadScene(1);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void LoadRandomMinigame()
@@ -202,7 +202,7 @@ public class GameController : MonoBehaviour
         StartCoroutine(DisplayWins(scorePoints));
 
         //Stop players from performing actions once the round is done
-        for (int i = 0; i < players.Count; i++)
+        /*for (int i = 0; i < players.Count; i++)
         {
             PlayerMove thisMoveScript = players[i].GetComponent<PlayerMove>();
             PlayerAttack thisAttackScript = players[i].GetComponent<PlayerAttack>();
@@ -212,7 +212,7 @@ public class GameController : MonoBehaviour
             Destroy(thisAttackScript);
             Destroy(thisBaseScript);
             Destroy(thisMeleeScript);
-        }
+        }*/
     }
 
     private IEnumerator DisplayWins(GameObject[,] scorePoints)

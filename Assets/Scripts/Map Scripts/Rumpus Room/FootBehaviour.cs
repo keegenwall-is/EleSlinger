@@ -66,8 +66,8 @@ public class FootBehaviour : MonoBehaviour
             {
                 if (closestPlayer != null)
                 {
-                    trackingCurrent = 0f;
                     lastStomped = closestPlayer;
+                    StartCoroutine(NoLastStomped());
                 }
             }
 
@@ -156,6 +156,8 @@ public class FootBehaviour : MonoBehaviour
 
     private IEnumerator NoLastStomped()
     {
+        trackingCurrent = 0f;
+
         yield return new WaitForSeconds(gracePeriod);
 
         lastStomped = null;
