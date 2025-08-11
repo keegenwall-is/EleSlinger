@@ -109,34 +109,32 @@ public class GameController : MonoBehaviour
     {
         canContinue = false;
 
-        bool allPlayed = true;
-
+        // Get list of unplayed maps
+        List<int> unplayedMaps = new List<int>();
         for (int i = 0; i < mapPlayed.Length; i++)
         {
-            print(mapPlayed[i]);
-        }
-
-        for (int i = 0; i < mapPlayed.Length; i++)
-        {
-            int randStage = Random.Range(2, mapPlayed.Length + 2);
-
-            if (!mapPlayed[randStage - 2])
+            if (!mapPlayed[i])
             {
-                allPlayed = false;
-                mapPlayed[randStage - 2] = true;
-                SceneManager.LoadScene(randStage);
-                break;
+                unplayedMaps.Add(i);
             }
         }
 
-        if (allPlayed)
+        // If no unplayed maps, reset and try again
+        if (unplayedMaps.Count == 0)
         {
             for (int i = 0; i < mapPlayed.Length; i++)
             {
                 mapPlayed[i] = false;
-                LoadRandomMinigame();
             }
+
+            LoadRandomMinigame();
+            return;
         }
+
+        // Pick one random unplayed map
+        int chosenMap = unplayedMaps[Random.Range(0, unplayedMaps.Count)];
+        mapPlayed[chosenMap] = true;
+        SceneManager.LoadScene(chosenMap + 2);
 
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();
