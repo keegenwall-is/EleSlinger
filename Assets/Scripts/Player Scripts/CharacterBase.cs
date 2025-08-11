@@ -99,6 +99,14 @@ public class CharacterBase: MonoBehaviour
                 face.sprite = normalFace;
                 canMove = true;
                 instruction.SetActive(false);
+                cc.enabled = true;
+                if (transform.parent)
+                {
+                    GameObject parent = transform.parent.gameObject;
+                    transform.SetParent(null);
+                    Destroy(parent);
+                }
+
                 break;
             case playerState.Running:
                 anim.CrossFade(FindAnimation("Run"), animFadeDur);

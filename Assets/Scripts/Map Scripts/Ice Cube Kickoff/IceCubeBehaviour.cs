@@ -45,8 +45,10 @@ public class IceCubeBehaviour : MonoBehaviour
         else
         {
             stuckPos = transform.position;
-            stuckPos.y = 2f;
+            stuckPos.y = 0f;
             attachedPlayer.transform.position = stuckPos;
+
+            attachedPlayer.transform.rotation = Quaternion.Euler(attachedPlayer.transform.eulerAngles.x, transform.eulerAngles.y, attachedPlayer.transform.eulerAngles.z);
         }
 
         //if (rb.velocity.magnitude <= driftStrength)
@@ -60,7 +62,8 @@ public class IceCubeBehaviour : MonoBehaviour
         willShrink = canShrink;
         if (canShrink)
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            print("constraints changed");
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
         }
     }
 
@@ -88,6 +91,7 @@ public class IceCubeBehaviour : MonoBehaviour
             rb.AddTorque(randomTorqueDirection * torqueAmount, ForceMode.Impulse);
         } else if (other.gameObject.name.Contains("Goal"))
         {
+            //Increase and decrease scores and spawn new ice cube
             managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
             StartCoroutine(DestroyAfterTime());
         }
@@ -103,6 +107,13 @@ public class IceCubeBehaviour : MonoBehaviour
     private IEnumerator DestroyAfterTime()
     {
         yield return new WaitForSeconds(destroyTime);
+
+        if (transform.childCount != 0)
+        {
+            CharacterBase baseScript = transform.GetChild(0).gameObject.GetComponent<CharacterBase>();
+            baseScript.SetState(CharacterBase.playerState.Idle);
+        }
+
         Destroy(gameObject);
     }
 }

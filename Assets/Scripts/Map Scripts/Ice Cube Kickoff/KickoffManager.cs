@@ -10,14 +10,20 @@ public class KickoffManager : MinigameManager
     public List<Text> scores = new List<Text>();
     public List<GameObject> goals = new List<GameObject>();
     public GameObject[] iceSpawners;
+    public GameObject[] popsicleSpawners;
     public GameObject iceCube;
+    public GameObject popsicle;
+    public GameObject popsicleCube;
     public float iceSpawnCD;
+    public float popsicleSpawnCD;
     public GameObject[] goalBlockers;
     public int iceMashes;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private float iceSpawnCurrent;
-    private int randSpawn;
+    private float popsicleSpawnCurrent;
+    private int randIceSpawn;
+    private int randPopSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +48,20 @@ public class KickoffManager : MinigameManager
     protected override void OnTick()
     {
         iceSpawnCurrent += 1 * Time.deltaTime;
+        popsicleSpawnCurrent += 1 * Time.deltaTime;
 
         if (iceSpawnCurrent >= iceSpawnCD)
         {
             iceSpawnCurrent = 0;
-            randSpawn = Random.Range(0, 5);
-            Instantiate(iceCube, iceSpawners[randSpawn].transform);
+            randIceSpawn = Random.Range(0, iceSpawners.Length);
+            Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
+        }
+
+        if (popsicleSpawnCurrent >= popsicleSpawnCD)
+        {
+            popsicleSpawnCurrent = 0;
+            randPopSpawn = Random.Range(0, 4);
+            Instantiate(popsicle, popsicleSpawners[randPopSpawn].transform);
         }
     }
 
@@ -71,8 +85,8 @@ public class KickoffManager : MinigameManager
             }
         }
 
-        randSpawn = Random.Range(0, 4);
-        Instantiate(iceCube, iceSpawners[randSpawn].transform);
+        randIceSpawn = Random.Range(0, iceSpawners.Length);
+        Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
         iceSpawnCurrent = 0;
     }
 
@@ -86,7 +100,7 @@ public class KickoffManager : MinigameManager
     {
         Vector3 spawnPos = hitPlayer.transform.position;
         spawnPos.y += 2.5f;
-        GameObject thisIce = Instantiate(iceCube, spawnPos, hitPlayer.transform.rotation);
+        GameObject thisIce = Instantiate(popsicleCube, spawnPos, hitPlayer.transform.rotation);
         hitPlayer.transform.SetParent(thisIce.transform);
         IceCubeBehaviour iceScript = thisIce.GetComponent<IceCubeBehaviour>();
         iceScript.SetWillShrink(false);
@@ -101,7 +115,7 @@ public class KickoffManager : MinigameManager
 
         hitPlayer.transform.position = thisIce.transform.position;
 
-        //PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
-        //attackScript.SetSpecialAttack(false);
+        PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
+        attackScript.SetSpecialAttack(false);
     }
 }
