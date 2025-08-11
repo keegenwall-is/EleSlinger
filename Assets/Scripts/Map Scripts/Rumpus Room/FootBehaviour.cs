@@ -13,6 +13,7 @@ public class FootBehaviour : MonoBehaviour
     public Transform shadowTransform;
     public int stunMashes;
     public float gracePeriod;
+    public float trackingCD;
 
     private footState currentState;
     private GameController gameScript;
@@ -21,6 +22,7 @@ public class FootBehaviour : MonoBehaviour
     private Vector3 moveDir = new Vector3(0, 0, 0);
     private GameObject closestPlayer;
     private GameObject lastStomped;
+    private float trackingCurrent;
 
     public enum footState
     {
@@ -55,6 +57,18 @@ public class FootBehaviour : MonoBehaviour
                     }
                 }
                 Debug.DrawRay(transform.position, -transform.up * rayDistance, Color.red);
+            }
+
+            //Timer for chasing down one opponent
+            trackingCurrent += Time.deltaTime;
+
+            if (trackingCurrent >= trackingCD)
+            {
+                if (closestPlayer != null)
+                {
+                    trackingCurrent = 0f;
+                    lastStomped = closestPlayer;
+                }
             }
 
             float minDist = 354f; /*Hypotenuse of the floor boards plane ie. max distance*/

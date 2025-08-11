@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 51857525}
   m_Layer: 0
-  m_Name: Ice Cube Spawner (3)
+  m_Name: Popsicle Spawner 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51857524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35, y: 8, z: -35}
+  m_LocalPosition: {x: -35, y: 0, z: -35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,16 +293,16 @@ MonoBehaviour:
   - {fileID: 448639288}
   - {fileID: 507966511}
   iceSpawners:
-  - {fileID: 694671262}
-  - {fileID: 129616015}
-  - {fileID: 1993527774}
-  - {fileID: 51857524}
   - {fileID: 1041254478}
-  popsicleSpawners:
   - {fileID: 1866718012}
   - {fileID: 129369793}
   - {fileID: 1064811689}
   - {fileID: 375261755}
+  popsicleSpawners:
+  - {fileID: 129616015}
+  - {fileID: 1993527774}
+  - {fileID: 51857524}
+  - {fileID: 694671262}
   iceCube: {fileID: 1166165893356563221, guid: 9584c4a4ec2536c4e94448ec9a39664b, type: 3}
   popsicle: {fileID: 4752920661805409460, guid: 2ae7299f756667d45ac8bd4bb280df54, type: 3}
   popsicleCube: {fileID: 1166165893356563221, guid: 97533070095c9c544879385744bbd1fd, type: 3}
@@ -391,7 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 129369794}
   m_Layer: 0
-  m_Name: Popsicle Spawner (1)
+  m_Name: Ice Cube Spawner 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129369793}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 25}
+  m_LocalPosition: {x: 0, y: 8, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -422,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 129616016}
   m_Layer: 0
-  m_Name: Ice Cube Spawner (1)
+  m_Name: Popsicle Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129616015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35, y: 8, z: 35}
+  m_LocalPosition: {x: 35, y: 0, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -733,7 +733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375261756}
   m_Layer: 0
-  m_Name: Popsicle Spawner (3)
+  m_Name: Ice Cube Spawner 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,7 +747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375261755}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: 0}
+  m_LocalPosition: {x: 25, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1378,7 +1378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694671263}
   m_Layer: 0
-  m_Name: Ice Cube Spawner
+  m_Name: Popsicle Spawner 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694671262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35, y: 8, z: 35}
+  m_LocalPosition: {x: -35, y: 0, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1551,7 +1551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1041254479}
   m_Layer: 0
-  m_Name: Ice Cube Spawner (4)
+  m_Name: Ice Cube Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1582,7 +1582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1064811690}
   m_Layer: 0
-  m_Name: Popsicle Spawner (2)
+  m_Name: Ice Cube Spawner 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1596,7 +1596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064811689}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25, y: 0, z: 0}
+  m_LocalPosition: {x: -25, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1647,15 +1647,15 @@ Transform:
   - {fileID: 136818378}
   - {fileID: 444052111}
   - {fileID: 1395742258}
-  - {fileID: 694671263}
-  - {fileID: 129616016}
-  - {fileID: 1993527775}
-  - {fileID: 51857525}
   - {fileID: 1041254479}
   - {fileID: 1866718013}
   - {fileID: 129369794}
   - {fileID: 1064811690}
   - {fileID: 375261756}
+  - {fileID: 129616016}
+  - {fileID: 1993527775}
+  - {fileID: 51857525}
+  - {fileID: 694671263}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2749,7 +2749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1866718013}
   m_Layer: 0
-  m_Name: Popsicle Spawner
+  m_Name: Ice Cube Spawner 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2763,7 +2763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866718012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -25}
+  m_LocalPosition: {x: 0, y: 8, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2877,7 +2877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1993527775}
   m_Layer: 0
-  m_Name: Ice Cube Spawner (2)
+  m_Name: Popsicle Spawner 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2891,7 +2891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993527774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35, y: 8, z: -35}
+  m_LocalPosition: {x: 35, y: 0, z: -35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

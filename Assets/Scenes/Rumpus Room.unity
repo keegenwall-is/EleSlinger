@@ -2268,6 +2268,7 @@ MonoBehaviour:
   shadowTransform: {fileID: 1705478371}
   stunMashes: 10
   gracePeriod: 4
+  trackingCD: 10
 --- !u!4 &1774979632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2467d2f735e3314c97e3351206acadb, type: 3}
