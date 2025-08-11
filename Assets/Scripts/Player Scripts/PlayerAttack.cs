@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private GameObject thisProjectile;
     private float projSize;
     private Vector3 indicatorStartSize;
+    private bool hasSpecialAttack;
 
     public float animCut;
     public GameObject projectile;
@@ -180,5 +181,15 @@ public class PlayerAttack : MonoBehaviour
         indicator.SetActive(false);
         indicator.transform.localScale = indicatorStartSize;
         anim.speed = 1f;
+    }
+
+    public void SetSpecialAttack(bool hasSpecial)
+    {
+        hasSpecialAttack = hasSpecial;
+    }
+
+    public bool GetSpecialAttack()
+    {
+        return hasSpecialAttack;
     }
 }

@@ -23,7 +23,7 @@ public class TutorialManager : MinigameManager
 
     }
 
-    protected override void OnInteractiveObjectEvent(GameObject obj, GameObject player)
+    protected override void OnInteractiveObjectEvent(GameObject obj, GameObject player, GameObject other)
     {
         for (int i = 0; i < players.Count; i++)
         {

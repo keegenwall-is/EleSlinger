@@ -10,6 +10,7 @@ public class AttackBase : MonoBehaviour
 
     private GameObject thisHit;
     private float deleteTime;
+    private PlayerAttack playerAttackScript;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,6 +28,7 @@ public class AttackBase : MonoBehaviour
     public void SetThrower(GameObject thrower)
     {
         this.thrower = thrower;
+        playerAttackScript = thrower.GetComponent<PlayerAttack>();
     }
 
     public GameObject GetThrower()
@@ -44,11 +46,19 @@ public class AttackBase : MonoBehaviour
 
             if (other.gameObject.tag == "Player" || other.gameObject.tag == "Dummy")
             {
-                TakeHit takeHitScript = other.GetComponent<TakeHit>();
-                takeHitScript.SetDirection(GetDirection(other.gameObject));
-                takeHitScript.SetProjPower(GetPower());
-                takeHitScript.SetAttacker(thrower);
-                takeHitScript.HitReaction();
+                if (playerAttackScript.GetSpecialAttack())
+                {
+                    MinigameManager managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
+                    managerScript.HandleSpecialAttack(other.gameObject, thrower);
+                }
+                else
+                {
+                    TakeHit takeHitScript = other.GetComponent<TakeHit>();
+                    takeHitScript.SetDirection(GetDirection(other.gameObject));
+                    takeHitScript.SetProjPower(GetPower());
+                    takeHitScript.SetAttacker(thrower);
+                    takeHitScript.HitReaction();
+                }
             }
 
             DeleteEarly();

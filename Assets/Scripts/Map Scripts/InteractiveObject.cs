@@ -28,7 +28,7 @@ public class InteractiveObject : MonoBehaviour
             thrower = attackScript.GetThrower();
             if (managerScript != null)
             {
-                managerScript.TriggerInteractiveObjectEvent(gameObject, thrower);
+                managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
             }
         }
     }
