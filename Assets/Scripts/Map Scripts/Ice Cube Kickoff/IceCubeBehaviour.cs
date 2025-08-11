@@ -106,12 +106,18 @@ public class IceCubeBehaviour : MonoBehaviour
 
     private IEnumerator DestroyAfterTime()
     {
+        CharacterBase throwerBaseScript = thrower.GetComponent<CharacterBase>();
+        if (throwerBaseScript != null)
+        {
+            GameObject thisKO = Instantiate(throwerBaseScript.KO, transform.position, transform.rotation);
+        }
+
         yield return new WaitForSeconds(destroyTime);
 
         if (transform.childCount != 0)
         {
-            CharacterBase baseScript = transform.GetChild(0).gameObject.GetComponent<CharacterBase>();
-            baseScript.SetState(CharacterBase.playerState.Idle);
+            CharacterBase frozenBaseScript = transform.GetChild(0).gameObject.GetComponent<CharacterBase>();
+            frozenBaseScript.SetState(CharacterBase.playerState.Idle);
         }
 
         Destroy(gameObject);

@@ -18,6 +18,7 @@ public class KickoffManager : MinigameManager
     public float popsicleSpawnCD;
     public GameObject[] goalBlockers;
     public int iceMashes;
+    public GameObject[] KOs;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private float iceSpawnCurrent;

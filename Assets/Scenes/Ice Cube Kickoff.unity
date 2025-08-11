@@ -271,7 +271,7 @@ MonoBehaviour:
   playerNo: 0
   effectedObjects: []
   countdown: {fileID: 1269176089}
-  gameLength: 10
+  gameLength: 180
   gameLengthStart: 0
   gameController: {fileID: 0}
   overTime: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
   - {fileID: 651227853}
   - {fileID: 136818374}
   iceMashes: 10
+  KOs: []
 --- !u!1001 &125908793
 PrefabInstance:
   m_ObjectHideFlags: 0
