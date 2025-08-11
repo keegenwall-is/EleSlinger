@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     private int[] roundWins = { 0, 0, 0, 0 };
     private bool gameOver = false;
     private bool canContinue = false;
-    private bool stage1 = true;
+    private bool[] mapPlayed = { false, false, false };
 
     // Start is called before the first frame update
     void Start()
@@ -102,24 +102,41 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        //SceneManager.LoadScene(1);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadRandomMinigame()
     {
         canContinue = false;
-        /*if (stage1)
+
+        bool allPlayed = true;
+
+        for (int i = 0; i < mapPlayed.Length; i++)
         {
-            SceneManager.LoadScene(2);
-            stage1 = false;
+            print(mapPlayed[i]);
         }
-        else
+
+        for (int i = 0; i < mapPlayed.Length; i++)
         {
-            SceneManager.LoadScene(3);
-            stage1 = true;
-        }*/
-        SceneManager.LoadScene(4);
+            int randStage = Random.Range(2, mapPlayed.Length + 2);
+
+            if (!mapPlayed[randStage - 2])
+            {
+                allPlayed = false;
+                mapPlayed[randStage - 2] = true;
+                SceneManager.LoadScene(randStage);
+                break;
+            }
+        }
+
+        if (allPlayed)
+        {
+            for (int i = 0; i < mapPlayed.Length; i++)
+            {
+                mapPlayed[i] = false;
+                LoadRandomMinigame();
+            }
+        }
 
         //Clear players as new versions of the players will spawn each minigame
         players.Clear();
