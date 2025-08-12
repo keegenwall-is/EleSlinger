@@ -11,6 +11,7 @@ public class IceCubeBehaviour : MonoBehaviour
     public float driftPause;
     public float destroyTime;
     public float pushMultiplier;
+    public Transform frostTrans;
 
     private Vector3 randomDir;
     private MinigameManager managerScript;
@@ -19,6 +20,7 @@ public class IceCubeBehaviour : MonoBehaviour
     private Vector3 stuckPos;
     private Rigidbody rb;
     private GameObject thrower;
+    private Quaternion origPopRot;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class IceCubeBehaviour : MonoBehaviour
         managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
 
         randomDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+        origPopRot = frostTrans.localRotation;
         //StartCoroutine(DriftAfterTime());
     }
 
@@ -55,6 +58,11 @@ public class IceCubeBehaviour : MonoBehaviour
         //{
         //    StartCoroutine(DriftAfterTime());
         //}
+    }
+
+    void LateUpdate()
+    {
+        frostTrans.eulerAngles = Vector3.zero;
     }
 
     public void SetWillShrink(bool canShrink)
@@ -114,9 +122,9 @@ public class IceCubeBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(destroyTime);
 
-        if (transform.childCount != 0)
+        if (gameObject.name.Contains("Pop"))
         {
-            CharacterBase frozenBaseScript = transform.GetChild(0).gameObject.GetComponent<CharacterBase>();
+            CharacterBase frozenBaseScript = transform.GetChild(1).gameObject.GetComponent<CharacterBase>();
             frozenBaseScript.SetState(CharacterBase.playerState.Idle);
         }
 

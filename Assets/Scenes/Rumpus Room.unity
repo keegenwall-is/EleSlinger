@@ -1611,7 +1611,7 @@ MonoBehaviour:
   - {fileID: 407390348509939700}
   - {fileID: 407390348509939699}
   - {fileID: 407390348509939698}
-  maxLives: 1
+  maxLives: 5
   livesTxts:
   - {fileID: 8700583656614053525}
   - {fileID: 8700583655139748544}

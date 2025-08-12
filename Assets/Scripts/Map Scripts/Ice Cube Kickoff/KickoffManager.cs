@@ -14,11 +14,11 @@ public class KickoffManager : MinigameManager
     public GameObject iceCube;
     public GameObject popsicle;
     public GameObject popsicleCube;
+    public GameObject popsicleFrost;
     public float iceSpawnCD;
     public float popsicleSpawnCD;
     public GameObject[] goalBlockers;
     public int iceMashes;
-    public GameObject[] KOs;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private float iceSpawnCurrent;
@@ -103,6 +103,11 @@ public class KickoffManager : MinigameManager
     {
         PlayerAttack attackScript = actor.GetComponent<PlayerAttack>();
         attackScript.SetSpecialAttack(true);
+
+        Vector3 spawnPos = actor.transform.position;
+        spawnPos.y += 4.0f;
+        GameObject thisPopFrost = Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
+        thisPopFrost.transform.localScale /= 50;
     }
 
     public override void HandleSpecialAttack(GameObject hitPlayer, GameObject thrower)
@@ -126,6 +131,21 @@ public class KickoffManager : MinigameManager
 
         PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
         attackScript.SetSpecialAttack(false);
+
+        List<GameObject> frosts = new List<GameObject>();
+
+        foreach (Transform child in thrower.transform)
+        {
+            if (child.name.Contains("Pop"))
+            {
+                frosts.Add(child.gameObject);
+            }
+        }
+
+        foreach (GameObject frost in frosts)
+        {
+            Destroy(frost);
+        }
     }
 
     protected override void OnMinigameEnd()
