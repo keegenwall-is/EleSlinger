@@ -61,6 +61,15 @@ public class AttackBase : MonoBehaviour
                 }
             }
 
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive Obj")
+            {
+                hitScript.SetSuccessfulHit(true);
+            }
+            else
+            {
+                hitScript.SetSuccessfulHit(false);
+            }
+
             DeleteEarly();
         }
     }

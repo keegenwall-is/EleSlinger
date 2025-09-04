@@ -4604,7 +4604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1979608570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4619,6 +4619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 6
   cols: 10
+  cellSize: 0
   mapPieces:
   - {fileID: 443393191021692319, guid: 7e9cb1f4f1a99be4c88113c869de941f, type: 3}
   - {fileID: 7002062762606252210, guid: e9b8372cc78d48b4fbfd7172fd623d26, type: 3}
