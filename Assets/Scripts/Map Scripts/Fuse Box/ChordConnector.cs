@@ -38,4 +38,14 @@ public class ChordConnector : MonoBehaviour
 
         return false;
     }
+
+    public void ApplyRotation(int rot)
+    {
+        bool[] rotated = GetConnections(rot);
+
+        up = rotated[0];
+        left = rotated[1];
+        down = rotated[2];
+        right = rotated[3];
+    }
 }
