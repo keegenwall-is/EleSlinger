@@ -97,7 +97,11 @@ public class CharacterBase: MonoBehaviour
         {
             case playerState.Idle:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
-                face.sprite = normalFace;
+                if (face != null)
+                {
+                    face.sprite = normalFace;
+                }
+
                 canMove = true;
                 instruction.SetActive(false);
                 cc.enabled = true;
@@ -111,12 +115,18 @@ public class CharacterBase: MonoBehaviour
                 break;
             case playerState.Running:
                 anim.CrossFade(FindAnimation("Run"), animFadeDur);
-                face.sprite = normalFace;
+                if (face != null)
+                {
+                    face.sprite = normalFace;
+                }
                 canMove = true;
                 break;
             case playerState.Attacking:
                 anim.CrossFade(FindAnimation("Attack"), animFadeDur);
-                face.sprite = attackFace;
+                if (face != null)
+                {
+                    face.sprite = attackFace;
+                }
                 canMove = false;
                 break;
             case playerState.Melee:
@@ -125,25 +135,37 @@ public class CharacterBase: MonoBehaviour
                 break;
             case playerState.Dashing:
                 anim.CrossFade(FindAnimation("Jump"), animFadeDur);
-                face.sprite = normalFace;
+                if (face != null)
+                {
+                    face.sprite = normalFace;
+                }
                 canMove = true;
                 break;
             case playerState.TakingHit:
                 anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
-                face.sprite = hitFace;
+                if (face != null)
+                {
+                    face.sprite = hitFace;
+                }
                 canMove = false;
                 instruction.SetActive(false);
                 break;
             case playerState.Stunned:
                 anim.Play(FindAnimation("Stunned"));
-                face.sprite = hitFace;
+                if (face != null)
+                {
+                    face.sprite = hitFace;
+                }
                 canMove = false;
                 instruction.SetActive(true);
                 instruction.transform.forward = new Vector3(0, 0, 1);
                 break;
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
-                face.sprite = hitFace;
+                if (face != null)
+                {
+                    face.sprite = hitFace;
+                }
                 StartCoroutine(Respawn());
                 thisKO = Instantiate(KO, transform.position, transform.rotation);
                 break;
