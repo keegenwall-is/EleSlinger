@@ -38,7 +38,7 @@ public class AttackBase : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other != thrower && !other.isTrigger)
+        if (other.gameObject != thrower && !other.isTrigger)
         {
             thisHit = Instantiate(hit, transform.position, transform.rotation);
             HitBehaviour hitScript = thisHit.GetComponent<HitBehaviour>();
