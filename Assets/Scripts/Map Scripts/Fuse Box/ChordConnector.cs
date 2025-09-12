@@ -29,7 +29,7 @@ public class ChordConnector : MonoBehaviour
         return rotated;
     }
 
-    public bool IsConnector()
+    public bool IsNotStraight()
     {
         if (pieceType == PieceType.Corner || pieceType == PieceType.Cross || pieceType == PieceType.T)
         {
