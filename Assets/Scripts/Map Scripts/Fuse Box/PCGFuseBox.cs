@@ -10,14 +10,25 @@ public class PCGFuseBox : MonoBehaviour
     public float cellSize;
     public ChordConnector[] mapPieces;
     public GameObject[] specialPieces;
+    public float chordPercent;
+    public float specialPercent;
 
     private (ChordConnector, int rotation)[,] mapSections;
-    private int emptyCounter = 0;
     private bool mainSpawned = false;
+    private int chordTarget;
+    private int specialTarget;
+    private int chordCount = 0;
+    private int specialCount = 0;
+    private float chordWeight = 1f;
+    private float specialWeight = 1f;
+    private float totalWeight;
 
     void Awake()
     {
         mapSections = new (ChordConnector, int)[rows, cols];
+
+        chordTarget = Mathf.RoundToInt(rows * cols * chordPercent);
+        specialTarget = Mathf.RoundToInt(rows * cols * specialPercent);
 
         for (int i = 0; i < rows; i++)
         {
@@ -33,26 +44,58 @@ public class PCGFuseBox : MonoBehaviour
         List<(ChordConnector, int)> validPieces = new List<(ChordConnector, int)>();
 
         bool mustBeStraight = false;
+        bool mustBeChord = false;
 
+        //Check the row above if straight and can connect to a straight
         if (row > 0 && mapSections[row - 1, col].Item1 != null)
         {
-            if (mapSections[row - 1, col].Item1.IsNotStraight())
+            var (above, aboveRot) = mapSections[row - 1, col];
+            bool[] aboveConnections = above.GetConnections(aboveRot);
+
+            if (row > 1 && mapSections[row - 2, col].Item1 == null)
+            {
+                mustBeChord = true;
+            }
+            if (mapSections[row - 1, col].Item1.IsNotStraight() && aboveConnections[2])
             {
                 mustBeStraight = true;
             }
         }
 
+        //Check the col on the left if straight and can connect to a straight
         if (col > 0 && mapSections[row, col - 1].Item1 != null)
         {
-            if (mapSections[row, col - 1].Item1.IsNotStraight())
+            var (left, leftRot) = mapSections[row, col - 1];
+            bool[] leftConnections = left.GetConnections(leftRot);
+
+            if (col > 1 && mapSections[row, col - 2].Item1 == null)
+            {
+                mustBeChord = true;
+            }
+            if (mapSections[row, col - 1].Item1.IsNotStraight() && leftConnections[3])
             {
                 mustBeStraight = true;
             }
         }
 
-        int isEmpty = Random.Range(0, 4);
+        chordWeight = 1f;
+        specialWeight = 1f;
 
-        if (isEmpty != 0 && !mustBeStraight)
+        if (chordCount >= chordTarget)
+        {
+            chordWeight = 0.1f;
+        }
+
+        if (specialCount >= specialTarget)
+        {
+            specialWeight = 0.1f;
+        }
+
+        totalWeight = chordWeight + specialWeight;
+
+        float isEmpty = Random.value * totalWeight;
+
+        if (isEmpty > chordWeight && !mustBeChord)
         {
             PlaceSpecial(row, col);
             return;
@@ -101,7 +144,7 @@ public class PCGFuseBox : MonoBehaviour
             GameObject thisPiece = Instantiate(selectedPiece.Item1.gameObject, pos, Quaternion.Euler(0, selectedPiece.Item2 * -90f, 90f));
             //thisPiece.GetComponent<ChordConnector>().ApplyRotation(selectedPiece.Item2);
             mapSections[row, col] = (thisPiece.GetComponent<ChordConnector>(), selectedPiece.Item2);
-            emptyCounter = 0;
+            chordCount++;
         }
     }
 
@@ -153,31 +196,42 @@ public class PCGFuseBox : MonoBehaviour
 
     private void PlaceSpecial(int row, int col)
     {
-        emptyCounter++;
-        if (emptyCounter > 1)
+        float isEmpty = Random.value * totalWeight;
+        if (isEmpty < specialWeight)
         {
-            if (row > 0 && col > 0 && mapSections[row, col - 1].Item1 == null && mapSections[row - 1, col - 1].Item1 == null)
+            int randSpecial = Random.Range(0, specialPieces.Length);
+
+            while (mainSpawned && randSpecial == 0)
             {
-                int randSpecial = Random.Range(0, specialPieces.Length);
+                randSpecial = Random.Range(0, specialPieces.Length);
+            }
 
-                while (mainSpawned && randSpecial == 0)
-                {
-                    randSpecial = Random.Range(0, specialPieces.Length);
-                }
+            Vector3 pos = transform.position + new Vector3(col * cellSize, 0, -row * cellSize);
 
-                Vector3 pos = transform.position + new Vector3(col * cellSize, 0, -row * cellSize);
-
-                //if a main is generated
-                if (randSpecial == 0)
+            //if a main switch is to be generated
+            if (randSpecial == 0)
+            {
+                if (row > 1 && col > 1 && mapSections[row, col - 1].Item2 != -2 && mapSections[row - 1, col - 1].Item2 != -2)
                 {
                     mainSpawned = true;
-                    pos.z += cellSize / 2;
-                    pos.x -= cellSize / 2;
+                    //pos.z += cellSize;
+                    //pos.x -= cellSize;
                 }
-
-                Instantiate(specialPieces[randSpecial], pos, Quaternion.Euler(0, 0, 0));
-                emptyCounter = 0;
+                else
+                {
+                    return;
+                }
             }
+
+            Instantiate(specialPieces[randSpecial], pos, Quaternion.Euler(0, 0, 0));
+            //Set as empty with a special
+            mapSections[row, col] = (null, -1);
+            specialCount++;
+        }
+        else
+        {
+            //Set as true empty
+            mapSections[row, col] = (null, -2);
         }
     }
 }
