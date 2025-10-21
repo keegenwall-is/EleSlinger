@@ -111,6 +111,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pipe Straight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9074436657682973388, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601092, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601095, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601095, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.572
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601095, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658342007329, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
@@ -178,6 +202,22 @@ PrefabInstance:
     - target: {fileID: 8385602714453253708, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
       propertyPath: m_Name
       value: Pipe Straight
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436657682973388, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601092, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658218601095, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074436658342007329, guid: 6da2b4228d10dff4bbe5d43d7d3dcffd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

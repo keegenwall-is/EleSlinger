@@ -24,10 +24,10 @@ public class FuseBoxManager : MinigameManager
     public float ePowerSpeedBuff;
 
     private int[] playerScores = { -1, -1, -1, -1 };
-    private GameObject[] itemSpawners;
+    public GameObject[] itemSpawners;
     private bool[] itemSpawned = { false, false, false };
     private float[] spawnTimes = { 0, 0, 0 };
-    private string[] spawnerHasItem = { "none", "none", "none", "none", "none" };
+    private string[] spawnerHasItem;
     private float[] numOfItems = { -1, -1, -1, -1 };
     private List<List<Image>> itemIcons = new List<List<Image>>();
     private List<List<Sprite>> baseItemIcons = new List<List<Sprite>>();
@@ -55,6 +55,12 @@ public class FuseBoxManager : MinigameManager
         baseItemIcons.Add(p4NoItemIcons);
 
         itemSpawners = GameObject.FindGameObjectsWithTag("Item Spawner");
+        spawnerHasItem = new string[itemSpawners.Length];
+
+        for (int i = 0; i < spawnerHasItem.Length; i++)
+        {
+            spawnerHasItem[i] = "none";
+        }
 
         //Random a time in the first 6th of the game
         spawnTimes[0] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart);
@@ -66,6 +72,17 @@ public class FuseBoxManager : MinigameManager
 
     protected override void OnTick()
     {
+        if (itemSpawners == null || itemSpawners.Length == 0)
+        {
+            itemSpawners = GameObject.FindGameObjectsWithTag("Item Spawner");
+            spawnerHasItem = new string[itemSpawners.Length];
+
+            for (int i = 0; i < spawnerHasItem.Length; i++)
+            {
+                spawnerHasItem[i] = "none";
+            }
+        }
+
         //Spawns items as the timer goes down
         for (int i = 0; i < items.Length; i++)
         {
@@ -79,7 +96,9 @@ public class FuseBoxManager : MinigameManager
                     {
                         randomSpawner = Random.Range(0, itemSpawners.Length);
                     }
-                    Instantiate(items[i], itemSpawners[randomSpawner].transform.position, itemSpawners[randomSpawner].transform.rotation);
+                    Vector3 pos = itemSpawners[randomSpawner].transform.position;
+                    pos.y += 3f;
+                    Instantiate(items[i], pos, itemSpawners[randomSpawner].transform.rotation);
                     itemSpawned[i] = true;
                     spawnerHasItem[randomSpawner] = items[i].tag;
                 }
