@@ -22,7 +22,7 @@ public class Switches : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Current"))
+        if (other.CompareTag("Current") && anim != null)
         {
             anim.SetBool("Switch On", true);
             StartCoroutine(SwitchOff());

@@ -14,6 +14,7 @@ public class PCGFuseBox : MonoBehaviour
     public float specialPercent;
 
     private (ChordConnector, int rotation)[,] mapSections;
+    private List<GameObject> specialsPlaced = new List<GameObject>();
     private bool mainSpawned = false;
     private int chordTarget;
     private int specialTarget;
@@ -22,6 +23,9 @@ public class PCGFuseBox : MonoBehaviour
     private float chordWeight = 1f;
     private float specialWeight = 1f;
     private float totalWeight;
+    private int littleSwitchCount = 0;
+    private int itemSpawnerCount = 0;
+    private bool mapSuccess = false;
 
     void Awake()
     {
@@ -30,11 +34,46 @@ public class PCGFuseBox : MonoBehaviour
         chordTarget = Mathf.RoundToInt(rows * cols * chordPercent);
         specialTarget = Mathf.RoundToInt(rows * cols * specialPercent);
 
-        for (int i = 0; i < rows; i++)
+        while (!mapSuccess)
         {
-            for (int j = 0; j < cols; j++)
+            for (int i = 0; i < rows; i++)
             {
-                PlacePiece(i, j);
+                for (int j = 0; j < cols; j++)
+                {
+                    PlacePiece(i, j);
+                }
+            }
+
+            if (!mainSpawned || littleSwitchCount <= 6 || littleSwitchCount >= 10 || itemSpawnerCount <=3)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        if (mapSections[i, j].Item1 != null)
+                        {
+                            Destroy(mapSections[i, j].Item1.gameObject);
+                            mapSections[i, j] = (null, 0);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < specialsPlaced.Count; i++)
+                {
+                    Destroy(specialsPlaced[i]);
+                }
+
+                chordCount = 0;
+                specialCount = 0;
+                chordWeight = 1f;
+                specialWeight = 1f;
+                mainSpawned = false;
+                littleSwitchCount = 0;
+                itemSpawnerCount = 0;
+            }
+            else
+            {
+                mapSuccess = true;
             }
         }
     }
@@ -133,7 +172,6 @@ public class PCGFuseBox : MonoBehaviour
 
             if (validPieces.Count == 0)
             {
-                print("no valid pieces");
                 PlaceSpecial(row, col);
                 return;
             }
@@ -219,11 +257,20 @@ public class PCGFuseBox : MonoBehaviour
                 }
                 else
                 {
+                    mapSections[row, col] = (null, -2);
                     return;
                 }
             }
+            else if (randSpecial == 1)
+            {
+                itemSpawnerCount++;
+            }
+            else if (randSpecial == 2)
+            {
+                littleSwitchCount++;
+            }
 
-            Instantiate(specialPieces[randSpecial], pos, Quaternion.Euler(0, 0, 0));
+            specialsPlaced.Add(Instantiate(specialPieces[randSpecial], pos, Quaternion.Euler(0, 0, 0)));
             //Set as empty with a special
             mapSections[row, col] = (null, -1);
             specialCount++;
