@@ -27,12 +27,39 @@ public class PCGFuseBox : MonoBehaviour
     private int itemSpawnerCount = 0;
     private bool mapSuccess = false;
 
+    private int zoneRows = 3;
+    private int zoneCols = 3;
+    private int[,] zoneChordCounts;
+    private int[,] zoneSpecialCounts;
+    private int[,] zoneChordTargets;
+    private int[,] zoneSpecialTargets;
+    private int zoneHeight;
+    private int zoneWidth;
+
     void Awake()
     {
         mapSections = new (ChordConnector, int)[rows, cols];
 
-        chordTarget = Mathf.RoundToInt(rows * cols * chordPercent);
-        specialTarget = Mathf.RoundToInt(rows * cols * specialPercent);
+        //chordTarget = Mathf.RoundToInt(rows * cols * chordPercent);
+        //specialTarget = Mathf.RoundToInt(rows * cols * specialPercent);
+        zoneHeight = Mathf.CeilToInt((float)rows / zoneRows);
+        zoneWidth = Mathf.CeilToInt((float)cols / zoneCols);
+
+        zoneChordCounts = new int[zoneRows, zoneCols];
+        zoneSpecialCounts = new int[zoneRows, zoneCols];
+        zoneChordTargets = new int[zoneRows, zoneCols];
+        zoneSpecialTargets = new int[zoneRows, zoneCols];
+
+        for (int zr = 0; zr < zoneRows; zr++)
+        {
+            for (int zc = 0; zc < zoneCols; zc++)
+            {
+                int localRows = Mathf.Min(zoneHeight, rows - zr * zoneHeight);
+                int localCols = Mathf.Min(zoneWidth, cols - zc * zoneWidth);
+                zoneChordTargets[zr, zc] = Mathf.RoundToInt(localRows * localCols * chordPercent);
+                zoneSpecialTargets[zr, zc] = Mathf.RoundToInt(localRows * localCols * specialPercent);
+            }
+        }
 
         while (!mapSuccess)
         {
@@ -70,6 +97,14 @@ public class PCGFuseBox : MonoBehaviour
                 mainSpawned = false;
                 littleSwitchCount = 0;
                 itemSpawnerCount = 0;
+                for (int zr = 0; zr < zoneRows; zr++)
+                {
+                    for (int zc = 0; zc < zoneCols; zc++)
+                    {
+                        zoneChordCounts[zr, zc] = 0;
+                        zoneSpecialCounts[zr, zc] = 0;
+                    }
+                }
             }
             else
             {
@@ -117,15 +152,18 @@ public class PCGFuseBox : MonoBehaviour
             }
         }
 
+        int zoneRow = row / zoneHeight;
+        int zoneCol = col / zoneWidth;
+
         chordWeight = 1f;
         specialWeight = 1f;
 
-        if (chordCount >= chordTarget)
+        if (zoneChordCounts[zoneRow, zoneCol] >= zoneChordTargets[zoneRow, zoneCol])
         {
             chordWeight = 0.1f;
         }
 
-        if (specialCount >= specialTarget)
+        if (zoneSpecialCounts[zoneRow, zoneCol] >= zoneSpecialTargets[zoneRow, zoneCol])
         {
             specialWeight = 0.1f;
         }
@@ -136,7 +174,7 @@ public class PCGFuseBox : MonoBehaviour
 
         if (isEmpty > chordWeight && !mustBeChord)
         {
-            PlaceSpecial(row, col);
+            PlaceSpecial(row, col, zoneRow, zoneCol);
             return;
         }
         else
@@ -172,7 +210,7 @@ public class PCGFuseBox : MonoBehaviour
 
             if (validPieces.Count == 0)
             {
-                PlaceSpecial(row, col);
+                PlaceSpecial(row, col, zoneRow, zoneCol);
                 return;
             }
 
@@ -183,6 +221,7 @@ public class PCGFuseBox : MonoBehaviour
             //thisPiece.GetComponent<ChordConnector>().ApplyRotation(selectedPiece.Item2);
             mapSections[row, col] = (thisPiece.GetComponent<ChordConnector>(), selectedPiece.Item2);
             chordCount++;
+            zoneChordCounts[zoneRow, zoneCol]++;
         }
     }
 
@@ -232,7 +271,7 @@ public class PCGFuseBox : MonoBehaviour
         return true;
     }
 
-    private void PlaceSpecial(int row, int col)
+    private void PlaceSpecial(int row, int col, int zoneRow, int zoneCol)
     {
         float isEmpty = Random.value * totalWeight;
         if (isEmpty < specialWeight)
@@ -274,6 +313,7 @@ public class PCGFuseBox : MonoBehaviour
             //Set as empty with a special
             mapSections[row, col] = (null, -1);
             specialCount++;
+            zoneSpecialCounts[zoneRow, zoneCol]++;
         }
         else
         {

@@ -1960,8 +1960,8 @@ MonoBehaviour:
   - {fileID: 6505530881406381613, guid: dc7bdaccecde1cf45ad7810e5e7f4a67, type: 3}
   - {fileID: 4958540572341124274, guid: 61a8cc5bbceb74549a73e8e6d7e3b743, type: 3}
   - {fileID: 351280880444521333, guid: 77d1a19d88e0c994ab28ad73b7b0b105, type: 3}
-  chordPercent: 0.55
-  specialPercent: 0.45
+  chordPercent: 0.5
+  specialPercent: 0.5
 --- !u!4 &1979608571
 Transform:
   m_ObjectHideFlags: 0
