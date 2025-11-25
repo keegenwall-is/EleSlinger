@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private float projSize;
     private Vector3 indicatorStartSize;
     private bool hasSpecialAttack;
+    private Vector3 projSpawnPoint;
 
     public float animCut;
     public GameObject projectile;
@@ -23,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
     public float aimSpeed;
     public float chargeSpeed;
     public float maxSize;
+    public float projSpawnHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -138,7 +140,7 @@ public class PlayerAttack : MonoBehaviour
             projSize = maxSize;
         }
         thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
-        indicator.transform.localScale = new Vector3(projSize / 50, projSize / 50, projSize / 50);
+        indicator.transform.localScale = new Vector3(projSize, projSize, projSize);
     }
 
     public void ResumeAnim()
@@ -151,7 +153,9 @@ public class PlayerAttack : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        thisProjectile = Instantiate(projectile, magicSpawner.transform.position, transform.rotation);
+        projSpawnPoint = magicSpawner.transform.position;
+        projSpawnPoint.y = projSpawnHeight;
+        thisProjectile = Instantiate(projectile, projSpawnPoint, transform.rotation);
         ProjectileBehaviour projScript = thisProjectile.GetComponent<ProjectileBehaviour>();
         projScript.SetThrower(gameObject);
         thisProjectile.transform.localScale += new Vector3(projSize, projSize, projSize);

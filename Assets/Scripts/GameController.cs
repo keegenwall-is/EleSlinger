@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour
     public GameObject scoreBoard;
     public int maxRounds;
     public GameObject continueUI;
+    public GameObject[] ChargeEffects;
+    public GameObject[] ProjEffects;
+    public GameObject[] MeleeEffects;
+    public GameObject[] KOEffects;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private List<int> playerCharacterSelections = new List<int>();
@@ -24,6 +28,13 @@ public class GameController : MonoBehaviour
     private bool gameOver = false;
     private bool canContinue = false;
     private bool[] mapPlayed = { false, false, false };
+    private Color32[] playerColours = new Color32[]
+    {
+        new Color32(0, 255, 231, 255),
+        new Color32(255, 59, 48, 255),
+        new Color32(166, 255, 77, 255),
+        new Color32(255, 165, 0, 255)
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +113,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadRandomMinigame()
@@ -172,20 +183,33 @@ public class GameController : MonoBehaviour
             {
                 GameObject newPlayer = Instantiate(characters[playerCharacterSelections[i]], spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
                 CharacterBase baseScript = newPlayer.GetComponent<CharacterBase>();
+                PlayerAttack attackScript = newPlayer.GetComponent<PlayerAttack>();
+                PlayerMelee meleeScript = newPlayer.GetComponent<PlayerMelee>();
+                Image indicatorImg = attackScript.indicator.transform.GetChild(0).GetComponent<Image>();
                 baseScript.SetController(playerControllers[i]);
+                baseScript.KO = KOEffects[i];
+                baseScript.playerIdentifier.color = playerColours[i];
+                indicatorImg.color = playerColours[i];
+                attackScript.projectile = ProjEffects[i];
+                attackScript.charge = ChargeEffects[i];
+                meleeScript.melee = MeleeEffects[i];
                 switch (i)
                 {
                     case 0:
-                        baseScript.playerIndicator.color = new Color32(0, 255, 231, 255);
+                        baseScript.playerIdentifier.color = new Color32(0, 255, 231, 255);
+                        indicatorImg.color = new Color32(0, 255, 231, 255);
                         break;
                     case 1:
-                        baseScript.playerIndicator.color = new Color32(255, 59, 48, 255);
+                        baseScript.playerIdentifier.color = new Color32(255, 59, 48, 255);
+                        indicatorImg.color = new Color32(255, 59, 48, 255);
                         break;
                     case 2:
-                        baseScript.playerIndicator.color = new Color32(166, 255, 77, 255);
+                        baseScript.playerIdentifier.color = new Color32(166, 255, 77, 255);
+                        indicatorImg.color = new Color32(166, 255, 77, 255);
                         break;
                     case 3:
-                        baseScript.playerIndicator.color = new Color32(255, 165, 0, 255);
+                        baseScript.playerIdentifier.color = new Color32(255, 165, 0, 255);
+                        indicatorImg.color = new Color32(255, 165, 0, 255);
                         break;
                 }
 

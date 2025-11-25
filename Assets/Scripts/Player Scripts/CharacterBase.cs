@@ -29,7 +29,7 @@ public class CharacterBase: MonoBehaviour
     public GameObject KO;
     public Material[] materials;
     public GameObject instruction;
-    public Image playerIndicator;
+    public Image playerIdentifier;
 
     private AnimationClip[] clips;
 

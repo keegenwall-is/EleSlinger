@@ -54,7 +54,6 @@ public class FuseBoxManager : MinigameManager
         baseItemIcons.Add(p3NoItemIcons);
         baseItemIcons.Add(p4NoItemIcons);
 
-        itemSpawners = GameObject.FindGameObjectsWithTag("Item Spawner");
         spawnerHasItem = new string[itemSpawners.Length];
 
         for (int i = 0; i < spawnerHasItem.Length; i++)
