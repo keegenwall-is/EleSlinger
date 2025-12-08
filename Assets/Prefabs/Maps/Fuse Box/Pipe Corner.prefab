@@ -50,7 +50,7 @@ MonoBehaviour:
   left: 0
   down: 0
   right: 1
-  pieceType: 0
+  pieceType: 1
 --- !u!1001 &952704584705367262
 PrefabInstance:
   m_ObjectHideFlags: 0

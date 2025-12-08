@@ -35,7 +35,10 @@ public class FootBehaviour : MonoBehaviour
     void Start()
     {
         gameScript = GameObject.FindGameObjectWithTag("Game Controller").GetComponent<GameController>();
-        players = gameScript.GetPlayers();
+        if (gameScript)
+        {
+            players = gameScript.GetPlayers();
+        }
         rb = GetComponent<Rigidbody>();
         SetState(footState.Searching);
     }
@@ -96,7 +99,10 @@ public class FootBehaviour : MonoBehaviour
             }
             else
             {
-                rb.velocity = Vector3.zero;
+                if (rb)
+                {
+                    rb.velocity = Vector3.zero;
+                }
             }
         }
         else if (currentState == footState.Stomping)
