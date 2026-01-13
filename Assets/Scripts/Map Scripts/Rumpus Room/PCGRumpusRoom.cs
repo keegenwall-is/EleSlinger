@@ -42,7 +42,6 @@ public class PCGRumpusRoom : MonoBehaviour
                 {
                     Destroy(piece);
                 }
-                print("reset");
             }
         }
     }
@@ -192,6 +191,98 @@ public class PCGRumpusRoom : MonoBehaviour
                     return false;
 
         return true;
+    }
+
+    public void RegenerateRow(int rowIndex)
+    {
+        bool success = false;
+
+        while (!success)
+        {
+            // Delete old objects
+            for (int col = 0; col < cols; col++)
+            {
+                var (piece, rot) = mapSections[rowIndex, col];
+                if (piece != null)
+                {
+                    StartCoroutine(DestroyAfterTime(piece.gameObject));
+                    spawnedPieces.Remove(piece.gameObject);
+                }
+
+                mapSections[rowIndex, col] = (null, 0);
+            }
+
+            bool rowValid = true;
+
+            // Build the row from scratch
+            for (int col = 0; col < cols; col++)
+            {
+                PlacePiece(rowIndex, col);
+
+                // If a piece failed to place (no validPieces)
+                if (mapSections[rowIndex, col].Item1 == null)
+                {
+                    rowValid = false;
+                    break;
+                }
+            }
+
+            // If row failed OR map becomes disconnected -> try again
+            if (!rowValid || !IsFullyConnected())
+            {
+                // Clear partial row for the next attempt
+                for (int col = 0; col < cols; col++)
+                {
+                    var (piece, rot) = mapSections[rowIndex, col];
+                    if (piece != null)
+                    {
+                        Destroy(piece.gameObject);
+                        spawnedPieces.Remove(piece.gameObject);
+                    }
+
+                    mapSections[rowIndex, col] = (null, 0);
+                }
+
+                continue; // retry full regeneration
+            }
+
+            success = true; // row built successfully
+        }
+    }
+
+    private IEnumerator DestroyAfterTime(GameObject blockGroup)
+    {
+        List<Color> startColours = new List<Color>();
+        List<Material> mats = new List<Material>();
+
+        foreach (Transform child in blockGroup.transform)
+        {
+            MeshRenderer mr = child.GetComponent<MeshRenderer>();
+            mats.Add(mr.material);
+            startColours.Add(mr.material.GetColor("_BaseColor"));
+            BoxCollider bc = child.GetComponent<BoxCollider>();
+            bc.enabled = false;
+        }
+
+        float t = 0;
+        float duration = 1.0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float lerp = t / duration;
+
+            for (int i = 0; i < mats.Count; i++)
+            {
+                Color c = startColours[i];
+                c.a = Mathf.Lerp(startColours[i].a, 0f, lerp);
+                mats[i].color = c;
+            }
+
+            yield return null;
+        }
+
+        Destroy(blockGroup);
     }
 
 }

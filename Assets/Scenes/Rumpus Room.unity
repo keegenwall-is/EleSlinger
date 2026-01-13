@@ -412,7 +412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427573384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.8, y: 0, z: 56.2}
+  m_LocalPosition: {x: -60, y: 0, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1934,7 +1934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752684680}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -159.8, y: 4.2, z: -3}
+  m_LocalPosition: {x: 85, y: 4.2, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1984,7 +1984,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 124
   m_CollisionDetection: 3
 --- !u!114 &1752684685
 MonoBehaviour:
@@ -2004,10 +2004,11 @@ MonoBehaviour:
   searchSpeed: 25
   minBroomPosX: -90
   maxBroomPosX: 90
-  minBroomPosZ: -50
-  maxBroomPosZ: 90
+  minBroomPosZ: -60
+  maxBroomPosZ: 60
   indicator: {fileID: 739970406}
   speedIncrement: 1.5
+  pcgScript: {fileID: 427573385}
 --- !u!1001 &1774979629
 PrefabInstance:
   m_ObjectHideFlags: 0

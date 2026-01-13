@@ -16,11 +16,13 @@ public class BroomBehaviour : MonoBehaviour
     public float maxBroomPosZ;
     public Image indicator;
     public float speedIncrement;
+    public PCGRumpusRoom pcgScript;
 
     private broomState currentState;
     private Rigidbody rb;
     private bool movingLeft = true;
     private bool movingUp = true;
+    private float zSweep = 0f;
 
     public enum broomState
     {
@@ -42,7 +44,7 @@ public class BroomBehaviour : MonoBehaviour
         if (currentState == broomState.Searching)
         {
             //Detect players to see when to sweep
-            RaycastHit hit;
+            /*RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
                 if (hit.collider.CompareTag("Player"))
@@ -50,7 +52,12 @@ public class BroomBehaviour : MonoBehaviour
                     SetState(broomState.Found);
                 }
             }
-            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red);
+            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red);*/
+            if (Mathf.RoundToInt(transform.position.z) == zSweep)
+            {
+                //transform.position.z = zSweep;
+                SetState(broomState.Found);
+            }
 
             //handle searching movement
             if (movingUp)
@@ -108,6 +115,16 @@ public class BroomBehaviour : MonoBehaviour
         switch (state)
         {
             case broomState.Searching:
+                rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+                switch (zSweep / 30)
+                {
+                    case 2: pcgScript.RegenerateRow(0); break;
+                    case 1: pcgScript.RegenerateRow(1); break;
+                    case 0: pcgScript.RegenerateRow(2); break;
+                    case -1: pcgScript.RegenerateRow(3); break;
+                    case -2: pcgScript.RegenerateRow(4); break;
+                }
+                zSweep = Random.Range(-2, 3) * 30;
                 indicator.color = new Color(1, 1, 0);
                 break;
             case broomState.Found:
@@ -115,6 +132,7 @@ public class BroomBehaviour : MonoBehaviour
                 StartCoroutine(SweepAlert());
                 break;
             case broomState.Sweeping:
+                rb.constraints |= RigidbodyConstraints.FreezePositionZ;
                 broomSpeed += speedIncrement;
                 //Speed capped because if broom is too fast ray cast wont capture it.
                 if (searchSpeed <= 175)

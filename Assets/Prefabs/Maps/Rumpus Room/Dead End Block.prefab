@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1193608322552630555}
   - component: {fileID: 915274309036072347}
+  - component: {fileID: 701322031053125127}
   m_Layer: 0
   m_Name: Dead End Block
   m_TagString: Untagged
@@ -55,6 +56,23 @@ MonoBehaviour:
   down: 0
   right: 0
   pieceType: 0
+--- !u!114 &701322031053125127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915274309036072346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1afc9bcdcd8ca5c46b3de56f19ed1e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colours:
+  - {fileID: 2100000, guid: 0aa02bb43cf58ee4b837c0c8b81139cb, type: 2}
+  - {fileID: 2100000, guid: 4d7f08aadf5d71d4d83c28e398e6b17a, type: 2}
+  - {fileID: 2100000, guid: 7084aa6c88326ca4dbea5452d3d199b6, type: 2}
+  - {fileID: 2100000, guid: 05946570b9b400744a1df7a5ac8e9594, type: 2}
 --- !u!1 &2861540714255373593
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +88,7 @@ GameObject:
   - component: {fileID: 843835243814302022}
   - component: {fileID: 8392922513190561960}
   - component: {fileID: 7974504394248064873}
+  - component: {fileID: 1840338340208723636}
   m_Layer: 0
   m_Name: Cube (16)
   m_TagString: Block
@@ -195,6 +214,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1840338340208723636
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2861540714255373593}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3552890657978445876
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +249,7 @@ GameObject:
   - component: {fileID: 8565676293329210575}
   - component: {fileID: 6285780744409445046}
   - component: {fileID: 3739633915254107065}
+  - component: {fileID: 5805542984761239212}
   m_Layer: 0
   m_Name: Cube (15)
   m_TagString: Block
@@ -335,6 +375,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5805542984761239212
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552890657978445876}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5595338143084078402
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +410,7 @@ GameObject:
   - component: {fileID: 5595338143084078406}
   - component: {fileID: 5595338143084078407}
   - component: {fileID: 5595338143084078404}
+  - component: {fileID: 1230165161404705082}
   m_Layer: 0
   m_Name: Cube (18)
   m_TagString: Block
@@ -475,6 +536,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1230165161404705082
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595338143084078402}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5595338143257127081
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +571,7 @@ GameObject:
   - component: {fileID: 5595338143257127085}
   - component: {fileID: 5595338143257127082}
   - component: {fileID: 5595338143257127083}
+  - component: {fileID: 2079352002842340200}
   m_Layer: 0
   m_Name: Cube (19)
   m_TagString: Block
@@ -615,6 +697,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2079352002842340200
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595338143257127081}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5676147319820477962
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +732,7 @@ GameObject:
   - component: {fileID: 5482797792320552752}
   - component: {fileID: 4301226354980452747}
   - component: {fileID: 7612659378122236960}
+  - component: {fileID: 3825861102237389162}
   m_Layer: 0
   m_Name: Cube (12)
   m_TagString: Block
@@ -755,6 +858,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3825861102237389162
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676147319820477962}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8515902405934146164
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +893,7 @@ GameObject:
   - component: {fileID: 4116449283238483864}
   - component: {fileID: 8384410011210306784}
   - component: {fileID: 355215518924844854}
+  - component: {fileID: 7049200220751454588}
   m_Layer: 0
   m_Name: Cube (13)
   m_TagString: Block
@@ -895,3 +1019,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b2fae75b8a6a343b8ab798d6e79377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7049200220751454588
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8515902405934146164}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e649cb77a59d4a243b415866b6c0516e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
