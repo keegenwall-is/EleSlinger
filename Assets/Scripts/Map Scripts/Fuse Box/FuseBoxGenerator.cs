@@ -9,12 +9,25 @@ public class FuseBoxGenerator : MonoBehaviour
 
     public GameObject map;
     public Material chordMat;
-    public GameObject fuseObjects;
+    public GameObject[] fuseObjects;
+    public Vector3[] positions;
     public LayerMask hitLayers;
+    public float startDist;
+    public int minChordLength;
+    public int maxChordLength;
+    public float minWait;
+    public float maxWait;
+    public float elecTime;
+    public int noOfFlashes;
+    public Material baseMat;
+    public Material warningMat;
+    public Material elecMat;
+    public GameObject[] itemSpawners;
 
     public List<Transform> allPoints = new List<Transform>();
     public List<Transform> chordStartPoints = new List<Transform>();
     public List<Transform> chordEndPoints = new List<Transform>();
+    private List<GameObject> destroyedEndPoints = new List<GameObject>();
 
     void Awake()
     {
@@ -24,12 +37,27 @@ public class FuseBoxGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 2; i++)
+        //For spawning item blocks, give them a collider so that the chords dont spawn on the top of them and then remove them later
+        for (int i = fuseObjects.Length - 1; i > 0; i--)
         {
-            GameObject thisbox = Instantiate(fuseObjects, map.transform);
-            thisbox.transform.position += Vector3.right * 40 * i;
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (fuseObjects[i], fuseObjects[j]) = (fuseObjects[j], fuseObjects[i]);
         }
 
+        for (int i = positions.Length - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (positions[i], positions[j]) = (positions[j], positions[i]);
+        }
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            GameObject thisbox = Instantiate(fuseObjects[i % fuseObjects.Length], map.transform);
+            thisbox.transform.position = positions[i];
+            float randY = UnityEngine.Random.Range(0, 2);
+            thisbox.transform.rotation = Quaternion.Euler(0, randY * 180, 0);
+        }
+        
         //Force the objects to be instantiated before using sphere cast
         Physics.SyncTransforms();
 
@@ -67,10 +95,14 @@ public class FuseBoxGenerator : MonoBehaviour
             //Move through the entire list except for the first item
             for (int i = 1; i < allPoints.Count; i++)
             {
-                Vector3 startPos = allPoints[0].position + allPoints[0].forward * 5f;
-                Vector3 endPos = allPoints[i].position + allPoints[i].forward * 5f;
+                Vector3 startPos = allPoints[0].position + allPoints[0].forward * startDist;
+                Vector3 endPos = allPoints[i].position + allPoints[i].forward * startDist;
                 Vector3 checkDir = endPos - startPos;
                 float dis = checkDir.magnitude;
+                if (dis < minChordLength || dis > maxChordLength)
+                {
+                    continue;
+                }
                 checkDir.Normalize();
 
                 // if nothing is blocking the sphere cast then we have a match, remove them from all points
@@ -101,9 +133,9 @@ public class FuseBoxGenerator : MonoBehaviour
             SplineContainer container = spline.AddComponent<SplineContainer>();
 
             Vector3 start = chordStartPoints[i].position;
-            Vector3 beta = start + chordStartPoints[i].forward * 5f;
+            Vector3 beta = start + chordStartPoints[i].forward * startDist;
             Vector3 end = chordEndPoints[i].position;
-            Vector3 penult = end + chordEndPoints[i].forward * 5f;
+            Vector3 penult = end + chordEndPoints[i].forward * startDist;
 
             container.Spline.Add(new BezierKnot(start));
             container.Spline.Add(new BezierKnot(beta));
@@ -125,12 +157,16 @@ public class FuseBoxGenerator : MonoBehaviour
             MeshRenderer mr = spline.GetComponent<MeshRenderer>();
             mr.material = chordMat;
 
-            int subdivisions = 100;
+            SplineChord chordScript = spline.AddComponent<SplineChord>();
+            chordScript.SetMats(baseMat, warningMat, elecMat);
+            chordScript.SetWait(minWait, maxWait, elecTime);
+            chordScript.SetNoOfFlashes(noOfFlashes);
+
             float splineLength = container.CalculateLength();
 
-            for (int j = 0; j <= subdivisions; j++)
+            for (int j = 0; j <= maxChordLength; j++)
             {
-                float t = j / (float)subdivisions;
+                float t = j / (float)maxChordLength;
                 Vector3 pos = container.EvaluatePosition(t);
 
                 GameObject triggerPoint = new GameObject("SplineTrigger_" + j);
@@ -140,8 +176,16 @@ public class FuseBoxGenerator : MonoBehaviour
                 SphereCollider sc = triggerPoint.AddComponent<SphereCollider>();
                 sc.isTrigger = true;
                 sc.radius = extrude.radius;
-                triggerPoint.AddComponent<SplineChord>();
+                sc.enabled = false;
+                triggerPoint.AddComponent<Obstacle>();
             }
+        }
+
+        //Spawners start with colliders so that chords will not be spawned over the top of them
+        //Need to turn these off before play
+        foreach (GameObject spawner in itemSpawners)
+        {
+            spawner.GetComponent<CapsuleCollider>().enabled = false;
         }
     }
 
