@@ -7,11 +7,15 @@ public class MeleeBehaviour : AttackBase
 
     public float meleePower;
     public float meleeTime;
+    public AudioSource audioPlayer;
+    public AudioClip[] hitSounds;
+    public AudioClip failedHitSound;
+    public float volume;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     protected override float SetDeleteTime()
@@ -28,5 +32,17 @@ public class MeleeBehaviour : AttackBase
     public override float GetPower()
     {
         return meleePower;
+    }
+
+    public override void AttackSound(bool successfulHit, HitBehaviour hitScript)
+    {
+        if (successfulHit)
+        {
+            audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
+        }
+        else
+        {
+            audioPlayer.PlayOneShot(failedHitSound, volume);
+        }
     }
 }

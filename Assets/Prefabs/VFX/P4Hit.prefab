@@ -4892,10 +4892,10 @@ MonoBehaviour:
   destroyAfterSeconds: 2
   audioPlayer: {fileID: 0}
   hitSounds:
-  - {fileID: 8300000, guid: 91c312c926f987c46bb3fe19663765a6, type: 3}
-  - {fileID: 8300000, guid: ff5cc5d0ff46c724baf041cfd2ab8b03, type: 3}
-  - {fileID: 8300000, guid: 2c75a1169f3c42d4ca648b1eadf51ab5, type: 3}
-  failedHitSound: {fileID: 8300000, guid: b0f8ca2dea5ed0943b758408bab3f637, type: 3}
+  - {fileID: 8300000, guid: 9bb588eeeb8333e4588401e9fe02ff8d, type: 3}
+  - {fileID: 8300000, guid: e3ba4cdf195514947bf78ec8afa88631, type: 3}
+  - {fileID: 8300000, guid: 4aa8463e690eba34db4bebb35fa3f9cc, type: 3}
+  failedHitSound: {fileID: 8300000, guid: 59ecfdbf072c4384f9d9e5c59cf1a74b, type: 3}
 --- !u!82 &6479521554827149730
 AudioSource:
   m_ObjectHideFlags: 0

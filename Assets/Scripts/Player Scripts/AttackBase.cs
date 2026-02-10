@@ -7,6 +7,7 @@ public class AttackBase : MonoBehaviour
 
     public GameObject thrower;
     public GameObject hit;
+    public bool successfulHit;
 
     private GameObject thisHit;
     private float deleteTime;
@@ -63,11 +64,11 @@ public class AttackBase : MonoBehaviour
 
             if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive Obj")
             {
-                hitScript.SetSuccessfulHit(true);
+                AttackSound(true, hitScript);
             }
             else
             {
-                hitScript.SetSuccessfulHit(false);
+                AttackSound(false, hitScript);
             }
 
             DeleteEarly();
@@ -93,6 +94,11 @@ public class AttackBase : MonoBehaviour
     public virtual float GetPower()
     {
         return 1f;
+    }
+
+    public virtual void AttackSound(bool successfulHit, HitBehaviour hitScript)
+    {
+        
     }
 
     protected virtual void DeleteEarly()

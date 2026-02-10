@@ -41,6 +41,11 @@ public class ProjectileBehaviour : AttackBase
         return transform.localScale.x;
     }
 
+    public override void AttackSound(bool successfulHit, HitBehaviour hitScript)
+    {
+        hitScript.SetSuccessfulHit(successfulHit);
+    }
+
     protected override void DeleteEarly()
     {
         Destroy(gameObject);
