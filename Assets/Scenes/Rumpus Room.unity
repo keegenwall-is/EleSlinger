@@ -395,8 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0309e162655dcd84da22802f121a1a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 5
-  cols: 5
+  rows: 4
+  cols: 4
   cellSize: 30
   mapPieces:
   - {fileID: 1313220227050324379, guid: e0952f63a9d7f174c80c085d3ec631fc, type: 3}
