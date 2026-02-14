@@ -225,7 +225,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   startDist: 2.5
-  minChordLength: 20
+  minChordLength: 10
   maxChordLength: 43
   minWait: 5
   maxWait: 10
