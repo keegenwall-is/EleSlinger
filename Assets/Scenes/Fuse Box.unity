@@ -224,8 +224,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 0
-  startDist: 3
-  minChordLength: 5
+  startDist: 2.5
+  minChordLength: 20
   maxChordLength: 43
   minWait: 5
   maxWait: 10

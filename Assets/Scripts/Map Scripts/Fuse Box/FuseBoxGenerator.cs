@@ -139,6 +139,22 @@ public class FuseBoxGenerator : MonoBehaviour
 
             container.Spline.Add(new BezierKnot(start));
             container.Spline.Add(new BezierKnot(beta));
+            
+            if (beta.y != 1.0f)
+            {
+                Vector3 betaDown = beta;
+                betaDown.y = 1.0f;
+                betaDown += chordStartPoints[i].forward;
+                container.Spline.Add(new BezierKnot(betaDown));
+            }
+            if (penult.y != 1.0f)
+            {
+                Vector3 penultDown = penult;
+                penultDown.y = 1.0f;
+                penultDown += chordEndPoints[i].forward;
+                container.Spline.Add(new BezierKnot(penultDown));
+            }
+
             container.Spline.Add(new BezierKnot(penult));
             container.Spline.Add(new BezierKnot(end));
 

@@ -118,13 +118,20 @@ public class BroomBehaviour : MonoBehaviour
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
                 switch (zSweep / 30)
                 {
-                    case 2: pcgScript.RegenerateRow(0); break;
-                    case 1: pcgScript.RegenerateRow(1); break;
-                    case 0: pcgScript.RegenerateRow(2); break;
-                    case -1: pcgScript.RegenerateRow(3); break;
-                    case -2: pcgScript.RegenerateRow(4); break;
+                    case 1:
+                        pcgScript.RegenerateRow(0);
+                        pcgScript.RegenerateRow(1);
+                        break;
+                    case 0:
+                        pcgScript.RegenerateRow(1);
+                        pcgScript.RegenerateRow(2);
+                        break;
+                    case -1:
+                        pcgScript.RegenerateRow(2);
+                        pcgScript.RegenerateRow(3);
+                        break;
                 }
-                zSweep = Random.Range(-2, 3) * 30;
+                zSweep = Random.Range(-1, 2) * 30;
                 indicator.color = new Color(1, 1, 0);
                 break;
             case broomState.Found:
