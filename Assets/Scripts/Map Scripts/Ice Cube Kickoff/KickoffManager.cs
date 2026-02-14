@@ -78,7 +78,7 @@ public class KickoffManager : MinigameManager
 
         for (int i = 0; i < players.Count; i++)
         {
-            if (goals[i] == other)
+            /*if (goals[i] == other)
             {
                 if (playerScores[i] > 0)
                 {
@@ -87,6 +87,13 @@ public class KickoffManager : MinigameManager
                     StartCoroutine(ScoreAnimation(false, players[i]));
                 }
             } else if (players[i] == player)
+            {
+                playerScores[i]++;
+                scores[i].text = playerScores[i].ToString();
+                StartCoroutine(ScoreAnimation(true, player));
+            }*/
+
+        if (players[i] == player)
             {
                 playerScores[i]++;
                 scores[i].text = playerScores[i].ToString();

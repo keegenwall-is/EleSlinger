@@ -12,6 +12,7 @@ public class IceCubeBehaviour : MonoBehaviour
     public float destroyTime;
     public float pushMultiplier;
     public Transform frostTrans;
+    public float fanPower;
 
     private Vector3 randomDir;
     private MinigameManager managerScript;
@@ -102,6 +103,14 @@ public class IceCubeBehaviour : MonoBehaviour
             //Increase and decrease scores and spawn new ice cube
             managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
             StartCoroutine(DestroyAfterTime());
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name.Contains("Fan"))
+        {
+            rb.AddForce(-other.transform.up * fanPower, ForceMode.Force);
         }
     }
 
