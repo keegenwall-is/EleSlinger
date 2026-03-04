@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6374c85e16bf7e84e8ba2a8ba0937097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 35
+  speed: 30
   bumpSpeed: 2.5
   rayDistance: 1000
   warning: {fileID: 4252068562726953708}
