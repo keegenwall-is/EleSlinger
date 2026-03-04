@@ -52,14 +52,14 @@ public class FootBehaviour : MonoBehaviour
             if (lastStomped == null)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, -transform.up, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(transform.position, -transform.forward, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
                 {
                     if (hit.collider.CompareTag("Player"))
                     {
                         SetState(footState.Stomping);
                     }
                 }
-                Debug.DrawRay(transform.position, -transform.up * rayDistance, Color.red);
+                Debug.DrawRay(transform.position, -transform.forward * rayDistance, Color.red);
             }
 
             //Timer for chasing down one opponent
@@ -107,11 +107,11 @@ public class FootBehaviour : MonoBehaviour
         }
         else if (currentState == footState.Stomping)
         {
-            rb.velocity = -transform.up * stompSpeed;
+            rb.velocity = -transform.forward * stompSpeed;
         }
         else if (currentState == footState.Lifting)
         {
-            rb.velocity = transform.up * liftSpeed;
+            rb.velocity = transform.forward * liftSpeed;
 
             if (transform.position.y > footHeight)
             {

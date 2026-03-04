@@ -35,6 +35,12 @@ public class CameraMovement : MonoBehaviour
         players.AddRange(GameObject.FindGameObjectsWithTag("Immune"));
     }
 
+    public void FindPlayer(GameObject player)
+    {
+        players.Clear();
+        players.Add(player);
+    }
+
     private void LateUpdate()
     {
         if (players == null || players.Count == 0)

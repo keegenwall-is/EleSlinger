@@ -10,6 +10,8 @@ public class PCGRumpusRoom : MonoBehaviour
     public int cols;
     public float cellSize;
     public ChordConnector[] mapPieces;
+    public Material cubeTransMat;
+    public Material rectTransMat;
 
     private (ChordConnector, int rotation)[,] mapSections;
     private List<GameObject> spawnedPieces = new List<GameObject>();
@@ -55,7 +57,7 @@ public class PCGRumpusRoom : MonoBehaviour
             for (int rotation = 0; rotation < 4; rotation++)
             {
                 bool[] connections = connector.GetConnections(rotation);
-                if (IsValid(row, col, connections))
+                if (IsValid(row, col, connections, connector))
                 {
                     validPieces.Add((connector, rotation));
                 }
@@ -78,7 +80,7 @@ public class PCGRumpusRoom : MonoBehaviour
 
     }
 
-    bool IsValid(int row, int col, bool[] connections)
+    bool IsValid(int row, int col, bool[] connections, ChordConnector connector)
     {
         //Checking if connectors have pieces leading to the edge of the map
         if (row == 0 && connections[0])
@@ -94,6 +96,11 @@ public class PCGRumpusRoom : MonoBehaviour
             return false;
         }
         if (col == cols - 1 && connections[3])
+        {
+            return false;
+        }
+
+        if (((row == 0 && col == 0) || (row == rows - 1 && col == 0) || (row == 0 && col == cols - 1) || (row == rows - 1 && col == cols - 1)) && connector.gameObject.name.Contains("1"))
         {
             return false;
         }
@@ -257,11 +264,14 @@ public class PCGRumpusRoom : MonoBehaviour
 
         foreach (Transform child in blockGroup.transform)
         {
-            MeshRenderer mr = child.GetComponent<MeshRenderer>();
-            mats.Add(mr.material);
-            startColours.Add(mr.material.GetColor("_BaseColor"));
-            BoxCollider bc = child.GetComponent<BoxCollider>();
-            bc.enabled = false;
+            if (child.gameObject.name.Contains("Block") || child.gameObject.name.Contains("Stuffy"))
+            {
+                MeshRenderer mr = child.GetComponent<MeshRenderer>();
+                mats.Add(mr.material);
+                startColours.Add(mr.material.GetColor("_BaseColor"));
+                BoxCollider bc = child.GetComponent<BoxCollider>();
+                bc.enabled = false;
+            }
         }
 
         float t = 0;

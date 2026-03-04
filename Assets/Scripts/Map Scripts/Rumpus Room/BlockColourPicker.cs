@@ -13,9 +13,12 @@ public class BlockColourPicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Transform child in transform)
+        /*foreach (Transform child in transform)
         {
-            blocks.Add(child.gameObject);
+            if (child.gameObject.name.Contains("Cube"))
+            {
+                blocks.Add(child.gameObject);
+            }
         }
 
         randMat = colours[Random.Range(0, 4)];
@@ -23,6 +26,6 @@ public class BlockColourPicker : MonoBehaviour
         {
             MeshRenderer mr = block.GetComponent<MeshRenderer>();
             mr.material = randMat;
-        }
+        }*/
     }
 }

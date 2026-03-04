@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -113,7 +114,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public void LoadRandomMinigame()
@@ -143,7 +144,7 @@ public class GameController : MonoBehaviour
         }
 
         // Pick one random unplayed map
-        int chosenMap = unplayedMaps[Random.Range(0, unplayedMaps.Count)];
+        int chosenMap = unplayedMaps[UnityEngine.Random.Range(0, unplayedMaps.Count)];
         mapPlayed[chosenMap] = true;
         SceneManager.LoadScene(chosenMap + 2);
 
@@ -165,7 +166,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SpawnPlayers()
+    public void SpawnPlayers(bool splitScreen)
     {
         //There are new spawn points in every scene
         spawnPoints.Clear();
@@ -215,12 +216,41 @@ public class GameController : MonoBehaviour
 
                 players.Add(newPlayer);
             }
-        }
 
-        //Once the players have been loaded into the scene, add players to the bounds of the camera
-        GameObject[] Cam = GameObject.FindGameObjectsWithTag("MainCamera");
-        CameraMovement camMoveScript = Cam[0].GetComponent<CameraMovement>();
-        camMoveScript.FindPlayers();
+            GameObject[] cams = GameObject.FindGameObjectsWithTag("MainCamera");
+            Array.Sort(cams, (x, y) => x.name.CompareTo(y.name));
+
+            if (splitScreen)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    cams[i].GetComponent<CameraMovement>().FindPlayer(players[i]);
+                }
+
+                if (playerNo == 2)
+                {
+                    Camera cam1 = cams[0].GetComponent<Camera>();
+                    Rect r1 = cam1.rect;
+                    r1.y = 0f;
+                    r1.height = 1f;
+                    cam1.rect = r1;
+
+                    Camera cam2 = cams[1].GetComponent<Camera>();
+                    Rect r2 = cam2.rect;
+                    r2.y = 0f;
+                    r2.height = 1f;
+                    cam2.rect = r2;
+
+                    //cams[2].SetActive(false);
+                    //cams[3].SetActive(false);
+                }
+            }
+            else
+            {
+                CameraMovement camMoveScript = cams[0].GetComponent<CameraMovement>();
+                camMoveScript.FindPlayers();
+            }
+        }
     }
 
     public void IncreaseRoundWins(GameObject player)

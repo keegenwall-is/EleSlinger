@@ -21,13 +21,16 @@ public class HitBehaviour : MonoBehaviour
         float volume = Mathf.Clamp01(transform.localScale.magnitude / 3f);
 
         //Audio volume is determined by size of hit
-        if (successfulHit)
+        if (failedHitSound != null)
         {
-            audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
-        }
-        else
-        {
-            audioPlayer.PlayOneShot(failedHitSound, volume);
+            if (successfulHit)
+            {
+                audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
+            }
+            else
+            {
+                audioPlayer.PlayOneShot(failedHitSound, volume);
+            }
         }
     }
 

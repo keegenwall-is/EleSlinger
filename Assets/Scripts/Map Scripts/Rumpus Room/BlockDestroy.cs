@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BlockDestroy : MonoBehaviour
 {
+    public float broomForce;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,20 @@ public class BlockDestroy : MonoBehaviour
         if (other.gameObject.name == "Broom")
         {
             rb.constraints = RigidbodyConstraints.None;
-            rb.AddForce(other.transform.forward + transform.up * 2, ForceMode.Impulse);
+            rb.mass = 1;
+            rb.WakeUp();
+            Vector3 forceDir = (other.transform.forward + transform.up).normalized;
+            rb.AddForce(forceDir * broomForce, ForceMode.Impulse);
+        }
+
+        if (other.gameObject.name.Contains("Foot"))
+        {
+            if (rb != null)
+            {
+                rb.constraints = RigidbodyConstraints.None;
+                rb.mass = 1;
+                rb.WakeUp();
+            }
         }
     }
 }

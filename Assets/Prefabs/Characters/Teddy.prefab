@@ -1802,6 +1802,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 381570104190802297}
     m_Modifications:
+    - target: {fileID: 3452168049762824709, guid: 1b1e68c24667ea8479e11060964314c6, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3452168049762824710, guid: 1b1e68c24667ea8479e11060964314c6, type: 3}
       propertyPath: m_Name
       value: Instructor

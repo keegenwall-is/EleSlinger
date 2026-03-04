@@ -19,6 +19,7 @@ public class MinigameManager : MonoBehaviour
     public GameObject gameUI;
     public GameObject[] spawnPoints;
     public Text[] scoreUpdates;
+    public bool splitScreen;
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -52,7 +53,7 @@ public class MinigameManager : MonoBehaviour
         }
         else
         {
-            gameController.SpawnPlayers();
+            gameController.SpawnPlayers(splitScreen);
             ActivateUI("Player UI");
         }
     }
@@ -171,8 +172,9 @@ public class MinigameManager : MonoBehaviour
             roundBegun = true;
             readyMenu.SetActive(false);
             gameUI.SetActive(true);
-            gameController.SpawnPlayers();
+            gameController.SpawnPlayers(splitScreen);
             ActivateUI("Player UI");
+            OnAllReady();
         }
     }
 
@@ -292,5 +294,10 @@ public class MinigameManager : MonoBehaviour
     protected virtual void OnMinigameEnd()
     {
         //Determine winner
+    }
+
+    protected virtual void OnAllReady()
+    {
+
     }
 }
