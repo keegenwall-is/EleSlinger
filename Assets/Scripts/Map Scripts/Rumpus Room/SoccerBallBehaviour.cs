@@ -9,6 +9,8 @@ public class SoccerBallBehaviour : MonoBehaviour
     public float pushMultiplier;
     public float fireExtinguishThreshold;
     public float maxHeight;
+    public AudioSource audioPlayer;
+    public AudioClip igniteSound;
 
     private Rigidbody rb;
     private GameObject thrower;
@@ -29,11 +31,6 @@ public class SoccerBallBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (thisFireBall != null)
-        {
-            thisFireBall.transform.rotation = Quaternion.identity;
-        }*/
-
         if (transform.position.y < -5f)
         {
             Destroy(gameObject);
@@ -91,6 +88,8 @@ public class SoccerBallBehaviour : MonoBehaviour
 
     private IEnumerator SetFireAfterTime()
     {
+        audioPlayer.PlayOneShot(igniteSound);
+
         yield return new WaitForSeconds(0.1f);
 
         thisFireBall = Instantiate(fireBall, gameObject.transform);

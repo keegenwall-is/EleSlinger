@@ -809,7 +809,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3e1c6c111c50dd74aa447b9a93fb8a9d, type: 2}
   - {fileID: 2100000, guid: ce771772cc35be74bbedf5ce26de41ef, type: 2}
   instruction: {fileID: 1094163464}
-  playerIndicator: {fileID: 1171163628}
+  playerIdentifier: {fileID: 0}
 --- !u!114 &555619494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1801,7 +1801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381570104190802297, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -17.08
       objectReference: {fileID: 0}
     - target: {fileID: 381570104190802297, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1835,6 +1835,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teddy
       objectReference: {fileID: 0}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}

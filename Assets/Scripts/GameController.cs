@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void LoadRandomMinigame()
@@ -166,7 +166,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SpawnPlayers(bool splitScreen)
+    public void SpawnPlayers(bool splitScreen, bool teamGame)
     {
         //There are new spawn points in every scene
         spawnPoints.Clear();
@@ -188,32 +188,23 @@ public class GameController : MonoBehaviour
                 PlayerMelee meleeScript = newPlayer.GetComponent<PlayerMelee>();
                 Image indicatorImg = attackScript.indicator.transform.GetChild(0).GetComponent<Image>();
                 baseScript.SetController(playerControllers[i]);
-                baseScript.KO = KOEffects[i];
-                baseScript.playerIdentifier.color = playerColours[i];
-                indicatorImg.color = playerColours[i];
-                attackScript.projectile = ProjEffects[i];
-                attackScript.charge = ChargeEffects[i];
-                meleeScript.melee = MeleeEffects[i];
-                switch (i)
+
+                int num = i;
+                if (i == 2 && teamGame)
                 {
-                    case 0:
-                        baseScript.playerIdentifier.color = new Color32(0, 255, 231, 255);
-                        indicatorImg.color = new Color32(0, 255, 231, 255);
-                        break;
-                    case 1:
-                        baseScript.playerIdentifier.color = new Color32(255, 59, 48, 255);
-                        indicatorImg.color = new Color32(255, 59, 48, 255);
-                        break;
-                    case 2:
-                        baseScript.playerIdentifier.color = new Color32(166, 255, 77, 255);
-                        indicatorImg.color = new Color32(166, 255, 77, 255);
-                        break;
-                    case 3:
-                        baseScript.playerIdentifier.color = new Color32(255, 165, 0, 255);
-                        indicatorImg.color = new Color32(255, 165, 0, 255);
-                        break;
+                    num = 0;
+                }
+                else if (i == 3 && teamGame)
+                {
+                    num = 1;
                 }
 
+                baseScript.KO = KOEffects[num];
+                baseScript.playerIdentifier.color = playerColours[num];
+                indicatorImg.color = playerColours[num];
+                attackScript.projectile = ProjEffects[num];
+                attackScript.charge = ChargeEffects[num];
+                meleeScript.melee = MeleeEffects[num];
                 players.Add(newPlayer);
             }
 
@@ -240,9 +231,6 @@ public class GameController : MonoBehaviour
                     r2.y = 0f;
                     r2.height = 1f;
                     cam2.rect = r2;
-
-                    //cams[2].SetActive(false);
-                    //cams[3].SetActive(false);
                 }
             }
             else

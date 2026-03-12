@@ -12,10 +12,33 @@ public class MeleeBehaviour : AttackBase
     public AudioClip failedHitSound;
     public float volume;
 
+    private bool success;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(PlaySound());
+    }
+
+    private IEnumerator PlaySound()
+    {
+        yield return new WaitForFixedUpdate();
+        if (success)
+        {
+            print("play sound success");
+            audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
+        }
+        else
+        {
+            print("play sound fail");
+            audioPlayer.PlayOneShot(failedHitSound, volume);
+        }
+    }
+
+    protected override void SetSuccessfulHit(bool success, HitBehaviour hitScript)
+    {
+        print(success);
+        this.success = success;
     }
 
     protected override float SetDeleteTime()
@@ -32,17 +55,5 @@ public class MeleeBehaviour : AttackBase
     public override float GetPower()
     {
         return meleePower;
-    }
-
-    public override void AttackSound(bool successfulHit, HitBehaviour hitScript)
-    {
-        if (successfulHit)
-        {
-            audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
-        }
-        else
-        {
-            audioPlayer.PlayOneShot(failedHitSound, volume);
-        }
     }
 }

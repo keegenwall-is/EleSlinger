@@ -618,6 +618,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teddy
       objectReference: {fileID: 0}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
+    - target: {fileID: 3631488061308505745, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d8f3d800a1f2854bb0593ef6c1ea870, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}

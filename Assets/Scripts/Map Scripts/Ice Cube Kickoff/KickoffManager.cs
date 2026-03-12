@@ -17,10 +17,11 @@ public class KickoffManager : MinigameManager
     public GameObject popsicleFrost;
     public float iceSpawnCD;
     public float popsicleSpawnCD;
-    public GameObject[] goalBlockers;
     public int iceMashes;
+    public GameObject iceNova;
+    public GameObject[] playerSpawners; 
 
-    private int[] playerScores = { -1, -1, -1, -1 };
+    private int[] playerScores = { 0, 0 };
     private float iceSpawnCurrent;
     private float popsicleSpawnCurrent;
     private int randIceSpawn;
@@ -30,21 +31,19 @@ public class KickoffManager : MinigameManager
     // Start is called before the first frame update
     void Start()
     {
-        //Player scores of players who aren't playing are still -1 and so won't affect game logic
-        for (int i = 0; i < playerNo; i++)
+        if (playerNo <= 2)
         {
-            playerScores[i] = 0;
+            Vector3 spawnPos = playerSpawners[0].transform.position;
+            spawnPos.z = 0;
+            playerSpawners[0].transform.position = spawnPos;
         }
 
-        if (playerNo == 3)
+        if (playerNo <= 3)
         {
-            Destroy(goalBlockers[0]);
-        } else if (playerNo == 4)
-        {
-            Destroy(goalBlockers[0]);
-            Destroy(goalBlockers[1]);
+            Vector3 spawnPos = playerSpawners[1].transform.position;
+            spawnPos.z = 0;
+            playerSpawners[1].transform.position = spawnPos;
         }
-        //Get rid of the goals that arent being used;
     }
 
     protected override void OnTick()
@@ -76,28 +75,22 @@ public class KickoffManager : MinigameManager
     {
         //increase score for player who shot the goal and decrease for the goal scored against
 
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < goals.Count; i++)
         {
-            /*if (goals[i] == other)
+            if (goals[i] == other)
             {
-                if (playerScores[i] > 0)
+                if (i == 1)
                 {
-                    playerScores[i]--;
-                    scores[i].text = playerScores[i].ToString();
-                    StartCoroutine(ScoreAnimation(false, players[i]));
+                    playerScores[0]++;
+                    scores[0].text = playerScores[0].ToString();
+                    StartCoroutine(ScoreAnimation(true, players[0]));
                 }
-            } else if (players[i] == player)
-            {
-                playerScores[i]++;
-                scores[i].text = playerScores[i].ToString();
-                StartCoroutine(ScoreAnimation(true, player));
-            }*/
-
-        if (players[i] == player)
-            {
-                playerScores[i]++;
-                scores[i].text = playerScores[i].ToString();
-                StartCoroutine(ScoreAnimation(true, player));
+                else
+                {
+                    playerScores[1]++;
+                    scores[1].text = playerScores[1].ToString();
+                    StartCoroutine(ScoreAnimation(true, players[1]));
+                }
             }
         }
 
@@ -113,46 +106,21 @@ public class KickoffManager : MinigameManager
 
         Vector3 spawnPos = actor.transform.position;
         spawnPos.y += 4.0f;
-        GameObject thisPopFrost = Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
-        thisPopFrost.transform.localScale /= 50;
+        Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
     }
 
     public override void HandleSpecialAttack(GameObject hitPlayer, GameObject thrower)
     {
-        Vector3 spawnPos = hitPlayer.transform.position;
-        spawnPos.y += 2.5f;
-        GameObject thisIce = Instantiate(popsicleCube, spawnPos, hitPlayer.transform.rotation);
-        hitPlayer.transform.SetParent(thisIce.transform);
-        IceCubeBehaviour iceScript = thisIce.GetComponent<IceCubeBehaviour>();
-        iceScript.SetWillShrink(false);
-        iceScript.SetAttachedPlayer(hitPlayer);
+        GameObject nova = Instantiate(iceNova, hitPlayer.transform.position, Quaternion.identity);
+        nova.GetComponent<IceNovaBehaviour>().SetThrower(thrower);
+        StartCoroutine(DestroyAfterTime(nova));
+    }
 
-        PlayerStunned stunnedScript = hitPlayer.gameObject.GetComponent<PlayerStunned>();
-        stunnedScript.SetMashes(iceMashes);
-        stunnedScript.Stunned();
+    private IEnumerator DestroyAfterTime(GameObject obj)
+    {
+        yield return new WaitForSeconds(0.5f);
 
-        CapsuleCollider hitPlayerCC = hitPlayer.GetComponent<CapsuleCollider>();
-        hitPlayerCC.enabled = false;
-
-        hitPlayer.transform.position = thisIce.transform.position;
-
-        PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
-        attackScript.SetSpecialAttack(false);
-
-        List<GameObject> frosts = new List<GameObject>();
-
-        foreach (Transform child in thrower.transform)
-        {
-            if (child.name.Contains("Pop"))
-            {
-                frosts.Add(child.gameObject);
-            }
-        }
-
-        foreach (GameObject frost in frosts)
-        {
-            Destroy(frost);
-        }
+        Destroy(obj);
     }
 
     protected override void OnMinigameEnd()
@@ -217,12 +185,15 @@ public class KickoffManager : MinigameManager
 
             if (!overTime)
             {
-                for (int i = 0; i < playerScores.Length; i++)
+                if (playerScores[0] == winningScore)
                 {
-                    if (playerScores[i] == winningScore)
-                    {
-                        gameController.IncreaseRoundWins(players[i]);
-                    }
+                    gameController.IncreaseRoundWins(players[0]);
+                    gameController.IncreaseRoundWins(players[2]);
+                }
+                else
+                {
+                    gameController.IncreaseRoundWins(players[1]);
+                    gameController.IncreaseRoundWins(players[3]);
                 }
             }
         }

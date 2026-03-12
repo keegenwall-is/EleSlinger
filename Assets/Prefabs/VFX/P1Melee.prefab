@@ -14651,10 +14651,10 @@ MonoBehaviour:
   meleeTime: 0.3
   audioPlayer: {fileID: 6546121835007593295}
   hitSounds:
-  - {fileID: 8300000, guid: cccaf63217bd39e47abf82d407dcca9b, type: 3}
-  - {fileID: 8300000, guid: 11fe5c1f76582a848a8c4510a9310463, type: 3}
-  failedHitSound: {fileID: 8300000, guid: 15c0438c647d5a9448b3981fd23ae2d8, type: 3}
-  volume: 3
+  - {fileID: 8300000, guid: 99446e62614ced34ab70fd4d9aed008f, type: 3}
+  - {fileID: 8300000, guid: 99446e62614ced34ab70fd4d9aed008f, type: 3}
+  failedHitSound: {fileID: 8300000, guid: ad4a155db65bbd442b91489b16d0cfa9, type: 3}
+  volume: 1
 --- !u!135 &6226303285188898272
 SphereCollider:
   m_ObjectHideFlags: 0

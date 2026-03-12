@@ -41,7 +41,7 @@ public class ProjectileBehaviour : AttackBase
         return transform.localScale.x;
     }
 
-    public override void AttackSound(bool successfulHit, HitBehaviour hitScript)
+    protected override void SetSuccessfulHit(bool successfulHit, HitBehaviour hitScript)
     {
         hitScript.SetSuccessfulHit(successfulHit);
     }
