@@ -28,7 +28,7 @@ public class CarBehaviour : MonoBehaviour
     {
         RaycastHit hit;
 
-        // Cast ray to the left
+        // Cast ray in front
         bool findPlayer = Physics.SphereCast(transform.position, 4f, transform.forward, out hit, rayDistance);
 
         if (findPlayer && hit.collider.CompareTag("Player")) {

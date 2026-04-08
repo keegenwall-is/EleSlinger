@@ -58,8 +58,10 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (baseScript.GetState() != CharacterBase.playerState.TakingHit)
-            rb.velocity = new Vector3(0, 0, 0);
+            if (baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Falling)
+            {
+                rb.velocity = new Vector3(0, 0, 0);
+            }
         }
     }
 
@@ -113,7 +115,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.1f);
 
-        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Stunned)
+        if (baseScript.GetState() == CharacterBase.playerState.Dashing)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }

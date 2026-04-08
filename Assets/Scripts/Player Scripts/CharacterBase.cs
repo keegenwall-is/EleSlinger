@@ -13,6 +13,7 @@ public class CharacterBase: MonoBehaviour
     private PlayerMove playerMove;
     private GameObject thisKO;
     private GameObject jail;
+    private Rigidbody rb;
 
     public InputDevice thisController;
     public Animator anim;
@@ -42,6 +43,7 @@ public class CharacterBase: MonoBehaviour
         Dashing,
         TakingHit,
         Stunned,
+        Falling,
         Dead,
         Out
     }
@@ -55,6 +57,7 @@ public class CharacterBase: MonoBehaviour
         cc = GetComponent<CapsuleCollider>();
         playerMove = GetComponent<PlayerMove>();
         jail = GameObject.FindGameObjectWithTag("Jail");
+        rb = GetComponent<Rigidbody>();
     }
 
     public void SetController(InputDevice device)
@@ -96,6 +99,7 @@ public class CharacterBase: MonoBehaviour
         switch (state)
         {
             case playerState.Idle:
+                rb.constraints |= RigidbodyConstraints.FreezePositionY;
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 if (face != null)
                 {
@@ -159,6 +163,11 @@ public class CharacterBase: MonoBehaviour
                 canMove = false;
                 instruction.SetActive(true);
                 instruction.transform.forward = new Vector3(0, 0, 1);
+                break;
+            case playerState.Falling:
+                rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+                anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
+                canMove = false;
                 break;
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);

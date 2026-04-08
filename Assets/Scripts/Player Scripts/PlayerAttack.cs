@@ -156,7 +156,7 @@ public class PlayerAttack : MonoBehaviour
     public void SpawnProjectile()
     {
         projSpawnPoint = magicSpawner.transform.position;
-        projSpawnPoint.y = projSpawnHeight;
+        projSpawnPoint.y = projSpawnHeight + transform.position.y;
         thisProjectile = Instantiate(projectile, projSpawnPoint, transform.rotation);
         ProjectileBehaviour projScript = thisProjectile.GetComponent<ProjectileBehaviour>();
         projScript.SetThrower(gameObject);
