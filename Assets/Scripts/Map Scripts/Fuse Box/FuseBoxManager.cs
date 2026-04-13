@@ -22,6 +22,8 @@ public class FuseBoxManager : MinigameManager
     public float electricPowerLength;
     public GameObject electricPower;
     public float ePowerSpeedBuff;
+    public GameObject lightning;
+    public GameObject elecHit;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     public GameObject[] itemSpawners;
@@ -61,12 +63,18 @@ public class FuseBoxManager : MinigameManager
             spawnerHasItem[i] = "none";
         }
 
+        //spawning all items for testing
+        /*for (int i = 0; i < spawnTimes.Length; i++)
+        {
+            spawnTimes[i] = 180f - i;
+        }*/
+
         //Random a time in the first 6th of the game
-        spawnTimes[0] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart);
+        spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
         //Random a time in the second 6th of the game
-        spawnTimes[1] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
+        spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
         //Random a time in the third 6th of the game, all items have spawned by half way through the game
-        spawnTimes[2] = Random.Range(gameLengthStart * 1 / 2, gameLengthStart * 2 / 3);
+        spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
     }
 
     protected override void OnTick()
@@ -158,64 +166,20 @@ public class FuseBoxManager : MinigameManager
     {
         //Set state to attacking for the zoom in
         CharacterBase characterBase = player.GetComponent<CharacterBase>();
-        characterBase.SetState(CharacterBase.playerState.Attacking);
-
-        //Freeze the rest of the game
-        Time.timeScale = 0.0f;
-
-        Vector3 startPos = Camera.main.transform.position;
-
-        CameraMovement camScript = Camera.main.GetComponent<CameraMovement>();
-        camScript.enabled = false;
-
-        float elapsed = 0f;
-        float flashInterval = 0.25f;
-        float flashDuration = 0.1f;
-        float nextFlashTime = 0f;
-
-        Vector3 targetPos = player.transform.position + player.transform.forward * 6.0f;
-        targetPos.y += 8.0f;
-
-        Vector3 lookAt = player.transform.position;
-        lookAt.y += 4.0f;
-
-        Camera.main.fieldOfView = 40f;
-        characterBase.SetMaterial("Electric");
-
-        //Moves the camera to look at the powered up characters face
-        while (elapsed < 3.0f)
-        {
-            Camera.main.transform.LookAt(lookAt);
-            Camera.main.transform.position = Vector3.Lerp(startPos, targetPos, elapsed);
-
-            //toggles the material on and off
-            if (elapsed >= nextFlashTime && elapsed < nextFlashTime + flashDuration)
-            {
-                characterBase.SetMaterial("Electric");
-            }
-            else
-            {
-                characterBase.SetMaterial("Material");
-            }
-
-            if (elapsed >= nextFlashTime + flashDuration)
-            {
-                nextFlashTime += flashInterval;
-            }
-            elapsed += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        characterBase.SetMaterial("Electric");
-
-        //Camera returns to normal and game unpauses
-        camScript.enabled = true;
-        Time.timeScale = 1.0f;
         characterBase.SetState(CharacterBase.playerState.Idle);
-
+        characterBase.canMove = false;
         player.tag = "Immune";
+
+        Instantiate(lightning, player.transform.position, Quaternion.identity);
+        Vector3 elecHitPos = player.transform.position;
+        elecHitPos.y += 3f;
+        Instantiate(elecHit, elecHitPos, Quaternion.identity);
+
+        yield return new WaitForSeconds(0.2f);
+        characterBase.canMove = true;
+
         Vector3 spawnPos = player.transform.position;
-        spawnPos.y += 4.0f;
+        spawnPos.y += 3.0f;
         GameObject thisElectricPower = Instantiate(electricPower, spawnPos, player.transform.rotation, player.transform);
 
         PlayerMove playerMove = player.GetComponent<PlayerMove>();

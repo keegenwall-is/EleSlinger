@@ -15,6 +15,7 @@ public class SplineChord : MonoBehaviour
     private float maxWait;
     private float elecTime;
     private int noOfFlashes;
+    private GameObject electricity;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,12 @@ public class SplineChord : MonoBehaviour
     public void SetNoOfFlashes(int noOfFlashes)
     {
         this.noOfFlashes = noOfFlashes;
+    }
+
+    public void SetElectricity(GameObject electricity)
+    {
+        this.electricity = electricity;
+        electricity.SetActive(false);
     }
 
     // Update is called once per frame
@@ -71,7 +78,14 @@ public class SplineChord : MonoBehaviour
 
         foreach (Transform child in gameObject.transform)
         {
-            child.gameObject.GetComponent<SphereCollider>().enabled = true;
+            if (child.gameObject == electricity)
+            {
+                electricity.SetActive(true);
+            }
+            else
+            {
+                child.gameObject.GetComponent<SphereCollider>().enabled = true;
+            }
         }
 
         mr.material = elecMat;
@@ -82,7 +96,14 @@ public class SplineChord : MonoBehaviour
 
         foreach (Transform child in gameObject.transform)
         {
-            child.gameObject.GetComponent<SphereCollider>().enabled = false;
+            if (child.gameObject == electricity)
+            {
+                electricity.SetActive(false);
+            }
+            else
+            {
+                child.gameObject.GetComponent<SphereCollider>().enabled = false;
+            }
         }
     }
 }

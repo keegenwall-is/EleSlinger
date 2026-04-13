@@ -23,6 +23,7 @@ public class FuseBoxGenerator : MonoBehaviour
     public Material warningMat;
     public Material elecMat;
     public GameObject[] itemSpawners;
+    public GameObject electricity;
 
     public List<Transform> allPoints = new List<Transform>();
     public List<Transform> chordStartPoints = new List<Transform>();
@@ -53,9 +54,11 @@ public class FuseBoxGenerator : MonoBehaviour
         for (int i = 0; i < positions.Length; i++)
         {
             GameObject thisbox = Instantiate(fuseObjects[i % fuseObjects.Length], map.transform);
+            if (thisbox.name.Contains("LittleFlip"))
+            {
+                positions[i].y += 1f;
+            }
             thisbox.transform.position = positions[i];
-            float randY = UnityEngine.Random.Range(0, 2);
-            thisbox.transform.rotation = Quaternion.Euler(0, randY * 180, 0);
         }
         
         //Force the objects to be instantiated before using sphere cast
@@ -99,7 +102,7 @@ public class FuseBoxGenerator : MonoBehaviour
                 Vector3 endPos = allPoints[i].position + allPoints[i].forward * startDist;
                 Vector3 checkDir = endPos - startPos;
                 float dis = checkDir.magnitude;
-                if (dis < minChordLength || dis > maxChordLength)
+                if (dis < minChordLength || dis > maxChordLength || allPoints[0].transform.parent == allPoints[i].transform.parent)
                 {
                     continue;
                 }
@@ -173,10 +176,24 @@ public class FuseBoxGenerator : MonoBehaviour
             MeshRenderer mr = spline.GetComponent<MeshRenderer>();
             mr.material = chordMat;
 
+            float length = container.CalculateLength();
+
+            Vector3 middlePos = container.EvaluatePosition(0.5f);
+            Vector3 middleForward = container.EvaluateTangent(0.5f);
+            Quaternion middleRot = Quaternion.LookRotation(middleForward);
+
+            GameObject thisElectricity = Instantiate(electricity, middlePos, middleRot);
+            thisElectricity.transform.parent = spline.transform;
+
+            float zScale = length / 16f;
+
+            thisElectricity.transform.localScale = new Vector3(2, 2, zScale);
+
             SplineChord chordScript = spline.AddComponent<SplineChord>();
             chordScript.SetMats(baseMat, warningMat, elecMat);
             chordScript.SetWait(minWait, maxWait, elecTime);
             chordScript.SetNoOfFlashes(noOfFlashes);
+            chordScript.SetElectricity(thisElectricity);
 
             float splineLength = container.CalculateLength();
 
