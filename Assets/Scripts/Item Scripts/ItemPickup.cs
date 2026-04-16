@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
+    public GameObject pickupEffect;
 
-    MinigameManager thisManager;
+    private MinigameManager thisManager;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class ItemPickup : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             thisManager.HandleItemPickup(gameObject, other.gameObject);
+            Instantiate(pickupEffect, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

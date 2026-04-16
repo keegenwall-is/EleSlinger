@@ -522,7 +522,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424655300910260916}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -848,6 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87bb640c49cea41960198d51b7361a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallSpeed: 5
 --- !u!1 &1176657514528082303
 GameObject:
   m_ObjectHideFlags: 0

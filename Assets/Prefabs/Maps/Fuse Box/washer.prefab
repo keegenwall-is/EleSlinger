@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1d9462acd8b2442baab81d890a542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupEffect: {fileID: 6511384514936467557, guid: ea0060767283a8f468820552843edf9c, type: 3}
 --- !u!1001 &6437163134287650455
 PrefabInstance:
   m_ObjectHideFlags: 0

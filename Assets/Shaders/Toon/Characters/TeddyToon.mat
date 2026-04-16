@@ -54,8 +54,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Max: 1.2
+    - _Min: 0.5
     - _OutlineScale: 1.05
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Shades: 0.4
     m_Colors: []
   m_BuildTextureStacks: []

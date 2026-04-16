@@ -56,7 +56,7 @@ public class FuseBoxGenerator : MonoBehaviour
             GameObject thisbox = Instantiate(fuseObjects[i % fuseObjects.Length], map.transform);
             if (thisbox.name.Contains("LittleFlip"))
             {
-                positions[i].y += 1f;
+                positions[i].y += 0.8f;
             }
             thisbox.transform.position = positions[i];
         }
@@ -208,7 +208,7 @@ public class FuseBoxGenerator : MonoBehaviour
 
                 SphereCollider sc = triggerPoint.AddComponent<SphereCollider>();
                 sc.isTrigger = true;
-                sc.radius = extrude.radius;
+                sc.radius = extrude.radius * 4;
                 sc.enabled = false;
                 triggerPoint.AddComponent<Obstacle>();
             }
