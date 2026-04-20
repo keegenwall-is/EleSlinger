@@ -795,7 +795,31 @@ MonoBehaviour:
   moveSpeed: 15
   rotateSpeed: 500
   rb: {fileID: 0}
-  dashSpeed: 1.75
+  dashSpeed: 2
+  dashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.2749386
+      outSlope: -0.2749386
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.11998253
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.244936
+      outSlope: -2.244936
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.044502735
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &198477798368542363
 MonoBehaviour:
   m_ObjectHideFlags: 0

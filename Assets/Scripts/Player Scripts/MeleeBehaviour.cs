@@ -25,19 +25,16 @@ public class MeleeBehaviour : AttackBase
         yield return new WaitForFixedUpdate();
         if (success)
         {
-            print("play sound success");
             audioPlayer.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length)], volume);
         }
         else
         {
-            print("play sound fail");
             audioPlayer.PlayOneShot(failedHitSound, volume);
         }
     }
 
     protected override void SetSuccessfulHit(bool success, HitBehaviour hitScript)
     {
-        print(success);
         this.success = success;
     }
 

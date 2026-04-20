@@ -74,6 +74,5 @@ public class TakeHit : MonoBehaviour
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
         rb.velocity = Vector3.zero;
-        attacker = null;
     }
 }

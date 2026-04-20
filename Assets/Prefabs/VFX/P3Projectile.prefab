@@ -9787,7 +9787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrower: {fileID: 0}
-  hit: {fileID: 4179225611343441369, guid: f39d45288b5a3dc4ea07f17128c07793, type: 3}
+  hit: {fileID: 5266980056723864636, guid: 1fb5a92356f844c41b9db6e77d21d74c, type: 3}
+  successfulHit: 0
   speed: 60
   projTime: 1.5
 --- !u!82 &1201952108588332197

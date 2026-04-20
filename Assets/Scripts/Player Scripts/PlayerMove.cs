@@ -13,12 +13,17 @@ public class PlayerMove : MonoBehaviour
     private Vector3 moveDir;
     private CharacterBase baseScript;
     private bool isDashing = false;
+    private float baseSpeed;
+    private float originalSpeed;
+
+    [SerializeField] private AnimationCurve dashCurve = AnimationCurve.Linear(0, 1, 1, 0);
 
     // Start is called before the first frame update
     void Start()
     {
         baseScript = GetComponent<CharacterBase>();
         rb = GetComponent<Rigidbody>();
+        baseSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -108,28 +113,45 @@ public class PlayerMove : MonoBehaviour
     {
         baseScript.SetState(CharacterBase.playerState.Dashing);
         isDashing = true;
-        moveSpeed = moveSpeed * dashSpeed;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
 
         yield return new WaitForSeconds(0.1f);
 
-        yield return new WaitForSeconds(baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.1f);
+        originalSpeed = moveSpeed;
+        float targetSpeed = moveSpeed * dashSpeed;
+        float dashDuration = baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.2f;
+        float elapsed = 0f;
+
+        while (elapsed < dashDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / dashDuration;
+
+            float curveValue = dashCurve.Evaluate(t);
+
+            moveSpeed = Mathf.Lerp(originalSpeed, targetSpeed, curveValue);
+
+            yield return null;
+        }
+
+        moveSpeed = originalSpeed;
 
         if (baseScript.GetState() == CharacterBase.playerState.Dashing)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
         isDashing = false;
-        moveSpeed = moveSpeed / dashSpeed;
     }
 
     public void IncreaseSpeed(float speedMultiplier)
     {
+        originalSpeed *= speedMultiplier;
         moveSpeed *= speedMultiplier;
     }
 
     public void DecreaseSpeed(float speedDivider)
     {
-        moveSpeed /= speedDivider;
+        originalSpeed = baseSpeed;
+        moveSpeed = baseSpeed;
     }
 }

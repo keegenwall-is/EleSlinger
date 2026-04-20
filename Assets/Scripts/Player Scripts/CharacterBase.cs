@@ -11,7 +11,7 @@ public class CharacterBase: MonoBehaviour
     private CapsuleCollider cc;
     private Vector3 spawnPos;
     private PlayerMove playerMove;
-    private GameObject thisKO;
+    private TakeHit takeHit;
     private GameObject jail;
     private Rigidbody rb;
 
@@ -56,6 +56,7 @@ public class CharacterBase: MonoBehaviour
         clips = anim.runtimeAnimatorController.animationClips;
         cc = GetComponent<CapsuleCollider>();
         playerMove = GetComponent<PlayerMove>();
+        takeHit = GetComponent<TakeHit>();
         jail = GameObject.FindGameObjectWithTag("Jail");
         rb = GetComponent<Rigidbody>();
     }
@@ -99,6 +100,7 @@ public class CharacterBase: MonoBehaviour
         switch (state)
         {
             case playerState.Idle:
+                takeHit.SetAttacker(null);
                 rb.constraints |= RigidbodyConstraints.FreezePositionY;
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 if (face != null)
@@ -176,14 +178,14 @@ public class CharacterBase: MonoBehaviour
                     face.sprite = hitFace;
                 }
                 StartCoroutine(Respawn());
-                thisKO = Instantiate(KO, transform.position, transform.rotation);
+                Instantiate(KO, transform.position, transform.rotation);
                 break;
             case playerState.Out:
                 playerMove.rb.velocity = Vector3.zero;
                 playerMove.enabled = false;
                 cc.enabled = false;
                 mesh.SetActive(false);
-                thisKO = Instantiate(KO, transform.position, transform.rotation);
+                Instantiate(KO, transform.position, transform.rotation);
                 transform.position = jail.transform.position;
                 gameObject.tag = "Out";
                 CameraMovement camMoveScript = Camera.main.GetComponent<CameraMovement>();
@@ -221,11 +223,12 @@ public class CharacterBase: MonoBehaviour
             yield return null;
         }
 
+        takeHit.SetAttacker(null);
+
         transform.position = spawnPos;
 
         yield return new WaitForSeconds(0.1f);
 
-        Destroy(thisKO);
         playerMove.enabled = true;
         SetState(playerState.Idle);
         mesh.SetActive(true);
@@ -238,7 +241,6 @@ public class CharacterBase: MonoBehaviour
             yield return new WaitForSeconds(0.25f);
             mesh.SetActive(true);
         }
-
         gameObject.tag = "Player";
     }
 }
