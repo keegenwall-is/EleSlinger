@@ -21,6 +21,7 @@ public class MinigameManager : MonoBehaviour
     public Text[] scoreUpdates;
     public bool splitScreen;
     public bool teamGame;
+    public GameObject scoreEffect;
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -233,6 +234,7 @@ public class MinigameManager : MonoBehaviour
             {
                 if (increasing)
                 {
+                    Instantiate(scoreEffect, player.transform.position, Quaternion.Euler(-90f, 0f, 0f));
                     scoreUpdates[i].text = "+1";
                     scoreUpdates[i].color = Color.green;
                     scoreUpdates[i].enabled = true;

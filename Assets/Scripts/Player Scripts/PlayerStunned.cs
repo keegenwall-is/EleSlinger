@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerStunned : MonoBehaviour
 {
     public Animator mashAnim;
+    public GameObject stunStars;
 
     private CharacterBase baseScript;
     private PlayerAttack PAscript;
     private Rigidbody rb;
     private int maxMashes;
     private int currentMashes;
+    private GameObject theseStars;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,15 @@ public class PlayerStunned : MonoBehaviour
             PAscript.CancelAttack();
         }
 
+        Vector3 spawnPos = transform.position;
+        spawnPos.y += 4f;
+        Quaternion spawnRot = Quaternion.Euler(-90, 0, 0);
+
+        if (theseStars == null)
+        {
+            theseStars = Instantiate(stunStars, spawnPos, spawnRot);
+        }
+        
         baseScript.SetState(CharacterBase.playerState.Stunned);
     }
 
@@ -69,6 +80,7 @@ public class PlayerStunned : MonoBehaviour
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
             currentMashes = 0;
+            Destroy(theseStars);
         }
     }
 }

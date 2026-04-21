@@ -100,7 +100,6 @@ public class CharacterBase: MonoBehaviour
         switch (state)
         {
             case playerState.Idle:
-                takeHit.SetAttacker(null);
                 rb.constraints |= RigidbodyConstraints.FreezePositionY;
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);
                 if (face != null)

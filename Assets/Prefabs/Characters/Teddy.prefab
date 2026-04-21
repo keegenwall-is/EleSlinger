@@ -833,6 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mashAnim: {fileID: 3254327972713215780}
+  stunStars: {fileID: 6861167293607587675, guid: 461201e8882e77f42afb2baa65d2d6be, type: 3}
 --- !u!114 &198477798368542360
 MonoBehaviour:
   m_ObjectHideFlags: 0

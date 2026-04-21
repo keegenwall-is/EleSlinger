@@ -2771,6 +2771,7 @@ MonoBehaviour:
   - {fileID: 8700583656572723691}
   splitScreen: 0
   teamGame: 0
+  scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   scores:
   - {fileID: 1777097690}
   - {fileID: 298596239}

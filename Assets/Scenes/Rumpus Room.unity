@@ -3528,6 +3528,7 @@ MonoBehaviour:
   - {fileID: 407390348509939698}
   splitScreen: 1
   teamGame: 0
+  scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   scoresTxts:
   - {fileID: 407390348509939705}
   - {fileID: 407390348509939704}
@@ -5719,7 +5720,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a689d64953b464647bada528bbe50be9, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a689d64953b464647bada528bbe50be9, type: 3}
       propertyPath: m_LocalScale.x
