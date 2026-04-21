@@ -2003,11 +2003,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 2bd9a36fe2375f74bb468d3871c62f0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f7131b21672a39d4da005b11a6dbf923, type: 2}
+      objectReference: {fileID: 2100000, guid: 9e4afa5d159f68141b5f7f29ff57d93f, type: 2}
     - target: {fileID: -7511558181221131132, guid: 2bd9a36fe2375f74bb468d3871c62f0c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: f7131b21672a39d4da005b11a6dbf923, type: 2}
+      objectReference: {fileID: 2100000, guid: 9e4afa5d159f68141b5f7f29ff57d93f, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bd9a36fe2375f74bb468d3871c62f0c, type: 3}
       propertyPath: m_Name
       value: BroomMesh
