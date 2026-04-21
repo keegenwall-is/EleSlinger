@@ -213,9 +213,16 @@ public class GameController : MonoBehaviour
 
             if (splitScreen)
             {
-                for (int i = 0; i < players.Count; i++)
+                for (int i = 0; i < cams.Length; i++)
                 {
-                    cams[i].GetComponent<CameraMovement>().FindPlayer(players[i]);
+                    if (i < players.Count)
+                    {
+                        cams[i].GetComponent<CameraMovement>().FindPlayer(players[i]);
+                    }
+                    else
+                    {
+                        cams[i].SetActive(false);
+                    }
                 }
 
                 if (playerNo == 2)

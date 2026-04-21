@@ -88,7 +88,7 @@ public class SoccerBallBehaviour : MonoBehaviour
 
     private IEnumerator SetFireAfterTime()
     {
-        audioPlayer.PlayOneShot(igniteSound);
+        //audioPlayer.PlayOneShot(igniteSound);
 
         yield return new WaitForSeconds(0.1f);
 
