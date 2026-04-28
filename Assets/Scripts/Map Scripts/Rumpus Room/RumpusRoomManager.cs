@@ -5,14 +5,11 @@ using UnityEngine.UI;
 
 public class RumpusRoomManager : MinigameManager
 {
-    //public int maxLives;
-    //public List<Text> livesTxts = new List<Text>();
     public List<Text> scoresTxts = new List<Text>();
     public GameObject broom;
     public int punishment;
-    //public GameObject[] cameras;
+    public GameObject horizontalBar;
 
-    //private int[] lives = { 0, 0, 0, 0 };
     private int[] playerScores = { -1, -1, -1, -1 };
     private float winningScore = 0;
 
@@ -22,6 +19,11 @@ public class RumpusRoomManager : MinigameManager
         for (int i = 0; i < playerNo; i++)
         {
             playerScores[i] = 0;
+        }
+
+        if (playerNo == 2)
+        {
+            Destroy(horizontalBar);
         }
     }
 

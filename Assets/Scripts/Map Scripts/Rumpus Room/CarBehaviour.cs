@@ -9,14 +9,17 @@ public class CarBehaviour : MonoBehaviour
     public float bumpSpeed;
     public float rayDistance = 10f;
     public GameObject warning;
+    public GameObject explosion;
 
     private Rigidbody rb;
     private bool bump = false;
+    private RectTransform rectTransform;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rectTransform = warning.GetComponent<RectTransform>();
 
         if (transform.parent != null)
         {
@@ -28,11 +31,14 @@ public class CarBehaviour : MonoBehaviour
     {
         RaycastHit hit;
 
-        // Cast ray in front
         bool findPlayer = Physics.SphereCast(transform.position, 4f, transform.forward, out hit, rayDistance);
 
         if (findPlayer && hit.collider.CompareTag("Player")) {
             warning.SetActive(true);
+            Vector3 newPos = rectTransform.localPosition;
+
+            newPos.z = hit.distance - 5.0f;
+            rectTransform.localPosition = newPos;
         }
         else
         {
@@ -69,6 +75,7 @@ public class CarBehaviour : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Broom"))
         {
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         else if (other.gameObject.name.Contains("SafeZone"))

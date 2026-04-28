@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5575115081896631010}
   - component: {fileID: 8858881963815081287}
   - component: {fileID: 6707519542291128717}
-  - component: {fileID: 5277088339143925053}
   - component: {fileID: 7301636853329005108}
   - component: {fileID: 3592435035599355281}
+  - component: {fileID: 1511665024954047507}
   m_Layer: 0
   m_Name: SquareBlock
   m_TagString: Untagged
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5049970098323800152}
-  m_Mesh: {fileID: 2212009239438826721, guid: 184ad57ee730fe14e9f49542524334c5, type: 3}
+  m_Mesh: {fileID: 2212009239438826721, guid: 65f23d9701b7fc44d91b567264441203, type: 3}
 --- !u!23 &6707519542291128717
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1eebc67f4a7bfac449b91134ec26f45f, type: 2}
+  - {fileID: 2100000, guid: d7838a693dbeb0e428bf1ef47063382e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5277088339143925053
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049970098323800152}
-  m_Material: {fileID: 13400000, guid: 37f0ef1357bde2144a9c3f3b1c8ae088, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03021488, y: 0.030214855, z: 0.030214865}
-  m_Center: {x: 0.0006552161, y: -0.0013770914, z: 0.015614549}
 --- !u!114 &7301636853329005108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
+--- !u!65 &1511665024954047507
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049970098323800152}
+  m_Material: {fileID: 13400000, guid: 37f0ef1357bde2144a9c3f3b1c8ae088, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03021488, y: 0.030214857, z: 0.030214861}
+  m_Center: {x: 0.0022096157, y: -0.0026630417, z: 0.015429437}

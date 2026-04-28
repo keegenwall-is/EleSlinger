@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 9145500355488165518}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1556247866927216717
 PrefabInstance:
@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7363388302601176462}
     m_Modifications:
+    - target: {fileID: 6691333902880758118, guid: c7ec1e8c42116854daba2d09641b3e2f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8552134717624371188, guid: 6a98f08442465064dad5206a587396fd, type: 3}
     - target: {fileID: 6933414232050568313, guid: c7ec1e8c42116854daba2d09641b3e2f, type: 3}
       propertyPath: m_Name
       value: CarWheel
@@ -100,6 +104,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8879009334708448684, guid: c7ec1e8c42116854daba2d09641b3e2f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bccd10962361d148acd04d282de0d94, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c7ec1e8c42116854daba2d09641b3e2f, type: 3}

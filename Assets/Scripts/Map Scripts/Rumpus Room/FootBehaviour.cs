@@ -14,6 +14,7 @@ public class FootBehaviour : MonoBehaviour
     public int stunMashes;
     public float gracePeriod;
     public float trackingCD;
+    public GameObject hit;
 
     private footState currentState;
     private GameController gameScript;
@@ -156,6 +157,7 @@ public class FootBehaviour : MonoBehaviour
 
         if (currentState == footState.Stomping)
         {
+            Instantiate(hit, transform.position, Quaternion.identity);
             SetState(footState.Lifting);
         }
     }

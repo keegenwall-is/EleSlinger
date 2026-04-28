@@ -10,8 +10,7 @@ public class PCGRumpusRoom : MonoBehaviour
     public int cols;
     public float cellSize;
     public ChordConnector[] mapPieces;
-    public Material cubeTransMat;
-    public Material rectTransMat;
+    public GameObject poof;
 
     private (ChordConnector, int rotation)[,] mapSections;
     private List<GameObject> spawnedPieces = new List<GameObject>();
@@ -259,37 +258,15 @@ public class PCGRumpusRoom : MonoBehaviour
 
     private IEnumerator DestroyAfterTime(GameObject blockGroup)
     {
-        List<Color> startColours = new List<Color>();
-        List<Material> mats = new List<Material>();
+
+        yield return new WaitForSeconds(0.5f);
 
         foreach (Transform child in blockGroup.transform)
         {
             if (child.gameObject.name.Contains("Block") || child.gameObject.name.Contains("Stuffy"))
             {
-                MeshRenderer mr = child.GetComponent<MeshRenderer>();
-                mats.Add(mr.material);
-                startColours.Add(mr.material.GetColor("_BaseColor"));
-                BoxCollider bc = child.GetComponent<BoxCollider>();
-                bc.enabled = false;
+                Instantiate(poof, child.position, Quaternion.identity);
             }
-        }
-
-        float t = 0;
-        float duration = 1.0f;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float lerp = t / duration;
-
-            for (int i = 0; i < mats.Count; i++)
-            {
-                Color c = startColours[i];
-                c.a = Mathf.Lerp(startColours[i].a, 0f, lerp);
-                mats[i].color = c;
-            }
-
-            yield return null;
         }
 
         Destroy(blockGroup);

@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 13cc6234daf2de448923825b41bbde39, type: 2}
+  - {fileID: 2100000, guid: 2ca1e26f9f8fee644971a8b15e86a83a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5449bfd0713f7a488a8fdc2716faf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireBall: {fileID: 6279957354353660099, guid: 1bc833b4123d8cd4cbb61430b430ae3d, type: 3}
-  pushMultiplier: 100
+  fireBall: {fileID: 4019546974539940762, guid: 13634731954fa8040aa23c53848c1c03, type: 3}
+  pushMultiplier: 75
   fireExtinguishThreshold: 6
   maxHeight: 5
   audioPlayer: {fileID: 2016796341389818956}
