@@ -41,11 +41,11 @@ Material:
     - _FoamOffset: 10
     - _Gloss: 1.3
     - _Metallic: 0.1
-    - _NormalStrength: 2
+    - _NormalStrength: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleDisolve: 15
-    - _RippleScale: 8
+    - _RippleDisolve: 30
+    - _RippleScale: 7
     - _RippleSpeed: 0.75
     - _Transparency: 1
     m_Colors:
