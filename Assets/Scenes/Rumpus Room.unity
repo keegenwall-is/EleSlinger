@@ -5089,7 +5089,7 @@ MonoBehaviour:
   shadowTransform: {fileID: 1705478371}
   stunMashes: 10
   gracePeriod: 6
-  trackingCD: 8
+  trackingCD: 7
   hit: {fileID: 7358573895741324518, guid: 5c1de4668b759874182f4f63e98ba44b, type: 3}
 --- !u!54 &1388473532
 Rigidbody:
