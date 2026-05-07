@@ -8,39 +8,45 @@ public class DishwashManager : MinigameManager
 
     [Header("Dishwash Variables")]
     public float waitToSpawn;
-    public float findPlatesTime;
     public float showSuccessTime;
-    public int numOfPatterns;
     public float plateHeight;
-    public float circleRadius;
     public GameObject plate;
-    public int numOfRings;
-    public Sprite[] icons;
-    public Image mainImage;
     public List<Text> scores = new List<Text>();
+    public GameObject pipe;
+    public float gapDist;
+    public float itemCount;
+    public GameObject water;
+    public float waterRiseSpeed;
 
     private bool spawnPlates = false;
     private bool findPlates = false;
     private bool showSuccess = false;
     private float waitToSpawnCurrent;
-    private float findPlatesCurrent;
     private float showSuccessCurrent;
     private List<GameObject> plates = new List<GameObject>();
-    private int patternSelection;
     private Vector3 plateSpawnPos;
-    private int[] iconUsages = { 0, 0, 0, 0, 0, 0, 0, 0 };
-    private int successfulIcon;
     private int[] playerScores = { 0, 0, 0, 0 };
     private float winningScore = 0;
     private GameObject winningPlayer;
+    private List<float> lastSuccessAngles = new List<float>();
+    private bool setup = true;
+    private float radius;
+    private int itemsPerPath;
+    private int totalItems;
+    private int randomCount;
+    private int randomCorrect;
+    private int correctCount;
+    private bool isCorrect;
+    private List<GameObject> oldSuccess = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         waitToSpawnCurrent = 3f;
         plateSpawnPos = new Vector3(0, plateHeight, 0);
-        successfulIcon = Random.Range(0, icons.Length - 1);
-        mainImage.sprite = icons[successfulIcon];
+        radius = gapDist / (2 * Mathf.Sin(Mathf.PI / itemCount));
+        itemsPerPath = (int)(radius / gapDist);
+        totalItems = (int)itemCount + (itemsPerPath * 4);
     }
 
     protected override void OnTick()
@@ -49,123 +55,77 @@ public class DishwashManager : MinigameManager
         {
             waitToSpawnCurrent -= Time.deltaTime;
 
+            if (water.transform.position.y > 0)
+            {
+                water.transform.position -= Vector3.up * waterRiseSpeed * 2f * Time.deltaTime;
+            }
+
             if (waitToSpawnCurrent <= 0)
             {
+                water.transform.position = Vector3.zero;
                 spawnPlates = false;
                 findPlates = true;
-                findPlatesCurrent = findPlatesTime;
                 waitToSpawnCurrent = waitToSpawn;
-                patternSelection = Random.Range(1, numOfPatterns + 1);
 
-                switch (patternSelection)
+                randomCount = 0;
+                randomCorrect = Random.Range(1, totalItems / 4);
+                correctCount = 0;
+                isCorrect = false;
+
+                for (int i = 0; i < itemCount; i++)
                 {
-                    case 1:
-                        for (int ring = 1; ring < numOfRings + 1; ring++)
+                    float angle = i * Mathf.PI * 2f / itemCount;
+                    if (setup && i % (itemCount / 4) == 0)
+                    {
+                        DrawLine(angle);
+                    }
+                    else if (lastSuccessAngles.Contains(angle))
+                    {
+                        lastSuccessAngles.Remove(angle);
+                        DrawLine(angle);
+                    }
+
+                    plateSpawnPos.z = Mathf.Sin(angle) * radius;
+                    plateSpawnPos.x = Mathf.Cos(angle) * radius;
+
+                    isCorrect = false;
+                    randomCount++;
+                    if (randomCount == randomCorrect)
+                    {
+                        isCorrect = true;
+                        correctCount++;
+                        lastSuccessAngles.Add(angle);
+                    }
+                    SpawnPlate(plateSpawnPos, isCorrect);
+                    if ((i + 1) % (itemCount / 4) == 0 && i != 0)
+                    {
+                        randomCount = 0;
+                        randomCorrect = Random.Range(1, totalItems / 4);
+                    }
+                }
+
+                for (int i = oldSuccess.Count - 1; i >= 0; i--)
+                {
+                    FloatingPlatformBehaviour platformScript = oldSuccess[i].GetComponentInChildren<FloatingPlatformBehaviour>();
+                    if (platformScript.onPlayers != null)
+                    {
+                        foreach (GameObject player in platformScript.onPlayers)
                         {
-                            if (ring != 2)
-                            {
-                                for (int i = 0; i < 8 * ring; i++)
-                                {
-                                    float angle = i * Mathf.PI * 2f / 8f / ring;
-
-                                    plateSpawnPos.z = Mathf.Sin(angle) * circleRadius * ring;
-                                    plateSpawnPos.x = Mathf.Cos(angle) * circleRadius * ring;
-                                    GameObject thisPlate = Instantiate(plate, plateSpawnPos, Quaternion.identity);
-                                    plates.Add(thisPlate);
-                                    SetPlateIcon(thisPlate);
-                                }
-                            }
-                            else
-                            {
-                                for (int i = 0; i < 4 * ring; i++)
-                                {
-                                    float angle = i * Mathf.PI * 2f / 8f;
-
-                                    plateSpawnPos.z = Mathf.Sin(angle) * circleRadius * ring;
-                                    plateSpawnPos.x = Mathf.Cos(angle) * circleRadius * ring;
-                                    GameObject thisPlate = Instantiate(plate, plateSpawnPos, Quaternion.identity);
-                                    plates.Add(thisPlate);
-                                    SetPlateIcon(thisPlate);
-                                }
-                            }
+                            player.tag = "Player";
                         }
-
-                        break;
-                    case 2:
-                        plateSpawnPos.z = -circleRadius * 2.5f;
-                        for (int i = 0; i < 6; i++)
-                        {
-                            plateSpawnPos.x = -circleRadius * 3.5f;
-                            for (int j = 0; j < 8; j++)
-                            {
-                                if ((i == 2 || i == 3) && (j == 3 || j == 4))
-                                {
-                                    plateSpawnPos.x += circleRadius;
-                                    continue;
-                                }
-
-                                if ((i == 1 && j == 1) || (i == 4 && j == 1) || (i == 1 && j == 6) || (i == 4 && j == 6))
-                                {
-                                    plateSpawnPos.x += circleRadius;
-                                    continue;
-                                }
-
-                                GameObject thisPlate = Instantiate(plate, plateSpawnPos, Quaternion.identity);
-                                plates.Add(thisPlate);
-                                SetPlateIcon(thisPlate);
-                                plateSpawnPos.x += circleRadius;
-                            }
-                            plateSpawnPos.z += circleRadius;
-                        }
-
-                        break;
-
-                    case 3:
-                        plateSpawnPos.z = circleRadius * 4;
-                        
-                        for (int i = 0; i < 9; i++)
-                        {
-                            int numInRow = 0;
-                            if (i >= 2 && i <= 4)
-                            {
-                                numInRow = i + 2;
-                            }
-                            else if (i == 8)
-                            {
-                                numInRow = 2;
-                            }
-                            else
-                            {
-                                numInRow = i;
-                            }
-
-                            plateSpawnPos.x = -circleRadius * 0.5f * numInRow;
-
-                            for (int j = 0; j < numInRow + 1; j++)
-                            {
-                                if ((i == 2 && j == 2) || (i == 4 && j == 3) ||(i == 6 && j == 1) || (i == 6 && j == 5))
-                                {
-                                    plateSpawnPos.x += circleRadius;
-                                    continue;
-                                }
-
-                                GameObject thisPlate = Instantiate(plate, plateSpawnPos, Quaternion.identity);
-                                plates.Add(thisPlate);
-                                SetPlateIcon(thisPlate);
-                                plateSpawnPos.x += circleRadius;
-                            }
-                            plateSpawnPos.z -= circleRadius;
-                        }
-
-                        break;
+                    }
+                    Destroy(oldSuccess[i]);
+                    oldSuccess.RemoveAt(i);
                 }
             }
         }
         else if (findPlates)
         {
-            findPlatesCurrent -= Time.deltaTime;
-
-            if (findPlatesCurrent <= 0)
+            if (water.transform.position.y <= 47f)
+            {
+                water.transform.position += Vector3.up * waterRiseSpeed * Time.deltaTime;
+            }
+            else
             {
                 findPlates = false;
                 showSuccess = true;
@@ -173,10 +133,10 @@ public class DishwashManager : MinigameManager
 
                 for (int i = plates.Count - 1; i >= 0; i--)
                 {
-                    if (plates[i].GetComponentInChildren<Image>().sprite != icons[successfulIcon])
+                    if (!plates[i].transform.Find("CorrectMark").gameObject.activeSelf)
                     {
                         FloatingPlatformBehaviour plateScript = plates[i].GetComponentInChildren<FloatingPlatformBehaviour>();
-                        plateScript.fall = true;
+                        Destroy(plates[i]);
                         plates.RemoveAt(i);
                     }
                 }
@@ -186,13 +146,17 @@ public class DishwashManager : MinigameManager
         {
             showSuccessCurrent -= Time.deltaTime;
 
+            if (water.transform.position.y > 0)
+            {
+                water.transform.position -= Vector3.up * waterRiseSpeed * 2f * Time.deltaTime;
+            }
+
             if (showSuccessCurrent <= 0)
             {
+                setup = false;
                 showSuccess = false;
                 spawnPlates = true;
                 waitToSpawnCurrent = waitToSpawn;
-                successfulIcon = Random.Range(0, icons.Length - 1);
-                mainImage.sprite = icons[successfulIcon];
 
                 for (int i = plates.Count - 1; i >= 0; i--)
                 {
@@ -205,14 +169,13 @@ public class DishwashManager : MinigameManager
                             if (plateScript.onPlayers[j] == players[k])
                             {
                                 playerScores[k]++;
-                                print(playerScores[k]);
                                 scores[k].text = playerScores[k].ToString();
                                 StartCoroutine(ScoreAnimation(true, players[k]));
                             }
                         }
                     }
-
-                    plateScript.fall = true;
+                    plates[i].transform.Find("CorrectMark").gameObject.SetActive(false);
+                    oldSuccess.Add(plates[i]);
                     plates.RemoveAt(i);
                 }
 
@@ -220,40 +183,38 @@ public class DishwashManager : MinigameManager
                 {
                     StartCoroutine(CheckEnd());
                 }
-
-                for (int i = 0; i < iconUsages.Length; i++)
-                {
-                    iconUsages[i] = 0;
-                }
             }
         }
     }
 
-    private void SetPlateIcon(GameObject plate)
+    private void SpawnPlate(Vector3 pos, bool isCorrect)
     {
-        FloatingPlatformBehaviour plateScript = plate.GetComponentInChildren<FloatingPlatformBehaviour>();
-
-        int usedCounter = 0;
-        for (int i = 0; i < iconUsages.Length; i++)
+        GameObject thisPlate = Instantiate(plate, pos, Quaternion.identity);
+        plates.Add(thisPlate);
+        if (!isCorrect)
         {
-            if (iconUsages[i] >= 4)
+            thisPlate.transform.Find("CorrectMark").gameObject.SetActive(false);
+            thisPlate.transform.Find("Glass").gameObject.SetActive(false);
+        }
+    }
+
+    private void DrawLine(float angle)
+    {
+        for (float d = radius - gapDist; d > 0.1f; d -= gapDist)
+        {
+            Vector3 linePos = plateSpawnPos;
+            linePos.x = Mathf.Cos(angle) * d;
+            linePos.z = Mathf.Sin(angle) * d;
+            isCorrect = false;
+            randomCount++;
+            if (randomCount == randomCorrect)
             {
-                usedCounter++;
+                isCorrect = true;
+                correctCount++;
+                lastSuccessAngles.Add(angle);
             }
+            SpawnPlate(linePos, isCorrect);
         }
-
-        if (usedCounter == iconUsages.Length)
-        {
-            return;
-        }
-
-        int iconNum = Random.Range(0, icons.Length);
-        while (iconUsages[iconNum] >= 4)
-        {
-            iconNum = Random.Range(0, icons.Length);
-        }
-        plateScript.SetIcon(icons[iconNum]);
-        iconUsages[iconNum]++;
     }
 
     protected override void OnAllReady()

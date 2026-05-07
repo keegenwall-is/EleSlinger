@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class FloatingPlatformBehaviour : MonoBehaviour
 {
-    public Image icon;
-    public bool fall = false;
     public float fallSpeed;
     public List<GameObject> onPlayers = new List<GameObject>();
 
@@ -21,12 +19,6 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fall)
-        {
-            transform.parent.position -= Vector3.up * fallSpeed * Time.deltaTime;
-            fallSpeed += 10f * Time.deltaTime;
-        }
-
         if (jumpingPlayers.Count > 0)
         {
             for (int i = jumpingPlayers.Count - 1; i >= 0; i--)
@@ -39,7 +31,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                     rayStartPos.y += 3f;
 
                     Debug.DrawRay(rayStartPos, -jumpingPlayers[i].transform.up * 5f, Color.red, 2);
-                    if (Physics.SphereCast(rayStartPos, 2f,  -jumpingPlayers[i].transform.up, out hit, 4f))
+                    if (Physics.SphereCast(rayStartPos, 1f,  -jumpingPlayers[i].transform.up, out hit, 4f))
                     {
                         if (!hit.collider.name.Contains("Platform"))
                         {
@@ -56,11 +48,6 @@ public class FloatingPlatformBehaviour : MonoBehaviour
         }
     }
 
-    public void SetIcon(Sprite icon)
-    {
-        this.icon.sprite = icon;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -69,16 +56,12 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             if (baseScript.GetState() == CharacterBase.playerState.Falling || baseScript.GetState() != CharacterBase.playerState.TakingHit)
             {
                 PlayerFall fallScript = other.gameObject.GetComponent<PlayerFall>();
-                fallScript.fallSpeed += 20f;
+                fallScript.fallDown = true;
             }
             onPlayers.Add(other.gameObject);
         }
-        else if (other.gameObject.name.Contains("Water"))
-        {
-            Destroy(transform.parent.gameObject);
-        }
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")

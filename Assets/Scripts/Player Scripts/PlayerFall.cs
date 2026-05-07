@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerFall : MonoBehaviour
 {
 
+    public float fallSpeed = 5;
+    public bool fallDown = false;
+
     private CharacterBase baseScript;
     private PlayerMove moveScript;
     private Rigidbody rb;
-    public float fallSpeed = 5;
+    private Vector3 velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +28,21 @@ public class PlayerFall : MonoBehaviour
         {
             fallSpeed += 0.5f;
 
-            Vector3 velocity = transform.forward * moveScript.moveSpeed;
+            if (!fallDown)
+            {
+                velocity = transform.forward * moveScript.moveSpeed;
+            }
+            else
+            {
+                velocity = -transform.up * moveScript.moveSpeed;
+            }
+
             velocity.y = -fallSpeed;
 
             rb.velocity = velocity;
         }
 
+        //Returning the fallSpeed back to original, should not be hard coded
         if (fallSpeed > 0 && baseScript.GetState() != CharacterBase.playerState.Falling)
         {
             fallSpeed = 5f;
