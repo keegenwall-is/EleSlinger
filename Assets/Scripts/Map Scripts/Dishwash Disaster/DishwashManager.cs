@@ -10,7 +10,7 @@ public class DishwashManager : MinigameManager
     public float waitToSpawn;
     public float showSuccessTime;
     public float plateHeight;
-    public GameObject plate;
+    public GameObject[] smallPlatforms;
     public List<Text> scores = new List<Text>();
     public GameObject pipe;
     public float gapDist;
@@ -47,6 +47,7 @@ public class DishwashManager : MinigameManager
         radius = gapDist / (2 * Mathf.Sin(Mathf.PI / itemCount));
         itemsPerPath = (int)(radius / gapDist);
         totalItems = (int)itemCount + (itemsPerPath * 4);
+        hasGracePeriod = false;
     }
 
     protected override void OnTick()
@@ -189,7 +190,8 @@ public class DishwashManager : MinigameManager
 
     private void SpawnPlate(Vector3 pos, bool isCorrect)
     {
-        GameObject thisPlate = Instantiate(plate, pos, Quaternion.identity);
+        int randSmall = Random.Range(0, smallPlatforms.Length);
+        GameObject thisPlate = Instantiate(smallPlatforms[randSmall], pos, Quaternion.identity);
         plates.Add(thisPlate);
         if (!isCorrect)
         {

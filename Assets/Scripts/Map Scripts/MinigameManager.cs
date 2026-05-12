@@ -22,6 +22,7 @@ public class MinigameManager : MonoBehaviour
     public bool splitScreen;
     public bool teamGame;
     public GameObject scoreEffect;
+    public bool hasGracePeriod = true;
 
     private bool roundOver = false;
     private bool roundBegun = false;

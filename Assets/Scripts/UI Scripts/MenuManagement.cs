@@ -23,6 +23,10 @@ public class MenuManagement : MonoBehaviour
     public float animFadeDur;
     public GameObject readyImg;
     public GameController GCscript;
+    public AudioClip changeUI;
+    public AudioClip selectUI;
+    public AudioClip joinUI;
+    public AudioClip lockInUI;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private bool characterSelect = false;
@@ -34,6 +38,7 @@ public class MenuManagement : MonoBehaviour
     private bool[] canChangeSelection = {true, true, true, true};
     private bool[] isLockedIn = {false, false, false, false};
     private bool allLocked = false;
+    private AudioSource ap;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +46,7 @@ public class MenuManagement : MonoBehaviour
         Image startingBtn = mainMenuButtons[0].gameObject.GetComponent<Image>();
         startingBtn.color = new Color(1f, 1f, 0f, 1f);
         noOfCharacters = characterLists[0].gameObject.transform.childCount;
+        ap = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -118,6 +124,8 @@ public class MenuManagement : MonoBehaviour
                 {
                     Button thisButton = mainMenuButtons[mainMenuBtnSelect].GetComponent<Button>();
                     thisButton.onClick.Invoke();
+                    ap.clip = selectUI;
+                    ap.Play();
                 }
             }
         }
@@ -131,6 +139,8 @@ public class MenuManagement : MonoBehaviour
         //add select colouring to new button
         Image newBtn = mainMenuButtons[mainMenuBtnSelect].gameObject.GetComponent<Image>();
         newBtn.color = new Color(1f, 1f, 0f, 1f);
+        ap.clip = changeUI;
+        ap.Play();
     }
 
     private void CheckNewPlayers()
@@ -158,7 +168,8 @@ public class MenuManagement : MonoBehaviour
     {
         joinIcons[playerNo].gameObject.SetActive(false);
         playerControllers.Add(device);
-        //playerCharacterSelections[playerNo] = 1;
+        ap.clip = joinUI;
+        ap.Play();
 
         playerNo++;
         CheckLockedIn();
@@ -244,6 +255,8 @@ public class MenuManagement : MonoBehaviour
             //Finds the animator of the currently selected Character and sets the animation to a selected pose
             Transform selectedCharacterT = characterLists[player].gameObject.transform.GetChild(playerCharacterSelections[player]);
             PlayAnim(selectedCharacterT, "Selected");
+            ap.clip = lockInUI;
+            ap.Play();
             CheckLockedIn();
         }
     }

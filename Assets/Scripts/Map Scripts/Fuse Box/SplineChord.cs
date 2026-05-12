@@ -16,6 +16,8 @@ public class SplineChord : MonoBehaviour
     private float elecTime;
     private int noOfFlashes;
     private GameObject electricity;
+    private AudioSource ap;
+    private AudioClip ac;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,14 @@ public class SplineChord : MonoBehaviour
         electricity.SetActive(false);
     }
 
+    public void SetSFX(AudioSource ap, AudioClip ac)
+    {
+        this.ap = ap;
+        this.ac = ac;
+        ap.clip = this.ac;
+        ap.volume = 0.4f;
+    }
+
     // Update is called once per frame
     void Update()
     {   
@@ -76,6 +86,7 @@ public class SplineChord : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
 
+        ap.Play();
         foreach (Transform child in gameObject.transform)
         {
             if (child.gameObject == electricity)

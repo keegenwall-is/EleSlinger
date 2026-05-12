@@ -53,7 +53,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             CharacterBase baseScript = other.gameObject.GetComponent<CharacterBase>();
-            if (baseScript.GetState() == CharacterBase.playerState.Falling || baseScript.GetState() != CharacterBase.playerState.TakingHit)
+            if (baseScript.GetState() == CharacterBase.playerState.Falling || baseScript.GetState() == CharacterBase.playerState.TakingHit)
             {
                 PlayerFall fallScript = other.gameObject.GetComponent<PlayerFall>();
                 fallScript.fallDown = true;

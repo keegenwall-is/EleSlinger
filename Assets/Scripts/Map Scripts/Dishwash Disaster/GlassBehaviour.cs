@@ -28,13 +28,13 @@ public class GlassBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.tag = "Immune";
+            other.gameObject.tag = "ObImmune";
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Immune")
+        if (other.gameObject.tag == "ObImmune")
         {
             other.gameObject.tag = "Player";
         }

@@ -45,7 +45,7 @@ public class AttackBase : MonoBehaviour
             HitBehaviour hitScript = thisHit.GetComponent<HitBehaviour>();
             hitScript.SetSize(transform.localScale);
 
-            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Dummy")
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "ObImmune")
             {
                 if (playerAttackScript.GetSpecialAttack())
                 {
@@ -62,7 +62,7 @@ public class AttackBase : MonoBehaviour
                 }
             }
 
-            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive Obj")
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive Obj" || other.gameObject.tag == "ObImmune")
             {
                 successfulHit = true;
                 SetSuccessfulHit(true, hitScript);

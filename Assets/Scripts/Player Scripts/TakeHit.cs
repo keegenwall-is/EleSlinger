@@ -32,7 +32,7 @@ public class TakeHit : MonoBehaviour
 
     public void HitReaction()
     {
-        if (gameObject.tag == "Player" || gameObject.tag == "Dummy")
+        if (gameObject.tag == "Player" || gameObject.tag == "ObImmune")
         {
             StartCoroutine(FlyAway());
         }

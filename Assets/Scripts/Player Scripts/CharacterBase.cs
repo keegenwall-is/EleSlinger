@@ -14,6 +14,8 @@ public class CharacterBase: MonoBehaviour
     private TakeHit takeHit;
     private GameObject jail;
     private Rigidbody rb;
+    private GameObject managerObj;
+    private MinigameManager manager;
 
     public InputDevice thisController;
     public Animator anim;
@@ -59,6 +61,15 @@ public class CharacterBase: MonoBehaviour
         takeHit = GetComponent<TakeHit>();
         jail = GameObject.FindGameObjectWithTag("Jail");
         rb = GetComponent<Rigidbody>();
+        managerObj = GameObject.FindWithTag("Minigame Manager");
+        if (managerObj != null)
+        {
+            manager = managerObj.GetComponent<MinigameManager>();
+            if (!manager.hasGracePeriod)
+            {
+                graceLength = 0f;
+            }
+        }
     }
 
     public void SetController(InputDevice device)

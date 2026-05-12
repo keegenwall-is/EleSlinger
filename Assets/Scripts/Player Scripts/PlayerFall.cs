@@ -19,6 +19,7 @@ public class PlayerFall : MonoBehaviour
         baseScript = GetComponent<CharacterBase>();
         moveScript = GetComponent<PlayerMove>();
         rb = GetComponent<Rigidbody>();
+        fallDown = false;
     }
 
     // Update is called once per frame
@@ -46,6 +47,7 @@ public class PlayerFall : MonoBehaviour
         if (fallSpeed > 0 && baseScript.GetState() != CharacterBase.playerState.Falling)
         {
             fallSpeed = 5f;
+            fallDown = false;
         }
     }
 }

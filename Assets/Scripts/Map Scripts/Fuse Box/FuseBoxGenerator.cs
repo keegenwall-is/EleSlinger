@@ -24,6 +24,7 @@ public class FuseBoxGenerator : MonoBehaviour
     public Material elecMat;
     public GameObject[] itemSpawners;
     public GameObject electricity;
+    public AudioClip chordStartSFX;
 
     public List<Transform> allPoints = new List<Transform>();
     public List<Transform> chordStartPoints = new List<Transform>();
@@ -190,10 +191,12 @@ public class FuseBoxGenerator : MonoBehaviour
             thisElectricity.transform.localScale = new Vector3(2, 2, zScale);
 
             SplineChord chordScript = spline.AddComponent<SplineChord>();
+            AudioSource ap = spline.AddComponent<AudioSource>();
             chordScript.SetMats(baseMat, warningMat, elecMat);
             chordScript.SetWait(minWait, maxWait, elecTime);
             chordScript.SetNoOfFlashes(noOfFlashes);
             chordScript.SetElectricity(thisElectricity);
+            chordScript.SetSFX(ap, chordStartSFX);
 
             float splineLength = container.CalculateLength();
 
