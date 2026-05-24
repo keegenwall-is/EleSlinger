@@ -66,7 +66,8 @@ public class PlayerStunned : MonoBehaviour
 
         if (theseStars == null)
         {
-            theseStars = Instantiate(stunStars, spawnPos, spawnRot);
+            theseStars = Instantiate(stunStars, spawnPos, spawnRot, transform);
+            baseScript.SetStunStars(theseStars);
         }
         
         baseScript.SetState(CharacterBase.playerState.Stunned);
@@ -80,7 +81,6 @@ public class PlayerStunned : MonoBehaviour
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
             currentMashes = 0;
-            Destroy(theseStars);
         }
     }
 }

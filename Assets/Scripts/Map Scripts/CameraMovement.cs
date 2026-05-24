@@ -7,6 +7,10 @@ public class CameraMovement : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     private Camera cam;
 
+    private Vector3 currentVelocity = Vector3.zero;
+    private bool smoothCam = false;
+    public float smoothTime = 0.3f;
+
     [Header("Camera Settings")]
     public float minFOV;
     public float maxFOV;
@@ -39,6 +43,18 @@ public class CameraMovement : MonoBehaviour
     {
         players.Clear();
         players.Add(player);
+    }
+
+    public void FindObject(GameObject obj)
+    {
+        StartCoroutine(SmoothCam());
+        players.Add(obj);
+    }
+
+    public void ForgetObject(GameObject obj)
+    {
+        StartCoroutine(SmoothCam());
+        players.Remove(obj);
     }
 
     private void LateUpdate()
@@ -74,8 +90,24 @@ public class CameraMovement : MonoBehaviour
 
         Vector3 clampedCenter = new Vector3(clampedX, centerPoint.y, clampedZ);
 
-        transform.position = clampedCenter + offset;
-        transform.LookAt(clampedCenter);
+        Vector3 targetPosition = clampedCenter + offset;
+
+        if (smoothCam)
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f);
+            Quaternion targetRotation = Quaternion.LookRotation(clampedCenter - transform.position);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 3.0f
+            );
+        }
+        else
+        {
+            transform.position = clampedCenter + offset;
+            transform.LookAt(clampedCenter);
+        }
     }
 
     private void AdjustZoom()
@@ -108,5 +140,14 @@ public class CameraMovement : MonoBehaviour
         }
 
         return bounds.size.magnitude;
+    }
+
+    private IEnumerator SmoothCam()
+    {
+        smoothCam = true;
+
+        yield return new WaitForSeconds(2.0f);
+
+        smoothCam = false;
     }
 }

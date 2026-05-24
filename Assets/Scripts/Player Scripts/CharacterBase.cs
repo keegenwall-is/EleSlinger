@@ -16,6 +16,7 @@ public class CharacterBase: MonoBehaviour
     private Rigidbody rb;
     private GameObject managerObj;
     private MinigameManager manager;
+    private GameObject stunStars;
 
     public InputDevice thisController;
     public Animator anim;
@@ -101,6 +102,11 @@ public class CharacterBase: MonoBehaviour
         }
     }
 
+    public void SetStunStars(GameObject stars)
+    {
+        stunStars = stars;
+    }
+
     public playerState GetState()
     {
         return currentState;
@@ -126,6 +132,11 @@ public class CharacterBase: MonoBehaviour
                     GameObject parent = transform.parent.gameObject;
                     transform.SetParent(null);
                     Destroy(parent);
+                }
+
+                if (stunStars != null)
+                {
+                    Destroy(stunStars);
                 }
 
                 break;

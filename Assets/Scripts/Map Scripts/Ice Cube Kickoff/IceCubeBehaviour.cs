@@ -5,14 +5,9 @@ using UnityEngine;
 public class IceCubeBehaviour : MonoBehaviour
 {
 
-    public float shrinkSpeed;
     public float minSize;
-    public float driftStrength;
-    public float driftPause;
-    public float destroyTime;
     public float pushMultiplier;
-    public Transform frostTrans;
-    public float fanPower;
+    public GameObject iceShadow;
 
     private Vector3 randomDir;
     private MinigameManager managerScript;
@@ -21,7 +16,6 @@ public class IceCubeBehaviour : MonoBehaviour
     private Vector3 stuckPos;
     private Rigidbody rb;
     private GameObject thrower;
-    private Quaternion origPopRot;
 
     // Start is called before the first frame update
     void Start()
@@ -30,40 +24,31 @@ public class IceCubeBehaviour : MonoBehaviour
         managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
 
         randomDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
-        origPopRot = frostTrans.localRotation;
-        //StartCoroutine(DriftAfterTime());
+
+        if (iceShadow != null)
+        {
+            GameObject thisIceShadow = Instantiate(iceShadow, transform.position, Quaternion.Euler(90f, 0f, 0f));
+            FootShadowBehaviour iceShadowScript = thisIceShadow.GetComponent<FootShadowBehaviour>();
+            iceShadowScript.footTransform = gameObject.transform;
+            iceShadowScript.height = 20.01f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (willShrink)
-        {
-            transform.localScale -= Vector3.one * Time.deltaTime * shrinkSpeed;
-
-            if (transform.localScale.x <= minSize)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else
+        if (!willShrink)
         {
             stuckPos = transform.position;
-            stuckPos.y = 0f;
+            stuckPos.y = 20f;
             attachedPlayer.transform.position = stuckPos;
 
             attachedPlayer.transform.rotation = Quaternion.Euler(attachedPlayer.transform.eulerAngles.x, transform.eulerAngles.y, attachedPlayer.transform.eulerAngles.z);
         }
-
-        //if (rb.velocity.magnitude <= driftStrength)
-        //{
-        //    StartCoroutine(DriftAfterTime());
-        //}
-    }
-
-    void LateUpdate()
-    {
-        frostTrans.eulerAngles = Vector3.zero;
+        else
+        {
+            rb.AddForce(Vector3.down * 1.5f, ForceMode.Acceleration);
+        }
     }
 
     public void SetWillShrink(bool canShrink)
@@ -71,7 +56,6 @@ public class IceCubeBehaviour : MonoBehaviour
         willShrink = canShrink;
         if (canShrink)
         {
-            print("constraints changed");
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
         }
     }
@@ -98,30 +82,20 @@ public class IceCubeBehaviour : MonoBehaviour
 
             float torqueAmount = attackScript.GetPower() * 0.5f;
             rb.AddTorque(randomTorqueDirection * torqueAmount, ForceMode.Impulse);
-        } else if (other.gameObject.name.Contains("Goal"))
+        } 
+    }
+
+    private void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.name.Contains("Goal"))
         {
-            //Increase and decrease scores and spawn new ice cube
-            managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
-            StartCoroutine(DestroyAfterTime());
+            //Increase scores and spawn new ice cube
+            managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, c.gameObject);
+            Destroy();
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.name.Contains("Fan"))
-        {
-            rb.AddForce(-other.transform.up * fanPower, ForceMode.Force);
-        }
-    }
-
-    private IEnumerator DriftAfterTime()
-    {
-        yield return new WaitForSeconds(driftPause);
-        //Vector3 currentVelo = rb.velocity;
-        rb.velocity = randomDir * driftStrength;
-    }
-
-    private IEnumerator DestroyAfterTime()
+    private void Destroy()
     {
         if (thrower != null)
         {
@@ -129,11 +103,18 @@ public class IceCubeBehaviour : MonoBehaviour
             GameObject thisKO = Instantiate(throwerBaseScript.KO, transform.position, transform.rotation);
         }
 
-        yield return new WaitForSeconds(destroyTime);
-
         if (gameObject.name.Contains("Pop"))
         {
-            CharacterBase frozenBaseScript = transform.GetChild(1).gameObject.GetComponent<CharacterBase>();
+            CharacterBase frozenBaseScript = null;
+
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("Player"))
+                {
+                    frozenBaseScript = child.GetComponent<CharacterBase>();
+                    break;
+                }
+            }
             frozenBaseScript.SetState(CharacterBase.playerState.Idle);
         }
 

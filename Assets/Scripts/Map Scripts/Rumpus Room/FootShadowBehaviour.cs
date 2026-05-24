@@ -6,6 +6,7 @@ public class FootShadowBehaviour : MonoBehaviour
 {
 
     public Transform footTransform;
+    public float height = 0.01f;
 
     private float xPos;
     private float zPos;
@@ -19,8 +20,15 @@ public class FootShadowBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        xPos = footTransform.position.x;
-        zPos = footTransform.position.z;
-        transform.position = new Vector3(xPos, 0.1f, zPos);
+        if (footTransform != null)
+        {
+            xPos = footTransform.position.x;
+            zPos = footTransform.position.z;
+            transform.position = new Vector3(xPos, height, zPos);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

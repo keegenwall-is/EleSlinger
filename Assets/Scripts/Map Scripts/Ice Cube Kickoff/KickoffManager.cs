@@ -13,20 +13,26 @@ public class KickoffManager : MinigameManager
     public GameObject[] popsicleSpawners;
     public GameObject iceCube;
     public GameObject popsicle;
-    public GameObject popsicleCube;
     public GameObject popsicleFrost;
-    public float iceSpawnCD;
     public float popsicleSpawnCD;
+    public float snowManSpawnCD;
     public int iceMashes;
     public GameObject iceNova;
-    public GameObject[] playerSpawners; 
+    public GameObject[] playerSpawners;
+    public GameObject mainCam;
+    public GameObject startIce;
+    public GameObject snowMan;
+    public float randSpawnAmount;
 
     private int[] playerScores = { 0, 0 };
-    private float iceSpawnCurrent;
     private float popsicleSpawnCurrent;
+    private float snowManSpawnCurrent;
     private int randIceSpawn;
     private int randPopSpawn;
     private float winningScore = 0;
+    private CameraMovement camMoveScript;
+    private float randPopSpawnCD;
+    private float randSnowManSpawnCD;
 
     // Start is called before the first frame update
     void Start()
@@ -44,25 +50,36 @@ public class KickoffManager : MinigameManager
             spawnPos.z = 0;
             playerSpawners[1].transform.position = spawnPos;
         }
+
+        camMoveScript = mainCam.GetComponent<CameraMovement>();
+        randPopSpawnCD = Random.Range(popsicleSpawnCD - randSpawnAmount, popsicleSpawnCD + randSpawnAmount);
+        randSnowManSpawnCD = Random.Range(snowManSpawnCD - randSpawnAmount, snowManSpawnCD + randSpawnAmount);
+    }
+
+    protected override void OnAllReady()
+    {
+        camMoveScript.FindObject(startIce);
     }
 
     protected override void OnTick()
     {
-        iceSpawnCurrent += 1 * Time.deltaTime;
         popsicleSpawnCurrent += 1 * Time.deltaTime;
+        snowManSpawnCurrent += 1 * Time.deltaTime;
 
-        if (iceSpawnCurrent >= iceSpawnCD)
-        {
-            iceSpawnCurrent = 0;
-            randIceSpawn = Random.Range(0, iceSpawners.Length);
-            Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
-        }
-
-        if (popsicleSpawnCurrent >= popsicleSpawnCD)
+        if (popsicleSpawnCurrent >= randPopSpawnCD)
         {
             popsicleSpawnCurrent = 0;
             randPopSpawn = Random.Range(0, 4);
             Instantiate(popsicle, popsicleSpawners[randPopSpawn].transform);
+            randPopSpawnCD = Random.Range(popsicleSpawnCD - randSpawnAmount, popsicleSpawnCD + randSpawnAmount);
+        }
+
+        if (snowManSpawnCurrent >= randSnowManSpawnCD)
+        {
+            snowManSpawnCurrent = 0;
+            Vector3 spawnPos = new Vector3(Random.Range(-30f, 30f), 50f, Random.Range(-30f, 30f));
+            Instantiate(snowMan, spawnPos, Quaternion.identity);
+            randSnowManSpawnCD = Random.Range(snowManSpawnCD - randSpawnAmount, snowManSpawnCD + randSpawnAmount);
         }
 
         if (overTime)
@@ -71,10 +88,16 @@ public class KickoffManager : MinigameManager
         }
     }
 
+    protected override void OnObstacleEvent(GameObject player)
+    {
+        GameObject spawn = SetPlayerSpawn(player);
+        KillPlayer(player, spawn);
+    }
+
     protected override void OnInteractiveObjectEvent(GameObject obj, GameObject player, GameObject other)
     {
         //increase score for player who shot the goal and decrease for the goal scored against
-
+        camMoveScript.ForgetObject(obj);
         for (int i = 0; i < goals.Count; i++)
         {
             if (goals[i] == other)
@@ -84,19 +107,30 @@ public class KickoffManager : MinigameManager
                     playerScores[0]++;
                     scores[0].text = playerScores[0].ToString();
                     StartCoroutine(ScoreAnimation(true, players[0]));
+                    if (playerNo >= 3)
+                    {
+                        Instantiate(scoreEffect, players[2].transform.position, Quaternion.Euler(-90f, 0f, 0f));
+                    }
                 }
                 else
                 {
                     playerScores[1]++;
                     scores[1].text = playerScores[1].ToString();
                     StartCoroutine(ScoreAnimation(true, players[1]));
+                    if (playerNo >= 4)
+                    {
+                        Instantiate(scoreEffect, players[3].transform.position, Quaternion.Euler(-90f, 0f, 0f));
+                    }
                 }
             }
         }
 
         randIceSpawn = Random.Range(0, iceSpawners.Length);
-        Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
-        iceSpawnCurrent = 0;
+
+        if (!obj.name.Contains("Pop"))
+        {
+            StartCoroutine(SpawnAfterTime());
+        }
     }
 
     public override void HandleItemPickup(GameObject item, GameObject actor)
@@ -105,13 +139,15 @@ public class KickoffManager : MinigameManager
         attackScript.SetSpecialAttack(true);
 
         Vector3 spawnPos = actor.transform.position;
-        spawnPos.y += 4.0f;
+        spawnPos.y += 2.0f;
         Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
     }
 
     public override void HandleSpecialAttack(GameObject hitPlayer, GameObject thrower)
     {
-        GameObject nova = Instantiate(iceNova, hitPlayer.transform.position, Quaternion.identity);
+        Vector3 spawnPos = hitPlayer.transform.position;
+        spawnPos.y += 2.0f;
+        GameObject nova = Instantiate(iceNova, spawnPos, Quaternion.identity);
         nova.GetComponent<IceNovaBehaviour>().SetThrower(thrower);
         StartCoroutine(DestroyAfterTime(nova));
     }
@@ -121,6 +157,14 @@ public class KickoffManager : MinigameManager
         yield return new WaitForSeconds(0.5f);
 
         Destroy(obj);
+    }
+
+    private IEnumerator SpawnAfterTime()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        GameObject thisIce = Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
+        camMoveScript.FindObject(thisIce);
     }
 
     protected override void OnMinigameEnd()
@@ -188,12 +232,18 @@ public class KickoffManager : MinigameManager
                 if (playerScores[0] == winningScore)
                 {
                     gameController.IncreaseRoundWins(players[0]);
-                    gameController.IncreaseRoundWins(players[2]);
+                    if (playerNo >= 3)
+                    {
+                        gameController.IncreaseRoundWins(players[2]);
+                    }
                 }
                 else
                 {
                     gameController.IncreaseRoundWins(players[1]);
-                    gameController.IncreaseRoundWins(players[3]);
+                    if (playerNo >= 4)
+                    {
+                        gameController.IncreaseRoundWins(players[3]);
+                    }
                 }
             }
         }

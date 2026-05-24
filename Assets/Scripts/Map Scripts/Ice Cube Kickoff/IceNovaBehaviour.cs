@@ -8,6 +8,7 @@ public class IceNovaBehaviour : MonoBehaviour
     public GameObject popsicleCube;
 
     private GameObject thrower;
+    private List<GameObject> alreadyFrozen = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,14 @@ public class IceNovaBehaviour : MonoBehaviour
                 return;
             }
 
+            foreach (GameObject frozenPlayers in alreadyFrozen)
+            {
+                if (frozenPlayers == other.gameObject)
+                {
+                    return;
+                }
+            }
+
             PlayerStunned stunnedScript = other.gameObject.GetComponent<PlayerStunned>();
             stunnedScript.SetMashes(iceMashes);
             stunnedScript.Stunned();
@@ -57,9 +66,11 @@ public class IceNovaBehaviour : MonoBehaviour
 
             List<GameObject> frosts = new List<GameObject>();
 
+            alreadyFrozen.Add(other.gameObject);
+
             foreach (Transform child in thrower.transform)
             {
-                if (child.name.Contains("Pop"))
+                if (child.name.Contains("Ice"))
                 {
                     frosts.Add(child.gameObject);
                 }
