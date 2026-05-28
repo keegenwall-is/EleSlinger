@@ -10919,7 +10919,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 409957093824567669, guid: 871ad002ce00b994399346343bd6594f, type: 3}
       propertyPath: glassSpeed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1457795242100125555, guid: 871ad002ce00b994399346343bd6594f, type: 3}
       propertyPath: m_Name

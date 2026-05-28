@@ -21,10 +21,8 @@ public class RollingBoardBehaviour : MonoBehaviour
         currentSpawn -= Time.deltaTime;
         if (currentSpawn <= 0)
         {
-            Vector3 spawnPos = transform.position;
-            spawnPos.y += 50f;
-            spawnPos.z -= 10f;
-            Instantiate(rollingPin, spawnPos, Quaternion.Euler(0, 0, 90));
+            Vector3 spawnPos = transform.TransformPoint(new Vector3(0f, 5f, -0.5f));
+            Instantiate(rollingPin, spawnPos, Quaternion.Euler(0f, transform.localEulerAngles.y, 90f));
             currentSpawn = spawnCD;
         }
     }
