@@ -160,10 +160,9 @@ public class DishwashManager : MinigameManager
         int numOfBigs = Random.Range(1, 3);
         int bigsCount = 0;
         randomCount = 0;
-        randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs));
+        randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs) - itemsPerPath);
         correctCount = 0;
         isCorrect = false;
-
         for (int i = 0; i < itemCount; i++)
         {
             if (lastWasBig)
@@ -175,7 +174,7 @@ public class DishwashManager : MinigameManager
                     randomCount = 0;
                     bigsCount = 0;
                     numOfBigs = Random.Range(1, 3);
-                    randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs));
+                    randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs) - itemsPerPath);
                 }
 
                 continue;
@@ -192,10 +191,6 @@ public class DishwashManager : MinigameManager
                     isBig = true;
                     bigsCount++;
                     lastWasBig = true;
-                    if (Random.Range(0, 2) == 1)
-                    {
-                        //print("W");
-                    }
                 }
             }
 
@@ -203,12 +198,12 @@ public class DishwashManager : MinigameManager
             //maybe change when paths are generated, do they always need to be on successful paths?
             if (setup && i % (itemCount / 4) == 0)
             {
-                DrawLine(angle, isBig);
+                DrawLine(angle);
             }
             else if (lastSuccessAngles.Contains(angle))
             {
                 lastSuccessAngles.Remove(angle);
-                DrawLine(angle, isBig);
+                DrawLine(angle);
             }
 
             if (isBig)
@@ -254,7 +249,7 @@ public class DishwashManager : MinigameManager
                 randomCount = 0;
                 bigsCount = 0;
                 numOfBigs = Random.Range(1, 3);
-                randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs));
+                randomCorrect = Random.Range(1, (totalItems / 4) - (2 * numOfBigs) - itemsPerPath);
             }
         }
     }
@@ -302,14 +297,20 @@ public class DishwashManager : MinigameManager
         plates.Add(thisBig);
     }
 
-    private void DrawLine(float angle, bool isBig)
+    private void DrawLine(float angle)
     {
         Vector3 linePos = plateSpawnPos;
+        bool isBig = false;
+        if (Random.Range(0, 2) == 1)
+        {
+            isBig = true;
+        }
+
         if (isBig)
         {
             linePos.x = Mathf.Cos(angle) * (radius - 1.5f * gapDist);
             linePos.z = Mathf.Sin(angle) * (radius - 1.5f * gapDist);
-            randomCorrect -= 1;
+            //randomCorrect -= 1;
             SpawnBig(linePos, true);
         }
         else
@@ -319,13 +320,15 @@ public class DishwashManager : MinigameManager
                 linePos.x = Mathf.Cos(angle) * (radius - d * gapDist);
                 linePos.z = Mathf.Sin(angle) * (radius - d * gapDist);
                 isCorrect = false;
-                randomCount++;
+                //commented out to stop correct plate spawns on line
+                //(i love keegen, Jess 2026)
+                /*randomCount++;
                 if (randomCount == randomCorrect)
                 {
                     isCorrect = true;
                     correctCount++;
                     lastSuccessAngles.Add(angle);
-                }
+                }*/
                 SpawnPlate(linePos, isCorrect);
             }
         }
