@@ -181,6 +181,7 @@ public class FuseBoxManager : MinigameManager
         Vector3 spawnPos = player.transform.position;
         spawnPos.y += 3.0f;
         GameObject thisElectricPower = Instantiate(electricPower, spawnPos, player.transform.rotation, player.transform);
+        thisElectricPower.transform.localScale /= player.transform.localScale.x;
 
         PlayerMove playerMove = player.GetComponent<PlayerMove>();
         playerMove.IncreaseSpeed(ePowerSpeedBuff);

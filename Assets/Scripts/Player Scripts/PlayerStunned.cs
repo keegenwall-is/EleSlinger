@@ -67,6 +67,7 @@ public class PlayerStunned : MonoBehaviour
         if (theseStars == null)
         {
             theseStars = Instantiate(stunStars, spawnPos, spawnRot, transform);
+            theseStars.transform.localScale /= transform.localScale.x;
             baseScript.SetStunStars(theseStars);
         }
         

@@ -114,7 +114,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3501893452413584978, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Range
-      value: 6.867795
+      value: 7.142717
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452413584978, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Color.b
@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452413584978, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Intensity
-      value: 6.9430275
+      value: 8.132967
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138004, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Materials.Array.size
@@ -138,19 +138,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_LocalPosition.x

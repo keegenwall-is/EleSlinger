@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 indicatorStartSize;
     private bool hasSpecialAttack;
     private Vector3 projSpawnPoint;
+    private float playerScale;
 
     public float animCut;
     public GameObject projectile;
@@ -32,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         baseScript = GetComponent<CharacterBase>();
         moveScript = GetComponent<PlayerMove>();
         anim = GetComponent<Animator>();
+        playerScale = transform.localScale.x;
     }
 
     // Update is called once per frame
@@ -142,7 +144,8 @@ public class PlayerAttack : MonoBehaviour
             projSize = maxSize;
         }
         thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
-        indicator.transform.localScale = new Vector3(projSize, projSize, projSize);
+        float adjustedSize = projSize / playerScale * 1.5f;
+        indicator.transform.localScale = new Vector3(adjustedSize, adjustedSize, adjustedSize);
     }
 
     public void ResumeAnim()

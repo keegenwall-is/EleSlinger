@@ -140,7 +140,8 @@ public class KickoffManager : MinigameManager
 
         Vector3 spawnPos = actor.transform.position;
         spawnPos.y += 2.0f;
-        Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
+        GameObject thisPopFrost = Instantiate(popsicleFrost, spawnPos, actor.transform.rotation, actor.transform);
+        thisPopFrost.transform.localScale /= actor.transform.localScale.x;
     }
 
     public override void HandleSpecialAttack(GameObject hitPlayer, GameObject thrower)
