@@ -55,7 +55,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Max: 1.2
-    - _Min: 0.5
+    - _Min: 0.7
     - _OutlineScale: 1.05
     - _QueueControl: 0
     - _QueueOffset: 0

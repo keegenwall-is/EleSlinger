@@ -17,6 +17,7 @@ public class CharacterBase: MonoBehaviour
     private GameObject managerObj;
     private MinigameManager manager;
     private GameObject stunStars;
+    private bool hasActiveItem;
 
     public InputDevice thisController;
     public Animator anim;
@@ -48,7 +49,8 @@ public class CharacterBase: MonoBehaviour
         Stunned,
         Falling,
         Dead,
-        Out
+        Out,
+        UsingItem
     }
 
     void Awake()
@@ -107,9 +109,19 @@ public class CharacterBase: MonoBehaviour
         stunStars = stars;
     }
 
+    public void SetHasActiveItem(bool hasActiveItem)
+    {
+        this.hasActiveItem = hasActiveItem;
+    }
+
     public playerState GetState()
     {
         return currentState;
+    }
+
+    public bool GetHasActiveItem()
+    {
+        return hasActiveItem;
     }
 
     public void OnStateEnter(playerState state)
@@ -191,6 +203,10 @@ public class CharacterBase: MonoBehaviour
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
                 canMove = false;
+                break;
+            case playerState.UsingItem:
+                anim.CrossFade(FindAnimation("Selected"), animFadeDur);
+                canMove = true;
                 break;
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);

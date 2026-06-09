@@ -19,6 +19,9 @@ public class DishwashManager : MinigameManager
     public GameObject water;
     public float waterRiseSpeed;
 
+    public GameObject[] plateGroups;
+    public float plateSpeed;
+
     private bool spawnPlates = false;
     private bool findPlates = false;
     private bool showSuccess = false;
@@ -41,10 +44,16 @@ public class DishwashManager : MinigameManager
     private List<GameObject> oldSuccess = new List<GameObject>();
     private bool lastWasBig = false;
 
+    private float spawnCD;
+    private float spawnCurrent;
+    private List<GameObject> activePlateGroups = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         waitToSpawnCurrent = 3f;
+        spawnCurrent = 0f;
+        spawnCD = 10f;
         plateSpawnPos = new Vector3(0, plateHeight, 0);
         radius = gapDist / (2 * Mathf.Sin(Mathf.PI / itemCount));
         itemsPerPath = 2;
@@ -56,7 +65,23 @@ public class DishwashManager : MinigameManager
     {
         if (spawnPlates)
         {
-            waitToSpawnCurrent -= Time.deltaTime;
+            //waitToSpawnCurrent -= Time.deltaTime;
+
+            spawnCurrent -= Time.deltaTime;
+
+            if (spawnCurrent <= 0)
+            {
+                spawnCurrent = spawnCD;
+                int randGroup = Random.Range(0, plateGroups.Length);
+                Vector3 spawnPos = new Vector3(60f, 0f, 0f);
+                GameObject thisPlateGroup = Instantiate(plateGroups[randGroup], spawnPos, Quaternion.identity);
+                activePlateGroups.Add(thisPlateGroup);
+            }
+
+            foreach (GameObject plateGroup in activePlateGroups)
+            {
+                plateGroup.transform.position -= Vector3.right * plateSpeed * Time.deltaTime;
+            }
 
             if (water.transform.position.y > 0)
             {
@@ -337,6 +362,12 @@ public class DishwashManager : MinigameManager
     protected override void OnAllReady()
     {
         spawnPlates = true;
+
+        foreach (GameObject player in players)
+        {
+            CharacterBase baseScript = player.GetComponent<CharacterBase>();
+            baseScript.SetHasActiveItem(true);
+        }
     }
 
     protected override void OnObstacleEvent(GameObject player)

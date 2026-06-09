@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Foam: 210
-    - _FoamOffset: 10
+    - _FoamOffset: 3
     - _Gloss: 1.3
     - _Metallic: 0.1
     - _NormalStrength: 3

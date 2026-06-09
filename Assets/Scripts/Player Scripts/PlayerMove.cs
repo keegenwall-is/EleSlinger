@@ -33,7 +33,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (baseScript.thisController is Keyboard keyboard)
             {
-                if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle)
+                if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
                 {
                     StartCoroutine(Dash());
                     return;
@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
             }
             else if (baseScript.thisController is Gamepad controller)
             {
-                if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle)
+                if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
                 {
                     StartCoroutine(Dash());
                     return;
@@ -93,13 +93,19 @@ public class PlayerMove : MonoBehaviour
 
         if (moveZ != 0f || moveX != 0f)
         {
-            baseScript.SetState(CharacterBase.playerState.Running);
+            if (baseScript.GetState() != CharacterBase.playerState.UsingItem)
+            {
+                baseScript.SetState(CharacterBase.playerState.Running);
+            }
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
         }
         else
         {
-            baseScript.SetState(CharacterBase.playerState.Idle);
+            if (baseScript.GetState() != CharacterBase.playerState.UsingItem)
+            {
+                baseScript.SetState(CharacterBase.playerState.Idle);
+            }
         }
     }
 
@@ -149,7 +155,7 @@ public class PlayerMove : MonoBehaviour
         moveSpeed *= speedMultiplier;
     }
 
-    public void DecreaseSpeed(float speedDivider)
+    public void DecreaseSpeed()
     {
         originalSpeed = baseSpeed;
         moveSpeed = baseSpeed;

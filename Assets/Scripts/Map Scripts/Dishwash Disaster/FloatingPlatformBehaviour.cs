@@ -9,11 +9,12 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     public List<GameObject> onPlayers = new List<GameObject>();
 
     private List<GameObject> jumpingPlayers = new List<GameObject>();
+    private DishwashManager managerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<DishwashManager>();
     }
 
     // Update is called once per frame
@@ -44,6 +45,15 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                     }
                     jumpingPlayers.RemoveAt(i);
                 }
+            }
+        }
+
+        foreach (GameObject onPlayer in onPlayers)
+        {
+            CharacterBase baseScript = onPlayer.GetComponent<CharacterBase>();
+            if (baseScript.GetState() != CharacterBase.playerState.Dashing)
+            {
+                onPlayer.transform.position -= Vector3.right * managerScript.plateSpeed * Time.deltaTime;
             }
         }
     }

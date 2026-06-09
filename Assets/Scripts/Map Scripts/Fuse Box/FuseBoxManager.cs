@@ -190,7 +190,7 @@ public class FuseBoxManager : MinigameManager
 
         RemoveItemsFromInventory(player);
         Destroy(thisElectricPower);
-        playerMove.DecreaseSpeed(ePowerSpeedBuff);
+        playerMove.DecreaseSpeed();
         characterBase.SetMaterial("Material");
         player.tag = "Player";
     }
