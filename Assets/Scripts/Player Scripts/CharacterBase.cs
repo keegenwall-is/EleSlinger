@@ -205,7 +205,7 @@ public class CharacterBase: MonoBehaviour
                 canMove = false;
                 break;
             case playerState.UsingItem:
-                anim.CrossFade(FindAnimation("Selected"), animFadeDur);
+                anim.CrossFade(FindAnimation("Firing"), animFadeDur);
                 canMove = true;
                 break;
             case playerState.Dead:

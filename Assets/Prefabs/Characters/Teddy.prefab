@@ -888,6 +888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c372b74b977faec40840cea7e8e42880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firingTrans: {fileID: 5433970370804214763}
+  stowedTrans: {fileID: 8283117098859362779}
 --- !u!1 &1176657514528082303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1080,7 @@ Transform:
   m_Children:
   - {fileID: 8350935054748170292}
   - {fileID: 198477798628828427}
+  - {fileID: 5433970370804214763}
   m_Father: {fileID: 2401118341666081594}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 1.6382457, y: 2.7524097, z: -0.7304678}
@@ -1494,6 +1497,68 @@ Transform:
   m_Father: {fileID: 8331194140354039506}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -7.933021, y: 17.588377, z: -0.7801893}
+--- !u!1 &5396842299947955218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5433970370804214763}
+  m_Layer: 0
+  m_Name: ItemFiring
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5433970370804214763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396842299947955218}
+  m_LocalRotation: {x: -0.9567402, y: 0.037586916, z: 0.28130993, w: 0.06403231}
+  m_LocalPosition: {x: -0.021, y: 0.14, z: -0.091}
+  m_LocalScale: {x: 0.667, y: 0.667, z: 0.667}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1978362592365969754}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: -8.26, y: -147.38, z: 182.079}
+--- !u!1 &5458456706179151825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8283117098859362779}
+  m_Layer: 0
+  m_Name: ItemStowed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8283117098859362779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458456706179151825}
+  m_LocalRotation: {x: -0.08950955, y: 0.044253398, z: 0.34693018, w: 0.93256056}
+  m_LocalPosition: {x: 0.019, y: 0.095, z: -0.172}
+  m_LocalScale: {x: 0.667, y: 0.667, z: 0.667}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 564578199252676349}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: -11.4, y: 1.194, z: 40.693}
 --- !u!1 &5482013296974889039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1591,7 @@ Transform:
   - {fileID: 6389859337594348160}
   - {fileID: 6988898736820569871}
   - {fileID: 198477799496801495}
+  - {fileID: 8283117098859362779}
   m_Father: {fileID: 1328153511261249174}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 1.0841616, y: -16.676355, z: -0.8009495}

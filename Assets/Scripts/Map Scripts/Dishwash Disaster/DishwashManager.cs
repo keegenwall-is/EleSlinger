@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class DishwashManager : MinigameManager
 {
@@ -21,6 +22,7 @@ public class DishwashManager : MinigameManager
 
     public GameObject[] plateGroups;
     public float plateSpeed;
+    public GameObject soaker;
 
     private bool spawnPlates = false;
     private bool findPlates = false;
@@ -47,13 +49,14 @@ public class DishwashManager : MinigameManager
     private float spawnCD;
     private float spawnCurrent;
     private List<GameObject> activePlateGroups = new List<GameObject>();
+    private float lastGroupSize;
 
     // Start is called before the first frame update
     void Start()
     {
         waitToSpawnCurrent = 3f;
         spawnCurrent = 0f;
-        spawnCD = 10f;
+        //spawnCD = 10f;
         plateSpawnPos = new Vector3(0, plateHeight, 0);
         radius = gapDist / (2 * Mathf.Sin(Mathf.PI / itemCount));
         itemsPerPath = 2;
@@ -71,10 +74,11 @@ public class DishwashManager : MinigameManager
 
             if (spawnCurrent <= 0)
             {
-                spawnCurrent = spawnCD;
                 int randGroup = Random.Range(0, plateGroups.Length);
                 Vector3 spawnPos = new Vector3(60f, 0f, 0f);
                 GameObject thisPlateGroup = Instantiate(plateGroups[randGroup], spawnPos, Quaternion.identity);
+                lastGroupSize = Variables.Object(thisPlateGroup).Get<float>("groupSize");
+                spawnCurrent = lastGroupSize / plateSpeed;
                 activePlateGroups.Add(thisPlateGroup);
             }
 
@@ -366,7 +370,9 @@ public class DishwashManager : MinigameManager
         foreach (GameObject player in players)
         {
             CharacterBase baseScript = player.GetComponent<CharacterBase>();
+            PlayerUseItem useItemScript = player.GetComponent<PlayerUseItem>();
             baseScript.SetHasActiveItem(true);
+            useItemScript.SetItem(soaker);
         }
     }
 

@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerUseItem : MonoBehaviour
 {
+    public Transform firingTrans;
+    public Transform stowedTrans;
 
     private CharacterBase baseScript;
     private PlayerMove moveScript;
+    private GameObject thisItem;
+    private GameObject itemPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +35,8 @@ public class PlayerUseItem : MonoBehaviour
                     {
                         baseScript.SetState(CharacterBase.playerState.UsingItem);
                         moveScript.IncreaseSpeed(0.5f);
+                        Destroy(thisItem);
+                        thisItem = Instantiate(itemPrefab, firingTrans);
                     }
                 }
                 else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
@@ -39,6 +45,8 @@ public class PlayerUseItem : MonoBehaviour
                     {
                         baseScript.SetState(CharacterBase.playerState.Idle);
                         moveScript.DecreaseSpeed();
+                        Destroy(thisItem);
+                        thisItem = Instantiate(itemPrefab, stowedTrans);
                     }
                 }
             }
@@ -50,6 +58,8 @@ public class PlayerUseItem : MonoBehaviour
                     {
                         baseScript.SetState(CharacterBase.playerState.UsingItem);
                         moveScript.IncreaseSpeed(0.5f);
+                        Destroy(thisItem);
+                        thisItem = Instantiate(itemPrefab, firingTrans);
                     }
                 }
                 else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
@@ -58,9 +68,17 @@ public class PlayerUseItem : MonoBehaviour
                     {
                         baseScript.SetState(CharacterBase.playerState.Idle);
                         moveScript.DecreaseSpeed();
+                        Destroy(thisItem);
+                        thisItem = Instantiate(itemPrefab, stowedTrans);
                     }
                 }
             }
         }
+    }
+
+    public void SetItem(GameObject itemPrefab)
+    {
+        this.itemPrefab = itemPrefab;
+        thisItem = Instantiate(itemPrefab, stowedTrans);
     }
 }

@@ -2181,6 +2181,7 @@ MonoBehaviour:
   - {fileID: 8238790712275001592, guid: bf73ef7b40df11443b7ec3dc7d7e518e, type: 3}
   - {fileID: 5473608632350351863, guid: 405fed27e0e8c2a4b8a7ff1861f17834, type: 3}
   plateSpeed: 5
+  soaker: {fileID: 1509295452003972885, guid: ed5ebd1f388e63f4eb9bab277b9dc080, type: 3}
 --- !u!4 &1669014397
 Transform:
   m_ObjectHideFlags: 0
