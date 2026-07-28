@@ -9,13 +9,15 @@ public class SoakerBehaviour : MonoBehaviour
 
     public float maxDistance = 10f;
     [Header("Cone Dimensions")]
-    [Range(0f, 89f)] public float maxConeAngle = 30f; // Outer radius angle of the circle base
-    public int totalRings = 3;                       // Layers from center to outer edge
+    [Range(0f, 89f)] public float maxConeAngle = 30f;
+    public int totalRings = 3;
     public int raysPerRing = 8;
+    public float bubbleCD = 0.05f;
 
     private GameObject player;
     private CharacterBase baseScript;
     private bool foamOn;
+    private float bubbleCurrent;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,7 @@ public class SoakerBehaviour : MonoBehaviour
         foamOn = true;
     }
 
-    void FireCircularConeRays()
+    private void FireCircularConeRays()
     {
         Vector3 startPos = transform.position;
         startPos.x += 1f;
@@ -88,17 +90,40 @@ public class SoakerBehaviour : MonoBehaviour
         }
     }
 
-    void FireSingleRay(Vector3 origin, Vector3 direction)
+    private void FireSingleRay(Vector3 origin, Vector3 direction)
     {
         RaycastHit hit;
 
         // Fires the ray (Requires 'Queries Hit Triggers' enabled in your Physics settings)
         if (Physics.Raycast(origin, direction, out hit, maxDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            Instantiate(splash, hit.point, Quaternion.identity);
+            GameObject plate = null;
+
+            SpawnBubbles(hit);
+            if (hit.collider.gameObject.name.Contains("Plate"))
+            {
+                plate = hit.collider.gameObject;
+            }
+
+            if (plate != null)
+            {
+                FloatingPlatformBehaviour plateScript = plate.GetComponentInChildren<FloatingPlatformBehaviour>();
+                plateScript.beingSoaked = true;
+                plateScript.UpdateCapturingPlayer(baseScript.playerNo, player);
+            }
         }
 
         // Draw the circular cone in the Scene view for testing
         Debug.DrawRay(origin, direction * maxDistance, Color.cyan, 0.1f);
+    }
+
+    private void SpawnBubbles(RaycastHit hit)
+    {
+        bubbleCurrent += Time.deltaTime;
+        if (bubbleCurrent >= bubbleCD)
+        {
+            bubbleCurrent = 0f;
+            Instantiate(splash, hit.point, Quaternion.identity);
+        }
     }
 }

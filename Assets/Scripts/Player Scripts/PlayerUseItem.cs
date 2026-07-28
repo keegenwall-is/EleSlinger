@@ -33,20 +33,14 @@ public class PlayerUseItem : MonoBehaviour
                 {
                     if (keyboard.iKey.wasPressedThisFrame)
                     {
-                        baseScript.SetState(CharacterBase.playerState.UsingItem);
-                        moveScript.IncreaseSpeed(0.5f);
-                        Destroy(thisItem);
-                        thisItem = Instantiate(itemPrefab, firingTrans);
+                        UseItem();
                     }
                 }
                 else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
                 {
                     if (keyboard.iKey.wasReleasedThisFrame)
                     {
-                        baseScript.SetState(CharacterBase.playerState.Idle);
-                        moveScript.DecreaseSpeed();
-                        Destroy(thisItem);
-                        thisItem = Instantiate(itemPrefab, stowedTrans);
+                        StopUsingItem();
                     }
                 }
             }
@@ -56,20 +50,14 @@ public class PlayerUseItem : MonoBehaviour
                 {
                     if (controller.rightTrigger.wasPressedThisFrame || controller.rightShoulder.wasPressedThisFrame)
                     {
-                        baseScript.SetState(CharacterBase.playerState.UsingItem);
-                        moveScript.IncreaseSpeed(0.5f);
-                        Destroy(thisItem);
-                        thisItem = Instantiate(itemPrefab, firingTrans);
+                        UseItem();
                     }
                 }
                 else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
                 {
                     if (controller.rightTrigger.wasReleasedThisFrame || controller.rightShoulder.wasReleasedThisFrame)
                     {
-                        baseScript.SetState(CharacterBase.playerState.Idle);
-                        moveScript.DecreaseSpeed();
-                        Destroy(thisItem);
-                        thisItem = Instantiate(itemPrefab, stowedTrans);
+                        StopUsingItem();
                     }
                 }
             }
@@ -79,6 +67,22 @@ public class PlayerUseItem : MonoBehaviour
     public void SetItem(GameObject itemPrefab)
     {
         this.itemPrefab = itemPrefab;
+        thisItem = Instantiate(itemPrefab, stowedTrans);
+    }
+    
+    private void UseItem()
+    {
+        baseScript.SetState(CharacterBase.playerState.UsingItem);
+        moveScript.IncreaseSpeed(0.5f);
+        Destroy(thisItem);
+        thisItem = Instantiate(itemPrefab, firingTrans);
+    }
+
+    public void StopUsingItem()
+    {
+        baseScript.SetState(CharacterBase.playerState.Idle);
+        moveScript.DecreaseSpeed();
+        Destroy(thisItem);
         thisItem = Instantiate(itemPrefab, stowedTrans);
     }
 }

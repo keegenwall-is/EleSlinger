@@ -201,6 +201,7 @@ public class GameController : MonoBehaviour
 
                 baseScript.KO = KOEffects[num];
                 baseScript.playerIdentifier.color = playerColours[num];
+                baseScript.playerNo = num;
                 indicatorImg.color = playerColours[num];
                 attackScript.projectile = ProjEffects[num];
                 attackScript.charge = ChargeEffects[num];

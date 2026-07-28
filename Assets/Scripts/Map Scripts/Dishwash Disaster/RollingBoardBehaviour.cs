@@ -4,35 +4,45 @@ using UnityEngine;
 
 public class RollingBoardBehaviour : MonoBehaviour
 {
-    public float spawnCD;
     public GameObject rollingPin;
+    public float pinSpeed;
+    public float pinHeight = 6f;
 
-    private float currentSpawn;
+    private bool rollingDown;
+    private GameObject thisRollingPin;
+    private DishwashManager managerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentSpawn = spawnCD;
+        Vector3 spawnPos = transform.position;
+        spawnPos.y += pinHeight;
+        thisRollingPin = Instantiate(rollingPin, spawnPos, Quaternion.Euler(0f, 0f, 90f));
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<DishwashManager>();
+        rollingDown = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentSpawn -= Time.deltaTime;
-        if (currentSpawn <= 0)
+        if (thisRollingPin.transform.position.z >= 35f)
         {
-            Vector3 spawnPos = transform.TransformPoint(new Vector3(0f, 5f, -0.5f));
-            Instantiate(rollingPin, spawnPos, Quaternion.Euler(0f, transform.localEulerAngles.y, 90f));
-            currentSpawn = spawnCD;
+            rollingDown = true;
         }
-    }
+        else if (thisRollingPin.transform.position.z <= -35f)
+        {
+            rollingDown = false;
+        }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.name.Contains("Rolling Pin"))
+        if (rollingDown)
         {
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-            rb.AddRelativeTorque(-Vector3.up * 100f, ForceMode.Impulse);
+            thisRollingPin.transform.position -= Vector3.forward * pinSpeed * Time.deltaTime;
         }
+        else
+        {
+            thisRollingPin.transform.position += Vector3.forward * pinSpeed * Time.deltaTime;
+        }
+
+        thisRollingPin.transform.position -= Vector3.right * managerScript.plateSpeed * Time.deltaTime;
     }
 }

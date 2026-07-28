@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 588485333463794678}
   - component: {fileID: 588485333463794677}
   - component: {fileID: 588485333463794676}
-  - component: {fileID: 588485333463794635}
   - component: {fileID: 588485333463794672}
   - component: {fileID: 588485333463794673}
   m_Layer: 0
@@ -29,15 +28,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588485333463794633}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.4, y: 38, z: -0}
-  m_LocalScale: {x: 42, y: 5, z: 25}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 85, y: 5, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7725696330248145776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &588485333463794678
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -101,19 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &588485333463794635
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588485333463794633}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &588485333463794672
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,8 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8273ac65a3c22f047a42e306cc66ed85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCD: 5
   rollingPin: {fileID: 1828707271647953051, guid: c8f4b4768cff33d46860c2701350f78e, type: 3}
+  pinSpeed: 10
+  pinHeight: 6
 --- !u!1 &9093195570117254034
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7725696330248145776}
   - component: {fileID: 9204935669081159184}
+  - component: {fileID: 8076140755700560933}
   m_Layer: 0
   m_Name: FloatingPlatformScript
   m_TagString: Untagged
@@ -190,3 +178,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 0
   onPlayers: []
+  ring: {fileID: 0}
+  ringImg: {fileID: 0}
+  ringColours: []
+  beingSoaked: 0
+  maxSoaked: 0
+  completeVFX: {fileID: 0}
+  bubble: {fileID: 0}
+  isBig: 0
+  isStationary: 0
+--- !u!65 &8076140755700560933
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093195570117254034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 42, y: 1, z: 25}
+  m_Center: {x: 0, y: 0.5, z: 0}

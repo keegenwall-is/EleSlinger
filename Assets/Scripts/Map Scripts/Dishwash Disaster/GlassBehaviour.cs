@@ -18,9 +18,13 @@ public class GlassBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.y > manager.plateHeight + 3.5)
+        if (gameObject.transform.position.y > manager.plateHeight + 3.5 || glassSpeed < 0)
         {
             gameObject.transform.position -= Vector3.up * glassSpeed * Time.deltaTime;
+        }
+        if (gameObject.transform.position.y >= 100f)
+        {
+            Destroy(gameObject);
         }
     }
 

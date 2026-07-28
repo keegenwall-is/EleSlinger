@@ -10,6 +10,8 @@ TagManager:
   - Game Controller
   - Jail
   - Out
+  - ObImmune
+  - Minigame Manager
   layers:
   - Default
   - TransparentFX

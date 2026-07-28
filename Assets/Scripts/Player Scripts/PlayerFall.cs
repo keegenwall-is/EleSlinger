@@ -10,6 +10,8 @@ public class PlayerFall : MonoBehaviour
 
     private CharacterBase baseScript;
     private PlayerMove moveScript;
+    private PlayerAttack PAScript;
+    private PlayerUseItem PUIScript;
     private Rigidbody rb;
     private Vector3 velocity;
 
@@ -18,6 +20,7 @@ public class PlayerFall : MonoBehaviour
     {
         baseScript = GetComponent<CharacterBase>();
         moveScript = GetComponent<PlayerMove>();
+        PUIScript = GetComponent<PlayerUseItem>();
         rb = GetComponent<Rigidbody>();
         fallDown = false;
     }
@@ -49,5 +52,19 @@ public class PlayerFall : MonoBehaviour
             fallSpeed = 5f;
             fallDown = false;
         }
+    }
+
+    public void StartFall()
+    {
+        if (baseScript.GetState() == CharacterBase.playerState.Attacking)
+        {
+            PAScript.CancelAttack();
+        }
+        else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
+        {
+            PUIScript.StopUsingItem();
+        }
+
+        baseScript.SetState(CharacterBase.playerState.Falling);
     }
 }

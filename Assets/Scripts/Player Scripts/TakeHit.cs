@@ -12,6 +12,7 @@ public class TakeHit : MonoBehaviour
     private CharacterBase baseScript;
     private GameObject attacker;
     private PlayerStunned stunnedScript;
+    private PlayerUseItem usingItemScript;
 
     public float flySpeed;
 
@@ -22,6 +23,7 @@ public class TakeHit : MonoBehaviour
         PAscript = GetComponent<PlayerAttack>();
         baseScript = GetComponent<CharacterBase>();
         stunnedScript = GetComponent<PlayerStunned>();
+        usingItemScript = GetComponent<PlayerUseItem>();
     }
 
     // Update is called once per frame
@@ -63,6 +65,10 @@ public class TakeHit : MonoBehaviour
         if (baseScript.GetState() == CharacterBase.playerState.Attacking)
         {
             PAscript.CancelAttack();
+        }
+        else if (baseScript.GetState() == CharacterBase.playerState.UsingItem)
+        {
+            usingItemScript.StopUsingItem();
         }
 
         transform.forward = direction;

@@ -12,6 +12,7 @@ public class CharacterBase: MonoBehaviour
     private Vector3 spawnPos;
     private PlayerMove playerMove;
     private TakeHit takeHit;
+    private PlayerUseItem useItem;
     private GameObject jail;
     private Rigidbody rb;
     private GameObject managerObj;
@@ -35,8 +36,10 @@ public class CharacterBase: MonoBehaviour
     public Material[] materials;
     public GameObject instruction;
     public Image playerIdentifier;
+    public int playerNo;
 
     private AnimationClip[] clips;
+    private int lastMoveFrame = -1;
 
     public enum playerState
     {
@@ -61,6 +64,7 @@ public class CharacterBase: MonoBehaviour
         clips = anim.runtimeAnimatorController.animationClips;
         cc = GetComponent<CapsuleCollider>();
         playerMove = GetComponent<PlayerMove>();
+        useItem = GetComponent<PlayerUseItem>();
         takeHit = GetComponent<TakeHit>();
         jail = GameObject.FindGameObjectWithTag("Jail");
         rb = GetComponent<Rigidbody>();
@@ -279,5 +283,15 @@ public class CharacterBase: MonoBehaviour
             mesh.SetActive(true);
         }
         gameObject.tag = "Player";
+    }
+    
+    public void FollowFloatingPlatforms(float speed)
+    {
+        if (Time.frameCount == lastMoveFrame)
+        {
+            return;
+        }
+        lastMoveFrame = Time.frameCount;
+        transform.position -= Vector3.right * speed * Time.deltaTime;
     }
 }

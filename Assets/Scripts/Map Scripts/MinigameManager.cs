@@ -192,6 +192,11 @@ public class MinigameManager : MonoBehaviour
                 PlayerAttack thisPlayerAttack = player.gameObject.GetComponent<PlayerAttack>();
                 thisPlayerAttack.CancelAttack();
             }
+            else if (thisPlayerBase.GetState() == CharacterBase.playerState.UsingItem)
+            {
+                PlayerUseItem thisPlayerUseItem = player.gameObject.GetComponent<PlayerUseItem>();
+                thisPlayerUseItem.StopUsingItem();
+            }
             thisPlayerBase.SetState(CharacterBase.playerState.Idle);
             thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
             thisPlayerBase.SetState(CharacterBase.playerState.Dead);
@@ -227,7 +232,7 @@ public class MinigameManager : MonoBehaviour
         return spawnPoint;
     }
 
-    public IEnumerator ScoreAnimation(bool increasing, GameObject player)
+    public IEnumerator ScoreAnimation(bool increasing, GameObject player, int value = 1)
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -236,13 +241,13 @@ public class MinigameManager : MonoBehaviour
                 if (increasing)
                 {
                     Instantiate(scoreEffect, player.transform.position, Quaternion.Euler(-90f, 0f, 0f));
-                    scoreUpdates[i].text = "+1";
+                    scoreUpdates[i].text = $"+{value}";
                     scoreUpdates[i].color = Color.green;
                     scoreUpdates[i].enabled = true;
                 }
                 else
                 {
-                    scoreUpdates[i].text = "-1";
+                    scoreUpdates[i].text = $"-{value}";
                     scoreUpdates[i].color = Color.red;
                     scoreUpdates[i].enabled = true;
                 }

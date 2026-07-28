@@ -114,6 +114,7 @@ public class PlayerAttack : MonoBehaviour
                 isAiming = true;
                 thisCharge = Instantiate(charge, magicSpawner.transform.position, transform.rotation, magicSpawner.transform);
                 thisCharge.transform.localScale = Vector3.zero;
+                indicator.transform.localScale = indicatorStartSize;
                 indicator.SetActive(true);
             }
         }
@@ -125,6 +126,7 @@ public class PlayerAttack : MonoBehaviour
                 isAiming = true;
                 thisCharge = Instantiate(charge, magicSpawner.transform.position, transform.rotation, magicSpawner.transform);
                 thisCharge.transform.localScale = Vector3.zero;
+                indicator.transform.localScale = indicatorStartSize;
                 indicator.SetActive(true);
             }
         }
