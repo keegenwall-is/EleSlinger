@@ -11,6 +11,8 @@ public class FuseBoxGenerator : MonoBehaviour
     public Material chordMat;
     public GameObject[] fuseObjects;
     public Vector3[] positions;
+    public Vector3[] positions1;
+    public Vector3[] finalPositions;
     public LayerMask hitLayers;
     public float startDist;
     public int minChordLength;
@@ -39,6 +41,17 @@ public class FuseBoxGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int randomPosSet = UnityEngine.Random.Range(0, 2);
+        switch (randomPosSet)
+        {
+            case 0:
+                finalPositions = positions;
+                break;
+            case 1:
+                finalPositions = positions1;
+                break;
+        }
+
         //For spawning item blocks, give them a collider so that the chords dont spawn on the top of them and then remove them later
         for (int i = fuseObjects.Length - 1; i > 0; i--)
         {
@@ -46,20 +59,20 @@ public class FuseBoxGenerator : MonoBehaviour
             (fuseObjects[i], fuseObjects[j]) = (fuseObjects[j], fuseObjects[i]);
         }
 
-        for (int i = positions.Length - 1; i > 0; i--)
+        for (int i = finalPositions.Length - 1; i > 0; i--)
         {
             int j = UnityEngine.Random.Range(0, i + 1);
-            (positions[i], positions[j]) = (positions[j], positions[i]);
+            (finalPositions[i], finalPositions[j]) = (finalPositions[j], finalPositions[i]);
         }
 
-        for (int i = 0; i < positions.Length; i++)
+        for (int i = 0; i < finalPositions.Length; i++)
         {
             GameObject thisbox = Instantiate(fuseObjects[i % fuseObjects.Length], map.transform);
             if (thisbox.name.Contains("LittleFlip"))
             {
-                positions[i].y += 0.8f;
+                finalPositions[i].y += 0.8f;
             }
-            thisbox.transform.position = positions[i];
+            thisbox.transform.position = finalPositions[i];
         }
         
         //Force the objects to be instantiated before using sphere cast
@@ -67,7 +80,7 @@ public class FuseBoxGenerator : MonoBehaviour
 
         foreach (Transform child in map.transform)
         {
-            if (child.tag == "Chord End Point")
+            if (child.CompareTag("Chord End Point"))
             {
                 allPoints.Add(child);
             }

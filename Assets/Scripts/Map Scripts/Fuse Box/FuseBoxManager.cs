@@ -24,9 +24,9 @@ public class FuseBoxManager : MinigameManager
     public float ePowerSpeedBuff;
     public GameObject lightning;
     public GameObject elecHit;
+    public GameObject[] itemSpawners;
 
     private int[] playerScores = { -1, -1, -1, -1 };
-    public GameObject[] itemSpawners;
     private bool[] itemSpawned = { false, false, false };
     private float[] spawnTimes = { 0, 0, 0 };
     private string[] spawnerHasItem;
@@ -69,11 +69,11 @@ public class FuseBoxManager : MinigameManager
             spawnTimes[i] = 180f - i;
         }*/
 
-        //Random a time in the first 6th of the game
+        //Random a time in the first 12th of the game
         spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
-        //Random a time in the second 6th of the game
+        //Random a time in the second 12th of the game
         spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
-        //Random a time in the third 6th of the game, all items have spawned by half way through the game
+        //Random a time in the third 12th of the game
         spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
     }
 
