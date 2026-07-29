@@ -23,6 +23,8 @@ public class KickoffManager : MinigameManager
     public GameObject startIce;
     public GameObject snowMan;
     public float randSpawnAmount;
+    public float addCubeCD = 30f;
+    public List<GameObject> iceCubes = new List<GameObject>();
 
     private int[] playerScores = { 0, 0 };
     private float popsicleSpawnCurrent;
@@ -33,10 +35,13 @@ public class KickoffManager : MinigameManager
     private CameraMovement camMoveScript;
     private float randPopSpawnCD;
     private float randSnowManSpawnCD;
+    private float addCubeCurrent;
 
     // Start is called before the first frame update
     void Start()
     {
+        iceCubes.Add(startIce);
+
         if (playerNo <= 2)
         {
             Vector3 spawnPos = playerSpawners[0].transform.position;
@@ -63,12 +68,13 @@ public class KickoffManager : MinigameManager
 
     protected override void OnTick()
     {
-        popsicleSpawnCurrent += 1 * Time.deltaTime;
-        snowManSpawnCurrent += 1 * Time.deltaTime;
+        popsicleSpawnCurrent += Time.deltaTime;
+        snowManSpawnCurrent += Time.deltaTime;
+        addCubeCurrent += Time.deltaTime;
 
         if (popsicleSpawnCurrent >= randPopSpawnCD)
         {
-            popsicleSpawnCurrent = 0;
+            popsicleSpawnCurrent = 0f;
             randPopSpawn = Random.Range(0, 4);
             Instantiate(popsicle, popsicleSpawners[randPopSpawn].transform);
             randPopSpawnCD = Random.Range(popsicleSpawnCD - randSpawnAmount, popsicleSpawnCD + randSpawnAmount);
@@ -76,10 +82,18 @@ public class KickoffManager : MinigameManager
 
         if (snowManSpawnCurrent >= randSnowManSpawnCD)
         {
-            snowManSpawnCurrent = 0;
+            snowManSpawnCurrent = 0f;
             Vector3 spawnPos = new Vector3(Random.Range(-30f, 30f), 50f, Random.Range(-30f, 30f));
-            Instantiate(snowMan, spawnPos, Quaternion.identity);
+            GameObject thisSnowMan = Instantiate(snowMan, spawnPos, Quaternion.identity);
             randSnowManSpawnCD = Random.Range(snowManSpawnCD - randSpawnAmount, snowManSpawnCD + randSpawnAmount);
+        }
+
+        if (addCubeCurrent >= addCubeCD)
+        {
+            addCubeCurrent = 0f;
+            GameObject thisIce = Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
+            camMoveScript.FindObject(thisIce);
+            iceCubes.Add(thisIce);
         }
 
         if (overTime)
@@ -98,6 +112,8 @@ public class KickoffManager : MinigameManager
     {
         //increase score for player who shot the goal and decrease for the goal scored against
         camMoveScript.ForgetObject(obj);
+        iceCubes.Remove(obj);
+        addCubeCurrent = 0f;
         for (int i = 0; i < goals.Count; i++)
         {
             if (goals[i] == other)
@@ -166,6 +182,7 @@ public class KickoffManager : MinigameManager
 
         GameObject thisIce = Instantiate(iceCube, iceSpawners[randIceSpawn].transform);
         camMoveScript.FindObject(thisIce);
+        iceCubes.Add(thisIce);
     }
 
     protected override void OnMinigameEnd()

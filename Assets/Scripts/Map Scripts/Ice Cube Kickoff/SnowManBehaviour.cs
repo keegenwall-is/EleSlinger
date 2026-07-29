@@ -7,15 +7,18 @@ public class SnowManBehaviour : MonoBehaviour
     public float pushMultiplier;
     public GameObject iceExplosion;
     public float chargeThreshold;
+    public float rotSpeed = 5f;
 
     private GameObject ice;
     private Rigidbody rb;
     private bool canCharge;
+    public KickoffManager managerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        ice = GameObject.FindGameObjectWithTag("Interactive Obj");
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<KickoffManager>();
+        FindClosestCube();
         rb = GetComponent<Rigidbody>();
         canCharge = true;
     }
@@ -25,17 +28,17 @@ public class SnowManBehaviour : MonoBehaviour
     {
         if (ice != null)
         {
-            transform.LookAt(ice.transform);
+            Vector3 dir = ice.transform.position - transform.position;
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotSpeed * Time.deltaTime * 100f);
 
             if (Vector3.Distance(transform.position, ice.transform.position) < chargeThreshold && canCharge)
             {
                 rb.AddForce(transform.forward * pushMultiplier, ForceMode.Impulse);
             }
         }
-        else
-        {
-            ice = GameObject.FindGameObjectWithTag("Interactive Obj");
-        }
+
+        FindClosestCube();
     }
 
     private void OnCollisionEnter(Collision c)
@@ -67,5 +70,22 @@ public class SnowManBehaviour : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         canCharge = true;
+    }
+
+    public void FindClosestCube()
+    {
+        float minDistance = float.MaxValue;
+        GameObject closestCube = null;
+        foreach (GameObject cube in managerScript.iceCubes)
+        {
+            float dist = Vector3.Distance(transform.position, cube.transform.position);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closestCube = cube;
+            }
+        }
+
+        ice = closestCube;
     }
 }

@@ -437,7 +437,7 @@ MonoBehaviour:
   iceCube: {fileID: 1085859033638484581, guid: 2cce2787e63e92a41ace62a568f22480, type: 3}
   popsicle: {fileID: 4788492987072383466, guid: 29a40581774e0df4e9e72bd7820199fb, type: 3}
   popsicleFrost: {fileID: 8213287603058298675, guid: d75b9b51b56644948bde394ed91745ec, type: 3}
-  popsicleSpawnCD: 17.5
+  popsicleSpawnCD: 10
   snowManSpawnCD: 12.5
   iceMashes: 15
   iceNova: {fileID: 8559675096815676875, guid: c1977581c2fb9354186aa49d21a08897, type: 3}
@@ -729,8 +729,12 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -767,6 +771,10 @@ PrefabInstance:
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8810414284694709354, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_IsActive
@@ -2035,8 +2043,12 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2073,6 +2085,10 @@ PrefabInstance:
     - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333300109580837644, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8810414284694709354, guid: 0c276291985e2db42b459a2d02a1221d, type: 3}
       propertyPath: m_IsActive
