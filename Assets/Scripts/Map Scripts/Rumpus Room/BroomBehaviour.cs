@@ -18,6 +18,7 @@ public class BroomBehaviour : MonoBehaviour
     public float speedIncrement;
     public PCGRumpusRoom pcgScript;
     public float[] possibleSweeps = new float[4];
+    public float restingTime = 10f;
 
     private broomState currentState;
     private Rigidbody rb;
@@ -132,11 +133,12 @@ public class BroomBehaviour : MonoBehaviour
                         break;
                 }
                 zSweepIndex = Random.Range(0, possibleSweeps.Length);
-                while (zSweepIndex == lastSweep)
+                //to stop the broom sweeping the same spot twice in a row
+                /*while (zSweepIndex == lastSweep)
                 {
                     zSweepIndex = Random.Range(0, possibleSweeps.Length);
                 }
-                lastSweep = zSweepIndex;
+                lastSweep = zSweepIndex;*/
                 zSweep = possibleSweeps[zSweepIndex];
                 HandleIndicator(false);
                 StartCoroutine(Resting());
@@ -203,7 +205,8 @@ public class BroomBehaviour : MonoBehaviour
     private IEnumerator Resting()
     {
         resting = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(restingTime);
+        restingTime *= 9f / 10f;
         resting = false;
     }
 }

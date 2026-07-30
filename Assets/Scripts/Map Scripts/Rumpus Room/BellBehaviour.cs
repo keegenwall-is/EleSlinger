@@ -18,7 +18,7 @@ public class BellBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Broom"))
+        if (other.gameObject.name.Contains("Broom") || other.gameObject.name.Contains("X2") || other.gameObject.name.Contains("StartSafeZone"))
         {
             Destroy(gameObject);
         }
