@@ -1319,7 +1319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7509569068035639642, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23
+      value: -28.5
       objectReference: {fileID: 0}
     - target: {fileID: 7509569068035639642, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2481,7 +2481,7 @@ BoxCollider:
   m_GameObject: {fileID: 769866668}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 18, y: 1, z: 18}
   m_Center: {x: -2, y: 9, z: 2}
@@ -4509,7 +4509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7509569068035639642, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23
+      value: 28.5
       objectReference: {fileID: 0}
     - target: {fileID: 7509569068035639642, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4644,6 +4644,7 @@ MonoBehaviour:
   multiplier: {fileID: 6747564121497128839, guid: 9c58e3a47c54f754db051a69a62cfa02, type: 3}
   multiplierCD: 40
   multiplierReadyCanvas: {fileID: 1181148411}
+  coin: {fileID: 5284381059772066740, guid: 4aab88c4eb7bedf4489973f80ad76ea6, type: 3}
 --- !u!1 &1231402752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4703,7 +4704,7 @@ BoxCollider:
   m_GameObject: {fileID: 1231402752}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 18, y: 1, z: 18}
   m_Center: {x: -2, y: 9, z: 2}
@@ -5041,8 +5042,8 @@ MonoBehaviour:
   shadowTransform: {fileID: 1705478371}
   stunMashes: 10
   gracePeriod: 6
-  trackingCD: 7
   hit: {fileID: 7358573895741324518, guid: 5c1de4668b759874182f4f63e98ba44b, type: 3}
+  changeAfterAttempts: 3
 --- !u!54 &1388473532
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5973,7 +5974,7 @@ BoxCollider:
   m_GameObject: {fileID: 1697600779}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 18, y: 1, z: 18}
   m_Center: {x: -2, y: 9, z: 2}
@@ -6972,7 +6973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1937191014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7003,6 +7004,9 @@ MonoBehaviour:
   - 14.35
   - -14.35
   restingTime: 10
+  fire: {fileID: 8906344518569836419, guid: c8e7c254a83c014418bfaa02f87dff6f, type: 3}
+  fireWidth: 20
+  fireZ: 25
 --- !u!136 &1937191015
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7240,7 +7244,7 @@ BoxCollider:
   m_GameObject: {fileID: 1979157633}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 18, y: 1, z: 18}
   m_Center: {x: -2, y: 9, z: 2}

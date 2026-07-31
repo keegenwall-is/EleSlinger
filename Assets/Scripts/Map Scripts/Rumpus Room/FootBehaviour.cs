@@ -13,8 +13,8 @@ public class FootBehaviour : MonoBehaviour
     public Transform shadowTransform;
     public int stunMashes;
     public float gracePeriod;
-    public float trackingCD;
     public GameObject hit;
+    public int changeAfterAttempts;
 
     private footState currentState;
     private GameController gameScript;
@@ -23,7 +23,8 @@ public class FootBehaviour : MonoBehaviour
     private Vector3 moveDir = new Vector3(0, 0, 0);
     private GameObject closestPlayer;
     private GameObject lastStomped;
-    private float trackingCurrent;
+    private GameObject lastClosest;
+    private int stompAttempts;
 
     public enum footState
     {
@@ -63,18 +64,6 @@ public class FootBehaviour : MonoBehaviour
                 Debug.DrawRay(transform.position, -transform.forward * rayDistance, Color.red);
             }
 
-            //Timer for chasing down one opponent
-            trackingCurrent += Time.deltaTime;
-
-            if (trackingCurrent >= trackingCD)
-            {
-                if (closestPlayer != null)
-                {
-                    lastStomped = closestPlayer;
-                    StartCoroutine(NoLastStomped());
-                }
-            }
-
             float minDist = 354f; /*Hypotenuse of the floor boards plane ie. max distance*/
             for (int i = 0; i < players.Count; i++)
             {
@@ -90,6 +79,12 @@ public class FootBehaviour : MonoBehaviour
                     minDist = thisDist;
                     closestPlayer = players[i];
                 }
+            }
+
+            if (lastClosest != closestPlayer)
+            {
+                lastClosest = closestPlayer;
+                stompAttempts = 0;
             }
 
             if (closestPlayer != null)
@@ -138,6 +133,12 @@ public class FootBehaviour : MonoBehaviour
             case footState.Searching:
                 break;
             case footState.Stomping:
+                stompAttempts++;
+                if (stompAttempts >= changeAfterAttempts)
+                {
+                    lastStomped = closestPlayer;
+                    StartCoroutine(NoLastStomped());
+                }
                 break;
             case footState.Lifting:
                 break;
@@ -151,7 +152,7 @@ public class FootBehaviour : MonoBehaviour
             PlayerStunned stunnedScript = collision.gameObject.GetComponent<PlayerStunned>();
             stunnedScript.SetMashes(stunMashes);
             stunnedScript.Stunned();
-            lastStomped = collision.gameObject;
+            lastStomped = closestPlayer;
             StartCoroutine(NoLastStomped());
         }
 
@@ -164,8 +165,6 @@ public class FootBehaviour : MonoBehaviour
 
     private IEnumerator NoLastStomped()
     {
-        trackingCurrent = 0f;
-
         yield return new WaitForSeconds(gracePeriod);
 
         lastStomped = null;

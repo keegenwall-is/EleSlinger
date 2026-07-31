@@ -113,11 +113,11 @@ public class KickoffManager : MinigameManager
         //increase score for player who shot the goal and decrease for the goal scored against
         camMoveScript.ForgetObject(obj);
         iceCubes.Remove(obj);
-        addCubeCurrent = 0f;
         for (int i = 0; i < goals.Count; i++)
         {
             if (goals[i] == other)
             {
+                addCubeCurrent = 0f;
                 if (i == 1)
                 {
                     playerScores[0]++;

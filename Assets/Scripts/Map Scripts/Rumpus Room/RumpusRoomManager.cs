@@ -14,6 +14,7 @@ public class RumpusRoomManager : MinigameManager
     public GameObject multiplier;
     public float multiplierCD;
     public GameObject multiplierReadyCanvas;
+    public GameObject coin;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private float winningScore = 0;
@@ -71,6 +72,7 @@ public class RumpusRoomManager : MinigameManager
             {
                 GameObject spawn = SetPlayerSpawn(player);
                 KillPlayer(player, spawn);
+                DropCoins(player);
 
                 playerScores[i] -= punishment;
                 if (playerScores[i] < 0)
@@ -79,7 +81,45 @@ public class RumpusRoomManager : MinigameManager
                 }
                 scoresTxts[i].text = playerScores[i].ToString();
                 StartCoroutine(ScoreAnimation(false, player, punishment));
+                break;
             }
+        }
+    }
+
+    private void DropCoins(GameObject player)
+    {
+        int numOfCoins = punishment;
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                if (playerScores[i] <= punishment)
+                {
+                    numOfCoins = playerScores[i];
+                }
+                break;
+            }
+        }
+
+        float angleStep = 360f / numOfCoins;
+
+        for (int i = 0; i < numOfCoins; i++)
+        {
+            float angle = i * angleStep;
+            float rad = angle * Mathf.Deg2Rad;
+            Vector3 dir = new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad));
+
+            Vector3 spawnPos = player.transform.position + (dir * 0.2f);
+            spawnPos.y += 3f;
+
+            GameObject thisCoin = Instantiate(coin, spawnPos, Quaternion.identity);
+            thisCoin.GetComponent<SpawnChance>().enabled = false;
+
+            Rigidbody rb = thisCoin.GetComponent<Rigidbody>();
+            float launchForce = 10f;
+            Vector3 forceVector = (dir * launchForce);
+
+            rb.AddForce(forceVector, ForceMode.Impulse);
         }
     }
 

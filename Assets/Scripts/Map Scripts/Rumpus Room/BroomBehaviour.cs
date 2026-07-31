@@ -19,6 +19,9 @@ public class BroomBehaviour : MonoBehaviour
     public PCGRumpusRoom pcgScript;
     public float[] possibleSweeps = new float[4];
     public float restingTime = 10f;
+    public GameObject fire;
+    public float fireWidth;
+    public float fireZ;
 
     private broomState currentState;
     private Rigidbody rb;
@@ -28,6 +31,9 @@ public class BroomBehaviour : MonoBehaviour
     private int zSweepIndex;
     private int lastSweep;
     private bool resting = false;
+    private float fireCurrent;
+    private List<GameObject> fires = new List<GameObject>();
+    private float fireCD;
 
     public enum broomState
     {
@@ -89,6 +95,24 @@ public class BroomBehaviour : MonoBehaviour
             //sweep from right to left or left to right
             rb.velocity = transform.forward * broomSpeed;
 
+            fireCurrent += Time.deltaTime;
+
+            if (fireCurrent >= fireCD)
+            {
+                fireCurrent = 0f;
+                Vector3 spawnPos1 = transform.position;
+                Vector3 spawnPos2 = spawnPos1;
+
+                spawnPos1.z += fireZ;
+                spawnPos2.z -= fireZ;
+
+                GameObject thisFire1 = Instantiate(fire, spawnPos1, Quaternion.identity);
+                GameObject thisFire2 = Instantiate(fire, spawnPos2, Quaternion.identity);
+
+                fires.Add(thisFire1);
+                fires.Add(thisFire2);
+            }
+
             if ((transform.position.x < minBroomPosX && movingLeft) || (transform.position.x > maxBroomPosX && !movingLeft))
             {
                 movingLeft = !movingLeft;
@@ -112,6 +136,13 @@ public class BroomBehaviour : MonoBehaviour
         switch (state)
         {
             case broomState.Searching:
+
+                foreach (GameObject fire in fires)
+                {
+                    Destroy(fire);
+                }
+                fires.Clear();
+
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
                 switch (zSweepIndex)
                 {
@@ -150,6 +181,7 @@ public class BroomBehaviour : MonoBehaviour
             case broomState.Sweeping:
                 rb.constraints |= RigidbodyConstraints.FreezePositionZ;
                 broomSpeed += speedIncrement;
+                fireCD = fireWidth / broomSpeed;
                 //Speed capped because if broom is too fast ray cast wont capture it.
                 if (searchSpeed <= 175)
                 {
