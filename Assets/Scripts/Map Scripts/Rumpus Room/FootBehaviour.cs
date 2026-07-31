@@ -25,6 +25,8 @@ public class FootBehaviour : MonoBehaviour
     private GameObject lastStomped;
     private GameObject lastClosest;
     private int stompAttempts;
+    private float sphereCastRadius = 0.1f;
+    private Coroutine stompedCoroutine;
 
     public enum footState
     {
@@ -51,20 +53,21 @@ public class FootBehaviour : MonoBehaviour
         if (currentState == footState.Searching)
         {
             //Detect players to see when to stomp
-            if (lastStomped == null)
+            RaycastHit hit;
+            if (Physics.SphereCast(transform.position, sphereCastRadius, -transform.forward, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, -transform.forward, out hit, rayDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                if (hit.collider.CompareTag("Player"))
                 {
-                    if (hit.collider.CompareTag("Player"))
+                    if (hit.collider.gameObject != lastStomped)
                     {
                         SetState(footState.Stomping);
                     }
                 }
-                Debug.DrawRay(transform.position, -transform.forward * rayDistance, Color.red);
             }
+            Debug.DrawRay(transform.position, -transform.forward * rayDistance, Color.red);
 
             float minDist = 354f; /*Hypotenuse of the floor boards plane ie. max distance*/
+            closestPlayer = null;
             for (int i = 0; i < players.Count; i++)
             {
 
@@ -86,20 +89,6 @@ public class FootBehaviour : MonoBehaviour
                 lastClosest = closestPlayer;
                 stompAttempts = 0;
             }
-
-            if (closestPlayer != null)
-            {
-                moveDir = closestPlayer.transform.position - transform.position;
-                moveDir.y = 0f;
-                rb.velocity = moveDir.normalized * searchSpeed;
-            }
-            else
-            {
-                if (rb)
-                {
-                    rb.velocity = Vector3.zero;
-                }
-            }
         }
         else if (currentState == footState.Stomping)
         {
@@ -112,6 +101,26 @@ public class FootBehaviour : MonoBehaviour
             if (transform.position.y > footHeight)
             {
                 SetState(footState.Searching);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentState == footState.Searching)
+        {
+            if (closestPlayer != null)
+            {
+                moveDir = closestPlayer.transform.position - transform.position;
+                moveDir.y = 0f;
+                rb.velocity = moveDir.normalized * searchSpeed;
+            }
+            else
+            {
+                if (rb)
+                {
+                    rb.velocity = Vector3.zero;
+                }
             }
         }
     }
@@ -137,7 +146,11 @@ public class FootBehaviour : MonoBehaviour
                 if (stompAttempts >= changeAfterAttempts)
                 {
                     lastStomped = closestPlayer;
-                    StartCoroutine(NoLastStomped());
+                    if (stompedCoroutine != null)
+                    {
+                        StopCoroutine(stompedCoroutine);
+                    }
+                    stompedCoroutine = StartCoroutine(NoLastStomped());
                 }
                 break;
             case footState.Lifting:
@@ -147,13 +160,17 @@ public class FootBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             PlayerStunned stunnedScript = collision.gameObject.GetComponent<PlayerStunned>();
             stunnedScript.SetMashes(stunMashes);
             stunnedScript.Stunned();
             lastStomped = closestPlayer;
-            StartCoroutine(NoLastStomped());
+            if (stompedCoroutine != null)
+            {
+                StopCoroutine(stompedCoroutine);
+            }
+            stompedCoroutine = StartCoroutine(NoLastStomped());
         }
 
         if (currentState == footState.Stomping)

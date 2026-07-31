@@ -5034,7 +5034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2820869ef27f99a49a72e09daf5df6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 80
+  rayDistance: 150
   searchSpeed: 25
   stompSpeed: 150
   liftSpeed: 55
