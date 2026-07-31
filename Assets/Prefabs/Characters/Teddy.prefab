@@ -760,6 +760,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9d12fe8e38659a24db708642cff2c2f2, type: 2}
   instruction: {fileID: 3254327972713215781}
   playerIdentifier: {fileID: 198477798927573660}
+  playerNo: 0
 --- !u!114 &198477798368542357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,6 +850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   melee: {fileID: 2958162025016539127, guid: 6642296982293014a9413b805c53fbc1, type: 3}
   meleeSpawner: {fileID: 198477799496801494}
+  meleeCD: 0.5
 --- !u!114 &198477798368542361
 MonoBehaviour:
   m_ObjectHideFlags: 0
