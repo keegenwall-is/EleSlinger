@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   melee: {fileID: 2958162025016539127, guid: 6642296982293014a9413b805c53fbc1, type: 3}
   meleeSpawner: {fileID: 8191952179205365021}
-  meleeCD: 0.5
+  meleeCD: 0.65
 --- !u!114 &8191952180223140517
 MonoBehaviour:
   m_ObjectHideFlags: 0

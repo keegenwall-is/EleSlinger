@@ -8,7 +8,7 @@ public class PlayerMelee : MonoBehaviour
 
     public GameObject melee;
     public GameObject meleeSpawner;
-    public float meleeCD = 0.5f;
+    public float meleeCD = 0.65f;
 
     private CharacterBase baseScript;
     private GameObject thisMelee;
