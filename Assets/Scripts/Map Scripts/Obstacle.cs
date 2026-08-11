@@ -23,7 +23,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             //If this obstacle has a parent who is immune (i.e. a player with an obstacle attached to them);
             if (transform.parent != null)

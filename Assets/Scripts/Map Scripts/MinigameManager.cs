@@ -23,6 +23,7 @@ public class MinigameManager : MonoBehaviour
     public bool teamGame;
     public GameObject scoreEffect;
     public bool hasGracePeriod = true;
+    public float movingPlatformSpeed = 0f;
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -273,6 +274,16 @@ public class MinigameManager : MonoBehaviour
     public void TriggerInteractiveObjectEvent(GameObject obj, GameObject player, GameObject other)
     {
         OnInteractiveObjectEvent(obj, player, other);
+    }
+
+    public void TriggerIncreaseScoreFor(GameObject player, bool decider)
+    {
+        IncreaseScoreFor(player, decider);
+    }
+
+    protected virtual void IncreaseScoreFor(GameObject player, bool decider)
+    {
+
     }
 
     protected virtual void OnTick()

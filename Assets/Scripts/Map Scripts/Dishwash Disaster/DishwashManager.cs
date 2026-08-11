@@ -51,6 +51,7 @@ public class DishwashManager : MinigameManager
     // Start is called before the first frame update
     void Start()
     {
+        movingPlatformSpeed = plateSpeed;
         spawnCurrent = 0f;
         untilWashEventCurrent = Random.Range(15f, 30f);
         hasGracePeriod = false;
@@ -72,7 +73,7 @@ public class DishwashManager : MinigameManager
                 {
                     nextIsBig = false;
                     float distance = Random.Range(130f, 230f);
-                    float time = distance / plateSpeed;
+                    float time = distance / movingPlatformSpeed;
                     StartCoroutine(WaterWarning(time));
                     thisPlateGroup = Instantiate(plateGroups[1], spawnPos, Quaternion.identity);
                     successPlate = thisPlateGroup.transform.Find("Big Plate Platform").gameObject;
@@ -89,13 +90,13 @@ public class DishwashManager : MinigameManager
                 }
                 
                 lastGroupSize = Variables.Object(thisPlateGroup).Get<float>("groupSize");
-                spawnCurrent = lastGroupSize / plateSpeed;
+                spawnCurrent = lastGroupSize / movingPlatformSpeed;
                 activePlateGroups.Add(thisPlateGroup);
             }
 
             for (int i = activePlateGroups.Count - 1; i >= 0; i--)
             {
-                activePlateGroups[i].transform.position -= Vector3.right * plateSpeed * Time.deltaTime;
+                activePlateGroups[i].transform.position -= Vector3.right * movingPlatformSpeed * Time.deltaTime;
 
                 if (activePlateGroups[i].transform.position.x < -plateSpawnX - 40)
                 {
@@ -139,7 +140,7 @@ public class DishwashManager : MinigameManager
                 //elsewhere, maybe trigger a boolean here that causes the speed to increase after the next item has been spawned so there
                 //is no gap
                 //origPlateSpeed += 2.5f;
-                plateSpeed = origPlateSpeed;
+                movingPlatformSpeed = origPlateSpeed;
                 rain.SetActive(false);
                 rainSplashes.SetActive(false);
                 untilWashEventCurrent = Random.Range(15f, 30f);
@@ -188,7 +189,7 @@ public class DishwashManager : MinigameManager
         Vector3 spawnInit = new Vector3(plateSpawnX, 0f, 0f);
         GameObject thisPlateGroupInit = Instantiate(plateGroups[randGroupInit], spawnInit, Quaternion.identity);
         activePlateGroups.Add(thisPlateGroupInit);
-        spawnCurrent = currentSizeInit / plateSpeed;
+        spawnCurrent = currentSizeInit / movingPlatformSpeed;
     }
 
     protected override void OnObstacleEvent(GameObject player)
@@ -197,7 +198,7 @@ public class DishwashManager : MinigameManager
         KillPlayer(player, spawn);
     }
 
-    public void IncreaseScoreFor(GameObject player, bool isBig)
+    protected override void IncreaseScoreFor(GameObject player, bool isBig)
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -224,7 +225,7 @@ public class DishwashManager : MinigameManager
 
         floodWarning.SetActive(true);
         spawnPlates = false;
-        plateSpeed = 0f;
+        movingPlatformSpeed = 0f;
         rain.SetActive(true);
         rainSplashes.SetActive(true);
 

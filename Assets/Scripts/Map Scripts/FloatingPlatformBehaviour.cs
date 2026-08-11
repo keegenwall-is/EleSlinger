@@ -18,7 +18,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     public bool isStationary;
 
     private List<GameObject> jumpingPlayers = new List<GameObject>();
-    private DishwashManager managerScript;
+    private MinigameManager managerScript;
     private bool canChangePlayer = false;
     private float currentSoaked = 0f;
     private bool isSoaked = false;
@@ -29,7 +29,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<DishwashManager>();
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
 
         if (isBig)
         {
@@ -76,7 +76,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
 
             if (baseScript.GetState() != CharacterBase.playerState.Dashing && !isStationary)
             {
-                baseScript.FollowFloatingPlatforms(managerScript.plateSpeed);
+                baseScript.FollowFloatingPlatforms(managerScript.movingPlatformSpeed);
             }
 
             if (baseScript.GetState() == CharacterBase.playerState.Dead)
@@ -93,7 +93,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             {
                 ringImg.fillAmount = 1f;
                 isSoaked = true;
-                managerScript.IncreaseScoreFor(capturingPlayer, isBig);
+                managerScript.TriggerIncreaseScoreFor(capturingPlayer, isBig);
                 completeVFX.SetActive(true);
             }
         }
