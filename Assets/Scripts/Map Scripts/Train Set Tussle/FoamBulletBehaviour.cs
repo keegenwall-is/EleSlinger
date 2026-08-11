@@ -74,14 +74,14 @@ public class FoamBulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.name.Contains("Melee"))
-        {
+        //if (!other.gameObject.name.Contains("Melee"))
+        //{
             Vector3 contactPoint = other.ClosestPoint(transform.position);
             GameObject thisExplosion = Instantiate(explosion, contactPoint, Quaternion.identity);
             managerScript.environmentObjects.Add(thisExplosion);
             StartCoroutine(managerScript.RemoveFromEnvironment(thisExplosion, 0.4f));
             Destroy(gameObject);
             //managerScript.environmentObjects.Remove(gameObject);
-        }
+        //}
     }
 }

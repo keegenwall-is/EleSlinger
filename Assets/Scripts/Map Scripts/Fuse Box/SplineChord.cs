@@ -57,7 +57,7 @@ public class SplineChord : MonoBehaviour
         this.ap = ap;
         this.ac = ac;
         ap.clip = this.ac;
-        ap.volume = 0.4f;
+        ap.volume = 0.2f;
     }
 
     // Update is called once per frame

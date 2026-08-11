@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     private int[] roundWins = { 0, 0, 0, 0 };
     private bool gameOver = false;
     private bool canContinue = false;
-    private bool[] mapPlayed = { false, false, false };
+    private bool[] mapPlayed = { false, false, false, false, false };
     private Color32[] playerColours = new Color32[]
     {
         new Color32(0, 255, 231, 255),
@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(5);
     }
 
     public void LoadRandomMinigame()

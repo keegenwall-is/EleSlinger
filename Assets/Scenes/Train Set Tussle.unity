@@ -1953,7 +1953,7 @@ MonoBehaviour:
   environmentSpawnCD: 2
   environmentSpeed: 30
   rail: {fileID: 4593425731558369430, guid: 62446e0ab2ee405429cbd2d7c04210b5, type: 3}
-  bulletSpawnCD: 1
+  bulletSpawnCD: 3
   bullets:
   - {fileID: 4216928759003644059, guid: 13ee66b31d6c1314eb4949d240c1ce83, type: 3}
   - {fileID: 6696284634735127095, guid: e4322845979f7d44b9c1bce595b4d342, type: 3}

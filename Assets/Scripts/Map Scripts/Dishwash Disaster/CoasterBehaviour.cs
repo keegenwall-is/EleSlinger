@@ -43,7 +43,7 @@ public class CoasterBehaviour : MonoBehaviour
 
         foreach (GameObject coaster in coasters)
         {
-            coaster.transform.position -= Vector3.right * managerScript.plateSpeed * Time.deltaTime;
+            coaster.transform.position -= Vector3.right * managerScript.movingPlatformSpeed * Time.deltaTime;
         }
     }
     

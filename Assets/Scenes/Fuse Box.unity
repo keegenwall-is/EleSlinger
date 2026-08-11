@@ -593,11 +593,6 @@ MonoBehaviour:
   - {x: -24, y: 0, z: 15}
   - {x: 24, y: 0, z: -15}
   - {x: 22, y: 0, z: 15}
-  positions2:
-  - {x: -24, y: 0, z: 15}
-  - {x: 17, y: 0, z: 15}
-  - {x: 32, y: 0, z: -15}
-  - {x: -28, y: 0, z: -10}
   finalPositions: []
   hitLayers:
     serializedVersion: 2
@@ -3029,6 +3024,7 @@ MonoBehaviour:
   teamGame: 0
   scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   hasGracePeriod: 1
+  movingPlatformSpeed: 0
   scores:
   - {fileID: 1777097690}
   - {fileID: 298596239}
@@ -6337,7 +6333,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6d1df6dee2dc03147bf8b68abfc8b329, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

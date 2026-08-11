@@ -43,6 +43,6 @@ public class RollingBoardBehaviour : MonoBehaviour
             thisRollingPin.transform.position += Vector3.forward * pinSpeed * Time.deltaTime;
         }
 
-        thisRollingPin.transform.position -= Vector3.right * managerScript.plateSpeed * Time.deltaTime;
+        thisRollingPin.transform.position -= Vector3.right * managerScript.movingPlatformSpeed * Time.deltaTime;
     }
 }

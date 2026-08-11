@@ -29,7 +29,7 @@ public class KnifeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        origPos.x -= managerScript.plateSpeed * Time.deltaTime;
+        origPos.x -= managerScript.movingPlatformSpeed * Time.deltaTime;
 
         if (thisWarning)
         {
