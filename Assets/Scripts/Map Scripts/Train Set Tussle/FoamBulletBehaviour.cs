@@ -46,7 +46,7 @@ public class FoamBulletBehaviour : MonoBehaviour
 
         if (isHoming)
         {
-            if (baseScript.GetState() == CharacterBase.playerState.Dead)
+            if (baseScript.GetState() == CharacterBase.playerState.Dead || baseScript.GetState() == CharacterBase.playerState.Out)
             {
                 useHoming = false;
             }

@@ -149,6 +149,11 @@ public class DishwashManager : MinigameManager
                 canStartEvent = true;
             }
         }
+
+        if (overTime)
+        {
+            OnMinigameEnd();
+        }
     }
 
     protected override void OnAllReady()
@@ -247,36 +252,35 @@ public class DishwashManager : MinigameManager
         if (overTime)
         {
             //As soon as a player beats the winning score or only 1 player is left with the winning score, the game ends
-            //Check for biggest score
-            for (int i = 0; i < playerScores.Length; i++)
-            {
-                if (playerScores[i] > winningScore)
-                {
-                    winningScore = playerScores[i];
-                }
-            }
-
-            //if more than one player has the winning score then go into overtime
             int maxScoreCounter = 0;
             for (int i = 0; i < playerScores.Length; i++)
             {
-                if (playerScores[i] == winningScore)
+                if (playerScores[i] == winningScore + 1)
+                {
+                    overTime = false;
+                    gameController.IncreaseRoundWins(players[i]);
+                    return;
+                }
+                else if (playerScores[i] == winningScore)
                 {
                     maxScoreCounter++;
-                    winningPlayer = players[i];
                 }
             }
 
             if (maxScoreCounter == 1)
             {
-                overTime = false;
-                gameController.IncreaseRoundWins(winningPlayer);
+                for (int i = 0; i < playerScores.Length; i++)
+                {
+                    if (playerScores[i] == winningScore)
+                    {
+                        overTime = false;
+                        gameController.IncreaseRoundWins(players[i]);
+                    }
+                }
             }
         }
         else
         {
-            overTime = false;
-
             //Check for biggest score
             for (int i = 0; i < playerScores.Length; i++)
             {
