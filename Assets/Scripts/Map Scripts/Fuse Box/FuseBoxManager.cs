@@ -25,6 +25,7 @@ public class FuseBoxManager : MinigameManager
     public GameObject lightning;
     public GameObject elecHit;
     public GameObject[] itemSpawners;
+    public AudioSource ap;
 
     private int[] playerScores = { -1, -1, -1, -1 };
     private bool[] itemSpawned = { false, false, false };
@@ -64,17 +65,17 @@ public class FuseBoxManager : MinigameManager
         }
 
         //spawning all items for testing
-        for (int i = 0; i < spawnTimes.Length; i++)
+        /*for (int i = 0; i < spawnTimes.Length; i++)
         {
             spawnTimes[i] = 180f - i;
-        }
+        }*/
 
         //Random a time in the first 12th of the game
-        //spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
+        spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
         //Random a time in the second 12th of the game
-        //spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
+        spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
         //Random a time in the third 12th of the game
-        //spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
+        spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
     }
 
     protected override void OnTick()
@@ -174,9 +175,10 @@ public class FuseBoxManager : MinigameManager
         Vector3 elecHitPos = player.transform.position;
         elecHitPos.y += 3f;
         Instantiate(elecHit, elecHitPos, Quaternion.identity);
-        
-        // play sound from editor
-        //yield return new WaitForSeconds(0.2f);
+        //Playing the sound from the manager as the lightning strike and electric power are one sound effect
+        ap.Play();
+
+        yield return new WaitForSeconds(0.2f);
         characterBase.canMove = true;
 
         Vector3 spawnPos = player.transform.position;

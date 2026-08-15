@@ -1204,7 +1204,7 @@ MonoBehaviour:
   - {fileID: 1456967662}
   - {fileID: 1456967661}
   - {fileID: 1456967660}
-  changeRailCD: 20
+  changeRailCD: 50
   train: {fileID: 1183539991314543888, guid: c3ed2e22026c1bc4884141a952db26bd, type: 3}
   secondRailZ: 35
   startTrain: {fileID: 705215534}

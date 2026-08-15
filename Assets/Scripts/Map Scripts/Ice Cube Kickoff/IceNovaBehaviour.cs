@@ -8,6 +8,7 @@ public class IceNovaBehaviour : MonoBehaviour
     public GameObject popsicleCube;
 
     private GameObject thrower;
+    private GameObject teammate;
     private List<GameObject> alreadyFrozen = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -27,6 +28,11 @@ public class IceNovaBehaviour : MonoBehaviour
         this.thrower = thrower;
     }
 
+    public void SetTeamMate(GameObject teammate)
+    {
+        this.teammate = teammate;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -36,12 +42,37 @@ public class IceNovaBehaviour : MonoBehaviour
                 return;
             }
 
-            foreach (GameObject frozenPlayers in alreadyFrozen)
+            //Already frozen is added to fix the bug where you can score with someone while they are
+            //already in the goal which will cause them to refreeze many times while the ice nova is active
+            foreach (GameObject frozenPlayer in alreadyFrozen)
             {
-                if (frozenPlayers == other.gameObject)
+                if (frozenPlayer == other.gameObject)
                 {
                     return;
                 }
+            }
+
+            PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
+            attackScript.SetSpecialAttack(false);
+
+            List<GameObject> frosts = new List<GameObject>();
+
+            foreach (Transform child in thrower.transform)
+            {
+                if (child.name.Contains("Ice"))
+                {
+                    frosts.Add(child.gameObject);
+                }
+            }
+
+            foreach (GameObject frost in frosts)
+            {
+                Destroy(frost);
+            }
+
+            if (other.gameObject == teammate)
+            {
+                return;
             }
 
             PlayerStunned stunnedScript = other.gameObject.GetComponent<PlayerStunned>();
@@ -61,25 +92,7 @@ public class IceNovaBehaviour : MonoBehaviour
 
             other.gameObject.transform.position = thisIce.transform.position;
 
-            PlayerAttack attackScript = thrower.GetComponent<PlayerAttack>();
-            attackScript.SetSpecialAttack(false);
-
-            List<GameObject> frosts = new List<GameObject>();
-
             alreadyFrozen.Add(other.gameObject);
-
-            foreach (Transform child in thrower.transform)
-            {
-                if (child.name.Contains("Ice"))
-                {
-                    frosts.Add(child.gameObject);
-                }
-            }
-
-            foreach (GameObject frost in frosts)
-            {
-                Destroy(frost);
-            }
         }
     }
 }

@@ -165,7 +165,33 @@ public class KickoffManager : MinigameManager
         Vector3 spawnPos = hitPlayer.transform.position;
         spawnPos.y += 2.0f;
         GameObject nova = Instantiate(iceNova, spawnPos, Quaternion.identity);
-        nova.GetComponent<IceNovaBehaviour>().SetThrower(thrower);
+        IceNovaBehaviour novaScript = nova.GetComponent<IceNovaBehaviour>();
+        novaScript.SetThrower(thrower);
+        int throwerIndex = players.IndexOf(thrower);
+
+        if (throwerIndex != -1)
+        {
+            // 4-Player Match: 1 & 3 (indices 0 & 2) are teammates, 2 & 4 (indices 1 & 3) are teammates
+            if (playerNo == 4)
+            {
+                int partnerIndex = (throwerIndex + 2) % 4;
+                novaScript.SetTeamMate(players[partnerIndex]);
+            }
+            // 3-Player Match: Player 2 (index 1) is alone. Players 1 & 3 (indices 0 & 2) are teammates
+            else if (playerNo == 3)
+            {
+                if (throwerIndex == 0)
+                {
+                    novaScript.SetTeamMate(players[2]); // Player 1's teammate is Player 3
+                }
+                else if (throwerIndex == 2)
+                {
+                    novaScript.SetTeamMate(players[0]); // Player 3's teammate is Player 1
+                }
+                // If throwerIndex is 1 (Player 2), they have no teammate, so SetTeamMate is not called
+            }
+        }
+
         StartCoroutine(DestroyAfterTime(nova));
     }
 

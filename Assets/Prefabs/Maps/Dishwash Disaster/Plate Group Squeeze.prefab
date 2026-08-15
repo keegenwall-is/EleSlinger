@@ -31,6 +31,8 @@ Transform:
   m_Children:
   - {fileID: 6964822297498419774}
   - {fileID: 6964822296347957982}
+  - {fileID: 5559881620652604803}
+  - {fileID: 598319369552416852}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,6 +52,70 @@ MonoBehaviour:
     _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"groupSize","value":{"$content":25.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
+--- !u!1001 &176893075953141383
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1510405133444266703}
+    m_Modifications:
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470709006, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_Name
+      value: Coaster Platform
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+--- !u!4 &5559881620652604803 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+  m_PrefabInstance: {fileID: 176893075953141383}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3572757919589999792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,4 +291,76 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5853826965515697774, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
   m_PrefabInstance: {fileID: 3572757920740768848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5120999575074188112
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1510405133444266703}
+    m_Modifications:
+    - target: {fileID: 5718684980153127286, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_VersionIndex
+      value: 634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 37.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470709003, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_VersionIndex
+      value: 631
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718684980470709006, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+      propertyPath: m_Name
+      value: Coaster Platform (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+--- !u!4 &598319369552416852 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5718684980470708996, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
+  m_PrefabInstance: {fileID: 5120999575074188112}
   m_PrefabAsset: {fileID: 0}

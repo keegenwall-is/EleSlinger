@@ -21,6 +21,7 @@ public class DishwashManager : MinigameManager
     public float waterRiseSpeed;
     public float plateSpawnX;
     public int bigPlateScore;
+    public int mediumPlateScore;
     public GameObject floodWarning;
 
     public GameObject[] plateGroups;
@@ -98,7 +99,7 @@ public class DishwashManager : MinigameManager
             {
                 activePlateGroups[i].transform.position -= Vector3.right * movingPlatformSpeed * Time.deltaTime;
 
-                if (activePlateGroups[i].transform.position.x < -plateSpawnX - 40)
+                if (activePlateGroups[i].transform.position.x < -plateSpawnX - 80)
                 {
                     GameObject plateToDestroy = activePlateGroups[i];
                     activePlateGroups.RemoveAt(i);
@@ -203,7 +204,7 @@ public class DishwashManager : MinigameManager
         KillPlayer(player, spawn);
     }
 
-    protected override void IncreaseScoreFor(GameObject player, bool isBig)
+    protected override void IncreaseScoreFor(GameObject player, bool isBig, bool isMedium)
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -213,6 +214,11 @@ public class DishwashManager : MinigameManager
                 {
                     playerScores[i] += bigPlateScore;
                     StartCoroutine(ScoreAnimation(true, players[i], bigPlateScore));
+                }
+                else if (isMedium)
+                {
+                    playerScores[i] += bigPlateScore;
+                    StartCoroutine(ScoreAnimation(true, players[i], mediumPlateScore));
                 }
                 else
                 {

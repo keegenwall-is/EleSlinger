@@ -9,7 +9,7 @@ public class CharacterBase: MonoBehaviour
 
     private playerState currentState;
     private CapsuleCollider cc;
-    private Vector3 spawnPos;
+    private GameObject spawnPos;
     private PlayerMove playerMove;
     private TakeHit takeHit;
     private PlayerUseItem useItem;
@@ -93,7 +93,7 @@ public class CharacterBase: MonoBehaviour
         }
     }
 
-    public void SetSpawnPos(Vector3 spawnPos)
+    public void SetSpawnPos(GameObject spawnPos)
     {
         this.spawnPos = spawnPos;
     }
@@ -255,18 +255,24 @@ public class CharacterBase: MonoBehaviour
         gameObject.tag = "Immune";
 
         float elapsed = 0f;
-        float dist = Vector3.Distance(transform.position, spawnPos);
+        float dist = Vector3.Distance(transform.position, spawnPos.transform.position);
 
         while (elapsed < respawnTime)
         {
-            transform.position = Vector3.Lerp(transform.position, spawnPos, elapsed/dist);
+            transform.position = Vector3.Lerp(transform.position, spawnPos.transform.position, elapsed/dist);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         takeHit.SetAttacker(null);
 
-        transform.position = spawnPos;
+        transform.position = spawnPos.transform.position;
+        Physics.SyncTransforms();
+
+        if (manager.activeSpawnPoints.Contains(spawnPos))
+        {
+            manager.activeSpawnPoints.Remove(spawnPos);
+        }
 
         yield return new WaitForSeconds(0.1f);
 

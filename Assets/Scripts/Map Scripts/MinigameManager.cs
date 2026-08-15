@@ -24,6 +24,7 @@ public class MinigameManager : MonoBehaviour
     public GameObject scoreEffect;
     public bool hasGracePeriod = true;
     public float movingPlatformSpeed = 0f;
+    public List<GameObject> activeSpawnPoints = new List<GameObject>();
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -199,7 +200,7 @@ public class MinigameManager : MonoBehaviour
                 thisPlayerUseItem.StopUsingItem();
             }
             thisPlayerBase.SetState(CharacterBase.playerState.Idle);
-            thisPlayerBase.SetSpawnPos(spawnPoint.transform.position);
+            thisPlayerBase.SetSpawnPos(spawnPoint);
             thisPlayerBase.SetState(CharacterBase.playerState.Dead);
         }
     }
@@ -212,6 +213,21 @@ public class MinigameManager : MonoBehaviour
 
         for (int i = 0; i < spawnPoints.Length; i++)
         {
+            bool alreadyInUse = false;
+
+            foreach (GameObject activeSpawnPoint in activeSpawnPoints)
+            {
+                if (activeSpawnPoint == spawnPoints[i])
+                {
+                    alreadyInUse = true;
+                }
+            }
+
+            if (alreadyInUse)
+            {
+                continue;
+            }
+
             float minPlayerDist = float.MaxValue;
             for (int j = 0; j < players.Count; j++)
             {
@@ -230,6 +246,7 @@ public class MinigameManager : MonoBehaviour
             }
         }
 
+        activeSpawnPoints.Add(spawnPoint);
         return spawnPoint;
     }
 
@@ -276,12 +293,12 @@ public class MinigameManager : MonoBehaviour
         OnInteractiveObjectEvent(obj, player, other);
     }
 
-    public void TriggerIncreaseScoreFor(GameObject player, bool decider)
+    public void TriggerIncreaseScoreFor(GameObject player, bool decider, bool decider1)
     {
-        IncreaseScoreFor(player, decider);
+        IncreaseScoreFor(player, decider, decider1);
     }
 
-    protected virtual void IncreaseScoreFor(GameObject player, bool decider)
+    protected virtual void IncreaseScoreFor(GameObject player, bool decider, bool decider1)
     {
 
     }

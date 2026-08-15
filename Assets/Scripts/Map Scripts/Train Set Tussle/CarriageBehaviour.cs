@@ -38,8 +38,9 @@ public class CarriageBehaviour : MonoBehaviour
 
         for (int i = 0; i < numOfFires; i++)
         {
-            Vector3 spawnPos = new Vector3(Random.Range(-width, width), 0f, Random.Range(-height, height)) + transform.position;
-            GameObject thisFire = Instantiate(fireEffect, spawnPos, Quaternion.identity);
+            GameObject thisFire = Instantiate(fireEffect);
+            thisFire.transform.position = new Vector3(Random.Range(-width, width), 0f, Random.Range(-height, height)) + transform.position;
+            thisFire.transform.SetParent(gameObject.transform, true);
             fires.Add(thisFire);
             yield return new WaitForSeconds(timeToExplosion / numOfFires);
         }
@@ -52,15 +53,24 @@ public class CarriageBehaviour : MonoBehaviour
             fires.RemoveAt(i);
         }
 
+        List<SphereCollider> explosionSCs = new List<SphereCollider>();
+
         for (int i = 0; i < 1; i++)
         {
             for (int j = 0; j < crateGroups.Length; j++)
             {
                 Vector3 spawnPos = crateGroups[j].transform.position;
                 spawnPos.y += 5;
-                Instantiate(explosion, spawnPos, Quaternion.identity);
+                GameObject thisExplosion = Instantiate(explosion, spawnPos, Quaternion.identity);
+                explosionSCs.Add(thisExplosion.GetComponent<SphereCollider>());
             }
             yield return new WaitForSeconds(0.25f);
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        foreach (SphereCollider sc in explosionSCs){
+            sc.enabled = false;
         }
     }
 }

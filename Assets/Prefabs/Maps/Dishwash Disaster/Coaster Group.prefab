@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3543551481317560425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: 0}
+  m_LocalPosition: {x: 40, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53059888e920e84399b28154bf5c1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swapCoasterCD: 1
+  swapCoasterCD: 0.8
   coaster: {fileID: 5718684980470709006, guid: ea88fce28db452041a07374a75bd5cac, type: 3}
-  spawnAngle: 50
-  radius: 22
-  numOfCoasters: 4
+  spawnAngle: 40
+  radius: 34.5
+  numOfCoasters: 5
   magic: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
 --- !u!1 &3543551482019670461
 GameObject:
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"groupSize","value":{"$content":60.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"groupSize","value":{"$content":90.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!1001 &3543551481857967222
@@ -110,11 +110,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5853826965296419868, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
       propertyPath: m_VersionIndex
-      value: 634
+      value: 637
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853826965296419869, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
+      propertyPath: isMedium
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853826965296419869, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
+      propertyPath: maxSoaked
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5853826965515697761, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
       propertyPath: m_VersionIndex
-      value: 631
+      value: 634
       objectReference: {fileID: 0}
     - target: {fileID: 5853826965515697764, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
       propertyPath: m_Name
@@ -123,6 +131,14 @@ PrefabInstance:
     - target: {fileID: 5853826965515697774, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853826965515697774, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853826965515697774, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5853826965515697774, guid: 65e1dbef6b507cf4f976efac7458cdd2, type: 3}
       propertyPath: m_LocalPosition.x

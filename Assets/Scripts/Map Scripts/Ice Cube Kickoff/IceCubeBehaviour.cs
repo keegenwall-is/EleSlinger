@@ -82,7 +82,13 @@ public class IceCubeBehaviour : MonoBehaviour
 
             float torqueAmount = attackScript.GetPower() * 0.5f;
             rb.AddTorque(randomTorqueDirection * torqueAmount, ForceMode.Impulse);
-        } 
+        }
+        else if (other.gameObject.name.Contains("Goal"))
+        {
+            //Increase scores and spawn new ice cube
+            managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
+            Destroy();
+        }
     }
 
     private void OnCollisionEnter(Collision c)

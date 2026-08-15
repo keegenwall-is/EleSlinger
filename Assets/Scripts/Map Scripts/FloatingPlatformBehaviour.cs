@@ -15,6 +15,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
     public GameObject completeVFX;
     public GameObject bubble;
     public bool isBig;
+    public bool isMedium;
     public bool isStationary;
 
     private List<GameObject> jumpingPlayers = new List<GameObject>();
@@ -34,6 +35,10 @@ public class FloatingPlatformBehaviour : MonoBehaviour
         if (isBig)
         {
             bubbleCD = 0.05f;
+        }
+        else if (isMedium)
+        {
+            bubbleCD = 0.075f;
         }
     }
 
@@ -85,6 +90,8 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             }
         }
 
+
+
         if (beingSoaked && !isSoaked)
         {
             currentSoaked += Time.deltaTime;
@@ -93,7 +100,7 @@ public class FloatingPlatformBehaviour : MonoBehaviour
             {
                 ringImg.fillAmount = 1f;
                 isSoaked = true;
-                managerScript.TriggerIncreaseScoreFor(capturingPlayer, isBig);
+                managerScript.TriggerIncreaseScoreFor(capturingPlayer, isBig, isMedium);
                 completeVFX.SetActive(true);
             }
         }
@@ -109,6 +116,11 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                     randTrans.x += Random.Range(-20f, 20f);
                     randTrans.z += Random.Range(-20f, 20f);
                 }
+                else if (isMedium)
+                {
+                    randTrans.x += Random.Range(-12.5f, 12.5f);
+                    randTrans.z += Random.Range(-12.5f, 12.5f);
+                }
                 else
                 {
                     randTrans.x += Random.Range(-5f, 5f);
@@ -118,6 +130,11 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                 Instantiate(bubble, randTrans, Quaternion.identity);
                 currentBubble = 0f;
             }
+        }
+        else if (currentSoaked > 0)
+        {
+            currentSoaked -= Time.deltaTime;
+            ringImg.fillAmount = currentSoaked / maxSoaked;
         }
 
         beingSoaked = false;

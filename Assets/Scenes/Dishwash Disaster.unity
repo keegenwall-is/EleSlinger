@@ -962,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.z
@@ -1306,7 +1306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.z
@@ -1413,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.z
@@ -3014,7 +3014,8 @@ MonoBehaviour:
   water: {fileID: 111022519}
   waterRiseSpeed: 5
   plateSpawnX: 140
-  bigPlateScore: 5
+  bigPlateScore: 3
+  mediumPlateScore: 2
   floodWarning: {fileID: 285984364}
   plateGroups:
   - {fileID: 383192522618131428, guid: 8ea78f2f164961b4a8561b3b56002580, type: 3}
@@ -3497,7 +3498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 588485333463794679, guid: d9d287303578eb34d9273f3f3c4d5a6e, type: 3}
       propertyPath: m_LocalScale.z
@@ -3842,17 +3843,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
-  minFOV: 10
+  minFOV: 20
   maxFOV: 70
   zoomLimiter: 100
   offset: {x: 0, y: 130, z: -40}
   tightness: 0.6
   minZOffset: -110
-  maxZOffset: -40
+  maxZOffset: -30
   minX: -100
   maxX: 100
-  minZ: -100
-  maxZ: 100
+  minZ: -80
+  maxZ: 30
 --- !u!114 &2009465806
 MonoBehaviour:
   m_ObjectHideFlags: 0

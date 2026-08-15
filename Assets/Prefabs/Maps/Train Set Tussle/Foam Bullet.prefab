@@ -2187,7 +2187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094f238ea91055a4ab7955a2e840ace0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 90
+  bulletSpeed: 80
   explosion: {fileID: 8295974722891363362, guid: 25477c0d7d0187d4e8cb92a3bc1860ba, type: 3}
   target: {fileID: 0}
   isHoming: 0

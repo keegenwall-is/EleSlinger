@@ -1397,7 +1397,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8f9a57876e9b9c242819aa201df1c69b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.125
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2966,6 +2966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635033975}
   - component: {fileID: 635033976}
+  - component: {fileID: 635033977}
   m_Layer: 0
   m_Name: Minigame Manager
   m_TagString: Minigame Manager
@@ -3025,6 +3026,7 @@ MonoBehaviour:
   scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   hasGracePeriod: 1
   movingPlatformSpeed: 0
+  activeSpawnPoints: []
   scores:
   - {fileID: 1777097690}
   - {fileID: 298596239}
@@ -3072,12 +3074,109 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 27a3d2c8a39476e4ca6a3c1682fc5e87, type: 3}
   minItemRespawnTime: 8
   maxItemRespawnTime: 15
-  electricPowerLength: 8
+  electricPowerLength: 8.5
   electricPower: {fileID: 380319070870347051, guid: dd66081abcd026c44814c931f2d801b8, type: 3}
   ePowerSpeedBuff: 2
   lightning: {fileID: 7448785922617933215, guid: b922359e2f519944b95524247a472c1e, type: 3}
   elecHit: {fileID: 8304435202009214045, guid: 7e1df5f9ea5ea754794ed77bb86d80a2, type: 3}
   itemSpawners: []
+  ap: {fileID: 635033977}
+--- !u!82 &635033977
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635033974}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b26423e10f79ed44683bb59bdccf268a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.8
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &638720751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8700583656001125125, guid: 0d19821074f360340861d04b36456ca5, type: 3}
