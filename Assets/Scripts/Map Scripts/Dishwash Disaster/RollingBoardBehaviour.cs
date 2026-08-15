@@ -25,11 +25,11 @@ public class RollingBoardBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (thisRollingPin.transform.position.z >= 35f)
+        if (thisRollingPin.transform.position.z >= 37.5f)
         {
             rollingDown = true;
         }
-        else if (thisRollingPin.transform.position.z <= -35f)
+        else if (thisRollingPin.transform.position.z <= -37.5f)
         {
             rollingDown = false;
         }

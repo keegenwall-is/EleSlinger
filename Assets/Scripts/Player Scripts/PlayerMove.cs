@@ -2,25 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed;
+    public float sprintSpeedMultiplier;
     public float rotateSpeed;
     public Rigidbody rb;
     public float dashSpeed;
+    public float maxSprint;
+    public Image sprintMeter;
 
     private Vector3 moveDir;
     private CharacterBase baseScript;
     private bool isDashing = false;
     private float baseSpeed;
     private float originalSpeed;
+    private bool isSprinting;
+    private float currentSprint;
 
     [SerializeField] private AnimationCurve dashCurve = AnimationCurve.Linear(0, 1, 1, 0);
 
     // Start is called before the first frame update
     void Start()
     {
+        currentSprint = maxSprint;
         baseScript = GetComponent<CharacterBase>();
         rb = GetComponent<Rigidbody>();
         baseSpeed = moveSpeed;
@@ -38,6 +45,22 @@ public class PlayerMove : MonoBehaviour
                     StartCoroutine(Dash());
                     return;
                 }
+                
+                if (currentSprint >= 0)
+                {
+                    if (keyboard.leftShiftKey.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
+                    {
+                        IncreaseSpeed(sprintSpeedMultiplier);
+                        isSprinting = true;
+                        sprintMeter.enabled = true;
+                    }
+
+                    if (keyboard.leftShiftKey.wasReleasedThisFrame)
+                    {
+                        DecreaseSpeed();
+                        isSprinting = false;
+                    }
+                }
             }
             else if (baseScript.thisController is Gamepad controller)
             {
@@ -46,12 +69,56 @@ public class PlayerMove : MonoBehaviour
                     StartCoroutine(Dash());
                     return;
                 }
+
+                if (currentSprint >= 0)
+                {
+                    if (controller.buttonWest.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
+                    {
+                        IncreaseSpeed(sprintSpeedMultiplier);
+                        isSprinting = true;
+                        sprintMeter.enabled = true;
+                    }
+
+                    if (controller.buttonWest.wasReleasedThisFrame)
+                    {
+                        DecreaseSpeed();
+                        isSprinting = false;
+                    }
+                }
             }
 
             if (baseScript.GetState() != CharacterBase.playerState.Dashing)
             {
                 MoveDirection();
             }
+        }
+
+        if (isSprinting)
+        {
+            currentSprint -= Time.deltaTime;
+            sprintMeter.transform.forward = new Vector3(0, 0, 1);
+            if (currentSprint < 0)
+            {
+                currentSprint = 0;
+                DecreaseSpeed();
+                isSprinting = false;
+            }
+
+            print(currentSprint);
+            sprintMeter.fillAmount = currentSprint / maxSprint;
+        }
+        else if (currentSprint <= maxSprint)
+        {
+            print(currentSprint);
+            currentSprint += Time.deltaTime;
+            sprintMeter.transform.forward = new Vector3(0, 0, 1);
+            sprintMeter.fillAmount = currentSprint / maxSprint;
+        }
+        else if (currentSprint >= maxSprint)
+        {
+            print("sprint is full");
+            currentSprint = maxSprint;
+            sprintMeter.enabled = false;
         }
     }
 
