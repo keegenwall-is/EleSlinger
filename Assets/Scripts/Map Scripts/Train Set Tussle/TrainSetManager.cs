@@ -142,7 +142,6 @@ public class TrainSetManager : MinigameManager
                 baseScript = players[randomTarget].GetComponent<CharacterBase>();
             }
             bulletScript.target = players[randomTarget];
-            //environmentObjects.Add(thisBullet);
         }
 
         changeRailCurrent += Time.deltaTime;
