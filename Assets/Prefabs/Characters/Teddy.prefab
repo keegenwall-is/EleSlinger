@@ -795,11 +795,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d12786ced268642b55f4b204cbbcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 13
-  sprintSpeedMultiplier: 1.3
+  moveSpeed: 15
+  sprintSpeedMultiplier: 1.35
   rotateSpeed: 500
   rb: {fileID: 0}
-  dashSpeed: 2
+  dashSpeed: 2.25
   maxSprint: 3
   sprintMeter: {fileID: 5549719106304024482}
   dashCurve:
@@ -2155,11 +2155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3452168049762824955, guid: 1b1e68c24667ea8479e11060964314c6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3452168049762824955, guid: 1b1e68c24667ea8479e11060964314c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3452168049762824955, guid: 1b1e68c24667ea8479e11060964314c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

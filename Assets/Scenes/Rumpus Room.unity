@@ -4631,6 +4631,8 @@ MonoBehaviour:
   teamGame: 0
   scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   hasGracePeriod: 1
+  movingPlatformSpeed: 0
+  activeSpawnPoints: []
   scoresTxts:
   - {fileID: 407390348509939705}
   - {fileID: 407390348509939704}
@@ -4642,7 +4644,7 @@ MonoBehaviour:
   multiplierDuration: 20
   multiplierVFX: {fileID: 4063973215585577254, guid: ff982fd53bb52ae448b7e2988fab5311, type: 3}
   multiplier: {fileID: 6747564121497128839, guid: 9c58e3a47c54f754db051a69a62cfa02, type: 3}
-  multiplierCD: 40
+  multiplierCD: 50
   multiplierReadyCanvas: {fileID: 1181148411}
   coin: {fileID: 5284381059772066740, guid: 4aab88c4eb7bedf4489973f80ad76ea6, type: 3}
 --- !u!1 &1231402752

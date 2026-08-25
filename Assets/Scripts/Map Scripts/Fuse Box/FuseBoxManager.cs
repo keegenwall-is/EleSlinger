@@ -65,17 +65,17 @@ public class FuseBoxManager : MinigameManager
         }
 
         //spawning all items for testing
-        /*for (int i = 0; i < spawnTimes.Length; i++)
+        for (int i = 0; i < spawnTimes.Length; i++)
         {
             spawnTimes[i] = 180f - i;
-        }*/
+        }
 
         //Random a time in the first 12th of the game
-        spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
+        //spawnTimes[0] = Random.Range(gameLengthStart * 11 / 12, gameLengthStart);
         //Random a time in the second 12th of the game
-        spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
+        //spawnTimes[1] = Random.Range(gameLengthStart * 5 / 6, gameLengthStart * 11 / 12);
         //Random a time in the third 12th of the game
-        spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
+        //spawnTimes[2] = Random.Range(gameLengthStart * 2 / 3, gameLengthStart * 5 / 6);
     }
 
     protected override void OnTick()

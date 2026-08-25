@@ -21,6 +21,10 @@ public class PlayerMove : MonoBehaviour
     private float originalSpeed;
     private bool isSprinting;
     private float currentSprint;
+    private bool speedBuffed;
+    private Keyboard keyboard;
+    private Gamepad controller;
+    private Vector3 initialSprintScale;
 
     [SerializeField] private AnimationCurve dashCurve = AnimationCurve.Linear(0, 1, 1, 0);
 
@@ -31,6 +35,16 @@ public class PlayerMove : MonoBehaviour
         baseScript = GetComponent<CharacterBase>();
         rb = GetComponent<Rigidbody>();
         baseSpeed = moveSpeed;
+        initialSprintScale = sprintMeter.rectTransform.localScale;
+
+        if (baseScript.thisController is Keyboard thisKeyboard)
+        {
+            keyboard = thisKeyboard;
+        }
+        else if (baseScript.thisController is Gamepad thisController)
+        {
+            controller = thisController;
+        }
     }
 
     // Update is called once per frame
@@ -38,31 +52,32 @@ public class PlayerMove : MonoBehaviour
     {
         if (baseScript.canMove)
         {
-            if (baseScript.thisController is Keyboard keyboard)
+            if (keyboard != null)
             {
-                if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
+                if (baseScript.canMove)
                 {
-                    StartCoroutine(Dash());
-                    return;
-                }
-                
-                if (currentSprint >= 0)
-                {
-                    if (keyboard.leftShiftKey.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
+                    if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
                     {
-                        IncreaseSpeed(sprintSpeedMultiplier);
-                        isSprinting = true;
-                        sprintMeter.enabled = true;
+                        StartCoroutine(Dash());
+                        return;
                     }
 
-                    if (keyboard.leftShiftKey.wasReleasedThisFrame)
+                    if (currentSprint >= 0)
                     {
-                        DecreaseSpeed();
-                        isSprinting = false;
+                        if (keyboard.leftShiftKey.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
+                        {
+                            if (!speedBuffed)
+                            {
+                                originalSpeed = moveSpeed;
+                                moveSpeed *= sprintSpeedMultiplier;
+                            }
+                            isSprinting = true;
+                            sprintMeter.enabled = true;
+                        }
                     }
                 }
             }
-            else if (baseScript.thisController is Gamepad controller)
+            else if (controller != null)
             {
                 if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
                 {
@@ -74,49 +89,82 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (controller.buttonWest.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
                     {
-                        IncreaseSpeed(sprintSpeedMultiplier);
+                        if (!speedBuffed)
+                        {
+                            originalSpeed = moveSpeed;
+                            moveSpeed *= sprintSpeedMultiplier;
+                        }
                         isSprinting = true;
                         sprintMeter.enabled = true;
-                    }
-
-                    if (controller.buttonWest.wasReleasedThisFrame)
-                    {
-                        DecreaseSpeed();
-                        isSprinting = false;
                     }
                 }
             }
 
-            if (baseScript.GetState() != CharacterBase.playerState.Dashing)
+            //if (baseScript.GetState() != CharacterBase.playerState.Dashing)
+            //{
+            MoveDirection();
+            //}
+        }
+
+        if (keyboard != null)
+        {
+            if (keyboard.leftShiftKey.wasReleasedThisFrame)
             {
-                MoveDirection();
+                if (!speedBuffed)
+                {
+                    DecreaseSpeed();
+                }
+                isSprinting = false;
+            }
+        }
+        else if (controller != null)
+        {
+            if (controller.buttonWest.wasReleasedThisFrame)
+            {
+                if (!speedBuffed)
+                {
+                    DecreaseSpeed();
+                }
+                isSprinting = false;
             }
         }
 
         if (isSprinting)
         {
-            currentSprint -= Time.deltaTime;
-            sprintMeter.transform.forward = new Vector3(0, 0, 1);
-            if (currentSprint < 0)
+            if (!speedBuffed)
             {
-                currentSprint = 0;
-                DecreaseSpeed();
-                isSprinting = false;
+                currentSprint -= Time.deltaTime;
+                if (currentSprint < 0)
+                {
+                    currentSprint = 0;
+                    DecreaseSpeed();
+                    isSprinting = false;
+                }
+            }
+            else
+            {
+                currentSprint = maxSprint;
             }
 
-            print(currentSprint);
+            sprintMeter.transform.rotation = Camera.main.transform.rotation;
             sprintMeter.fillAmount = currentSprint / maxSprint;
+            float distance = Vector3.Distance(sprintMeter.transform.position, Camera.main.transform.position);
+            float clampedDistance = Mathf.Clamp(distance, 2f, 35f);
+
+            sprintMeter.rectTransform.localScale = initialSprintScale * clampedDistance * 0.05f;
         }
         else if (currentSprint <= maxSprint)
         {
-            print(currentSprint);
             currentSprint += Time.deltaTime;
-            sprintMeter.transform.forward = new Vector3(0, 0, 1);
+            sprintMeter.transform.rotation = Camera.main.transform.rotation;
+            float distance = Vector3.Distance(sprintMeter.transform.position, Camera.main.transform.position);
+            float clampedDistance = Mathf.Clamp(distance, 2f, 35f);
+
+            sprintMeter.rectTransform.localScale = initialSprintScale * clampedDistance * 0.05f;
             sprintMeter.fillAmount = currentSprint / maxSprint;
         }
         else if (currentSprint >= maxSprint)
         {
-            print("sprint is full");
             currentSprint = maxSprint;
             sprintMeter.enabled = false;
         }
@@ -130,7 +178,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Falling)
+            if (baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Falling && !isDashing)
             {
                 rb.velocity = new Vector3(0, 0, 0);
             }
@@ -160,7 +208,7 @@ public class PlayerMove : MonoBehaviour
 
         if (moveZ != 0f || moveX != 0f)
         {
-            if (baseScript.GetState() != CharacterBase.playerState.UsingItem)
+            if (baseScript.GetState() != CharacterBase.playerState.UsingItem && !isDashing)
             {
                 baseScript.SetState(CharacterBase.playerState.Running);
             }
@@ -169,7 +217,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (baseScript.GetState() != CharacterBase.playerState.UsingItem)
+            if (baseScript.GetState() != CharacterBase.playerState.UsingItem && !isDashing)
             {
                 baseScript.SetState(CharacterBase.playerState.Idle);
             }
@@ -191,7 +239,11 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         originalSpeed = moveSpeed;
-        float targetSpeed = moveSpeed * dashSpeed;
+        float targetSpeed = baseSpeed * dashSpeed;
+        if (speedBuffed)
+        {
+            targetSpeed *= sprintSpeedMultiplier;
+        }
         float dashDuration = baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.2f;
         float elapsed = 0f;
 
@@ -218,13 +270,15 @@ public class PlayerMove : MonoBehaviour
 
     public void IncreaseSpeed(float speedMultiplier)
     {
-        originalSpeed *= speedMultiplier;
-        moveSpeed *= speedMultiplier;
+        originalSpeed = baseSpeed * speedMultiplier;
+        moveSpeed = baseSpeed * speedMultiplier;
+        speedBuffed = true;
     }
 
     public void DecreaseSpeed()
     {
         originalSpeed = baseSpeed;
         moveSpeed = baseSpeed;
+        speedBuffed = false;
     }
 }

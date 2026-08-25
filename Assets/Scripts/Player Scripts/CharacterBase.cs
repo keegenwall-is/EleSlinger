@@ -201,7 +201,7 @@ public class CharacterBase: MonoBehaviour
                 }
                 canMove = false;
                 instruction.SetActive(true);
-                instruction.transform.forward = new Vector3(0, 0, 1);
+                instruction.transform.rotation = Camera.main.transform.rotation;
                 break;
             case playerState.Falling:
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
