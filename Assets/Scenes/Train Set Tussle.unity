@@ -1191,11 +1191,14 @@ MonoBehaviour:
   scoreEffect: {fileID: 323742704167814159, guid: 1a0d3a85b82cdbc42b1ef5397a76a862, type: 3}
   hasGracePeriod: 0
   movingPlatformSpeed: 0
+  activeSpawnPoints: []
   blockGroup: {fileID: 8416118030908201512, guid: 303c60ac0a66c08418adcb10743d534b, type: 3}
   environmentSpawnCD: 2
   environmentSpeed: 60
   rail: {fileID: 4593425731558369430, guid: 62446e0ab2ee405429cbd2d7c04210b5, type: 3}
   bulletSpawnCD: 2
+  minBulletSpawnCD: 2
+  maxBulletSpawnCD: 8
   bullets:
   - {fileID: 4216928759003644059, guid: 13ee66b31d6c1314eb4949d240c1ce83, type: 3}
   - {fileID: 6696284634735127095, guid: e4322845979f7d44b9c1bce595b4d342, type: 3}
@@ -1209,6 +1212,7 @@ MonoBehaviour:
   secondRailZ: 35
   startTrain: {fileID: 705215534}
   spawnPointsParent: {fileID: 1489914256}
+  difficultyIncrements: 8
   environmentObjects: []
   newTrainPlatformScripts: []
   currentTrainPlatformScripts: []

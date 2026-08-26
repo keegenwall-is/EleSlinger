@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class TrainSetManager : MinigameManager
 {
@@ -11,7 +12,9 @@ public class TrainSetManager : MinigameManager
     public float environmentSpawnCD = 1f;
     public float environmentSpeed;
     public GameObject rail;
-    public float bulletSpawnCD = 1f;
+    public float bulletSpawnCD;
+    public float minBulletSpawnCD;
+    public float maxBulletSpawnCD;
     public GameObject[] bullets;
     public List<Text> scoresTxts = new List<Text>();
     public float changeRailCD;
@@ -19,6 +22,7 @@ public class TrainSetManager : MinigameManager
     public float secondRailZ;
     public GameObject startTrain;
     public GameObject spawnPointsParent;
+    public int difficultyIncrements;
 
     private float environmentSpawnCurrent;
     public List<GameObject> environmentObjects = new List<GameObject>();
@@ -42,18 +46,23 @@ public class TrainSetManager : MinigameManager
     public List<FloatingPlatformBehaviour> currentTrainPlatformScripts = new List<FloatingPlatformBehaviour>();
     private int previousRail = 0;
     private bool newTrainInPosition;
+    private float difficultyIncrementCurrent;
+    private float difficultyIncrementCD;
+    private float bulletSpawnDiff;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        bulletSpawnDiff = maxBulletSpawnCD - minBulletSpawnCD;
         movingPlatformSpeed = environmentSpeed;
         currentTrain = startTrain;
         currentTrainPlatformScripts = currentTrain.GetComponentsInChildren<FloatingPlatformBehaviour>().ToList();
         camMoveScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
-        bulletSpawnCD /= playerNo;
+        bulletSpawnCD = maxBulletSpawnCD / MathF.Sqrt(playerNo);
         railSpawnCD = railLength / environmentSpeed;
-        randomChangeRailCD = Random.Range(changeRailCD - 10f, changeRailCD + 10f);
+        randomChangeRailCD = UnityEngine.Random.Range(changeRailCD - 10f, changeRailCD + 10f);
+        difficultyIncrementCD = gameLengthStart / (difficultyIncrements + 1);
 
         for (float i = 200f; i >= -200f; i -= railLength)
         {
@@ -75,15 +84,15 @@ public class TrainSetManager : MinigameManager
         if (environmentSpawnCurrent >= environmentSpawnCD)
         {
             environmentSpawnCurrent = 0f;
-            int updown = Random.Range(0, 2);
+            int updown = UnityEngine.Random.Range(0, 2);
             float randomZ = 0f;
             if (updown == 0)
             {
-                randomZ = Random.Range(50, 80);
+                randomZ = UnityEngine.Random.Range(50, 80);
             }
             else
             {
-                randomZ = Random.Range(-20, -80);
+                randomZ = UnityEngine.Random.Range(-20, -80);
             }
             Vector3 spawnPos = new Vector3(200f, -10f, randomZ);
             GameObject thisEnvObj = Instantiate(blockGroup, spawnPos, Quaternion.identity);
@@ -112,7 +121,7 @@ public class TrainSetManager : MinigameManager
 
         if (bulletSpawnCurrent >= bulletSpawnCD)
         {
-            int updown = Random.Range(0, 2);
+            int updown = UnityEngine.Random.Range(0, 2);
             float randomZ = 0f;
             if (updown == 0)
             {
@@ -124,9 +133,9 @@ public class TrainSetManager : MinigameManager
             }
 
             bulletSpawnCurrent = 0f;
-            float randomX = Random.Range(-100f, 150f);
+            float randomX = UnityEngine.Random.Range(-100f, 150f);
             Vector3 spawnPos = new Vector3(randomX, 3f, randomZ);
-            int randBullet = Random.Range(0, 6);
+            int randBullet = UnityEngine.Random.Range(0, 6);
             int bulletNo = 0;
             if (randBullet == 0)
             {
@@ -134,11 +143,11 @@ public class TrainSetManager : MinigameManager
             }
             GameObject thisBullet = Instantiate(bullets[bulletNo], spawnPos, Quaternion.identity);
             FoamBulletBehaviour bulletScript = thisBullet.GetComponent<FoamBulletBehaviour>();
-            int randomTarget = Random.Range(0, players.Count);
+            int randomTarget = UnityEngine.Random.Range(0, players.Count);
             CharacterBase baseScript = players[randomTarget].GetComponent<CharacterBase>();
             while (baseScript.GetState() == CharacterBase.playerState.Out)
             {
-                randomTarget = Random.Range(0, players.Count);
+                randomTarget = UnityEngine.Random.Range(0, players.Count);
                 baseScript = players[randomTarget].GetComponent<CharacterBase>();
             }
             bulletScript.target = players[randomTarget];
@@ -149,8 +158,16 @@ public class TrainSetManager : MinigameManager
         if (changeRailCurrent >= randomChangeRailCD)
         {
             changeRailCurrent = 0f;
-            randomChangeRailCD = Random.Range(changeRailCD - 10f, changeRailCD + 10f);
+            randomChangeRailCD = UnityEngine.Random.Range(changeRailCD - 10f, changeRailCD + 10f);
             StartCoroutine(CrossOverTracks());
+        }
+
+        difficultyIncrementCurrent += Time.deltaTime;
+
+        if (difficultyIncrementCurrent >= difficultyIncrementCD)
+        {
+            difficultyIncrementCurrent = 0f;
+            bulletSpawnCD -= bulletSpawnDiff / difficultyIncrements / (playerNo / 2);
         }
 
         if (newTrain != null && !newTrainInPosition)
