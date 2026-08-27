@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public GameObject[] ProjEffects;
     public GameObject[] MeleeEffects;
     public GameObject[] KOEffects;
+    public GameObject[] respawnIndicators;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private List<int> playerCharacterSelections = new List<int>();
@@ -202,6 +203,7 @@ public class GameController : MonoBehaviour
                 baseScript.KO = KOEffects[num];
                 baseScript.playerIdentifier.color = playerColours[num];
                 baseScript.playerNo = num;
+                baseScript.respawnIndicator = respawnIndicators[num];
                 indicatorImg.color = playerColours[num];
                 attackScript.projectile = ProjEffects[num];
                 attackScript.charge = ChargeEffects[num];

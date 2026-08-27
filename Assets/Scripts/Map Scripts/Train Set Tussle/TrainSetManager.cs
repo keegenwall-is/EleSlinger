@@ -167,7 +167,7 @@ public class TrainSetManager : MinigameManager
         if (difficultyIncrementCurrent >= difficultyIncrementCD)
         {
             difficultyIncrementCurrent = 0f;
-            bulletSpawnCD -= bulletSpawnDiff / difficultyIncrements / (playerNo / 2);
+            bulletSpawnCD -= bulletSpawnDiff / difficultyIncrements / Mathf.Sqrt(playerNo);
         }
 
         if (newTrain != null && !newTrainInPosition)
@@ -324,6 +324,15 @@ public class TrainSetManager : MinigameManager
         yield return new WaitForSeconds(time);
 
         environmentObjects.Remove(obj);
+    }
+
+    public void ZoneCaptured(GameObject player)
+    {
+        int playerIndex = players.IndexOf(player);
+
+        playerScores[playerIndex]++;
+        scoresTxts[playerIndex].text = playerScores[playerIndex].ToString();
+        StartCoroutine(ScoreAnimation(true, players[playerIndex]));
     }
 
     protected override void OnMinigameEnd()

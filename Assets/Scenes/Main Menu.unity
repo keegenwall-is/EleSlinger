@@ -2673,6 +2673,11 @@ MonoBehaviour:
   - {fileID: 8409022948551205609, guid: 2dbe82bef9d6c404fbf844e3954b3167, type: 3}
   - {fileID: 7242661338352096639, guid: fb838b2c6c1fefb4fbe9d4b911ffe02c, type: 3}
   - {fileID: 4769474075538621488, guid: 71d7cf8406b8d28469e89162b2697070, type: 3}
+  respawnIndicators:
+  - {fileID: 169421763461260076, guid: 600e9d99f2e298e439e6d733488d8a51, type: 3}
+  - {fileID: 793095339269514717, guid: 23b2d4fce57b82640883690c22b1d444, type: 3}
+  - {fileID: 1456995601281918499, guid: 4b2623d59a312df4398e9ff8397c9ebd, type: 3}
+  - {fileID: 5114795968228055872, guid: 3fb6cc7b5228a754e9e46fd7fc1a4129, type: 3}
 --- !u!4 &729165132
 Transform:
   m_ObjectHideFlags: 0

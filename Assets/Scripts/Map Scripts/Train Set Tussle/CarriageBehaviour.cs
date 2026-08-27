@@ -14,13 +14,19 @@ public class CarriageBehaviour : MonoBehaviour
     public int numOfFires;
     public float width;
     public float height;
-
+    public float SpawnCaptureZoneCD;
     public List<GameObject> fires = new List<GameObject>();
+    public GameObject captureZone;
+    public float zoneRandomRange;
+
+    private float spawnCaptureZoneCurrent;
+    private float baseZoneCD;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        baseZoneCD = SpawnCaptureZoneCD;
+        SpawnCaptureZoneCD += Random.Range(-zoneRandomRange, zoneRandomRange);
     }
 
     // Update is called once per frame
@@ -29,6 +35,19 @@ public class CarriageBehaviour : MonoBehaviour
         if (onFireCrates >= onFireThreshold)
         {
             StartCoroutine(CarriageExplosion());
+        }
+
+        spawnCaptureZoneCurrent += Time.deltaTime;
+
+        if (spawnCaptureZoneCurrent >= SpawnCaptureZoneCD)
+        {
+            spawnCaptureZoneCurrent = 0f;
+            SpawnCaptureZoneCD = baseZoneCD + Random.Range(-zoneRandomRange, zoneRandomRange);
+            GameObject thisCaptureZone = Instantiate(captureZone, transform.position, Quaternion.identity);
+            Vector3 spawnPos = transform.position;
+            spawnPos.x += Random.Range(-33f, 33f);
+            thisCaptureZone.transform.position = spawnPos;
+            thisCaptureZone.transform.SetParent(transform);
         }
     }
 

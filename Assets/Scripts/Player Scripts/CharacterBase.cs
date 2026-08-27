@@ -37,6 +37,7 @@ public class CharacterBase: MonoBehaviour
     public GameObject instruction;
     public Image playerIdentifier;
     public int playerNo;
+    public GameObject respawnIndicator;
 
     private AnimationClip[] clips;
     private int lastMoveFrame = -1;
@@ -253,6 +254,10 @@ public class CharacterBase: MonoBehaviour
         cc.enabled = false;
         mesh.SetActive(false);
         gameObject.tag = "Immune";
+        Vector3 SIPos = spawnPos.transform.position;
+        SIPos.y += 1f;
+        Quaternion SIRot = Quaternion.Euler(90f, 0f, 0f);
+        GameObject thisSpawnIndicator = Instantiate(respawnIndicator, SIPos, SIRot);
 
         float elapsed = 0f;
         float dist = Vector3.Distance(transform.position, spawnPos.transform.position);
@@ -269,6 +274,8 @@ public class CharacterBase: MonoBehaviour
         transform.position = spawnPos.transform.position;
         Physics.SyncTransforms();
 
+        thisSpawnIndicator.GetComponent<Animator>().Play("RespawnIndicatorFade");
+
         if (manager.activeSpawnPoints.Contains(spawnPos))
         {
             manager.activeSpawnPoints.Remove(spawnPos);
@@ -280,6 +287,7 @@ public class CharacterBase: MonoBehaviour
         SetState(playerState.Idle);
         mesh.SetActive(true);
         cc.enabled = true;
+        Destroy(thisSpawnIndicator);
 
         for (int i = 0; i < graceLength * 2; i++)
         {

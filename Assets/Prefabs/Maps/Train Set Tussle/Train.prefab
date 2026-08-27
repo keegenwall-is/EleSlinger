@@ -31,7 +31,7 @@ Transform:
   - {fileID: 1749225226605563134}
   - {fileID: 1749225225596248695}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1183539989328863578
 PrefabInstance:
@@ -345,7 +345,10 @@ MonoBehaviour:
   numOfFires: 15
   width: 45
   height: 12.5
+  SpawnCaptureZoneCD: 30
   fires: []
+  captureZone: {fileID: 8806335176276639408, guid: 610172a2ba2b82d4dbb47fc652466045, type: 3}
+  zoneRandomRange: 15
 --- !u!1001 &1183539989988684626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,7 +911,10 @@ MonoBehaviour:
   numOfFires: 10
   width: 45
   height: 12.5
+  SpawnCaptureZoneCD: 30
   fires: []
+  captureZone: {fileID: 8806335176276639408, guid: 610172a2ba2b82d4dbb47fc652466045, type: 3}
+  zoneRandomRange: 15
 --- !u!1001 &1183539990752821098
 PrefabInstance:
   m_ObjectHideFlags: 0
