@@ -6,6 +6,7 @@ public class GlassBehaviour : MonoBehaviour
 {
 
     public float glassSpeed;
+    public bool comingUp;
 
     private DishwashManager manager;
 
@@ -22,9 +23,9 @@ public class GlassBehaviour : MonoBehaviour
         {
             gameObject.transform.position -= Vector3.up * glassSpeed * Time.deltaTime;
         }
-        if (gameObject.transform.position.y >= 100f)
+        if (gameObject.transform.position.y >= 42f && glassSpeed < 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

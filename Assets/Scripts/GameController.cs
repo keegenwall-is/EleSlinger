@@ -115,7 +115,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(5);
     }
 
     public void LoadRandomMinigame()

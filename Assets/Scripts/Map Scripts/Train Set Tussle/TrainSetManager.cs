@@ -220,7 +220,7 @@ public class TrainSetManager : MinigameManager
                 {
                     GameObject spawn = SetPlayerSpawn(players[i]);
                     KillPlayer(players[i], spawn);
-                    camMoveScript.FindPlayers();
+                    StartCoroutine(FindPlayersAfterTime());
                 }
                 else if (numOut > 0)
                 {
@@ -247,6 +247,13 @@ public class TrainSetManager : MinigameManager
         {
             OnMinigameEnd();
         }
+    }
+
+    private IEnumerator FindPlayersAfterTime()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        camMoveScript.FindPlayers();
     }
 
     private IEnumerator CrossOverTracks()
@@ -280,6 +287,8 @@ public class TrainSetManager : MinigameManager
         {
             platformScript.isStationary = false;
         }
+        GameObject warningCanvas = currentTrain.transform.GetChild(2).gameObject;
+        warningCanvas.SetActive(true);
 
         yield return new WaitForSeconds(8f);
 

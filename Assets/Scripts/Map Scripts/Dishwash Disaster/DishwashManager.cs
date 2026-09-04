@@ -202,6 +202,21 @@ public class DishwashManager : MinigameManager
     {
         GameObject spawn = SetPlayerSpawn(player);
         KillPlayer(player, spawn);
+        GameObject thisSpawnGlass = spawn.transform.GetChild(0).Find("Glass").gameObject;
+        StartCoroutine(liftSpawnGlass(thisSpawnGlass));
+    }
+
+    private IEnumerator liftSpawnGlass(GameObject spawnGlass)
+    {
+        spawnGlass.SetActive(true);
+
+        GlassBehaviour glassScript = spawnGlass.GetComponent<GlassBehaviour>();
+
+        glassScript.glassSpeed = Mathf.Abs(glassScript.glassSpeed);
+
+        yield return new WaitForSeconds(8.0f);
+
+        glassScript.glassSpeed *= -1f;
     }
 
     protected override void IncreaseScoreFor(GameObject player, bool isBig, bool isMedium)

@@ -238,7 +238,7 @@ public class BroomBehaviour : MonoBehaviour
     {
         resting = true;
         yield return new WaitForSeconds(restingTime);
-        restingTime *= 9f / 10f;
+        restingTime *= 0.95f;
         resting = false;
     }
 }

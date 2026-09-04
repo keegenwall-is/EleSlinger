@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5504104275270441920}
   - component: {fileID: 6871376006915584074}
+  - component: {fileID: 1349455207658098579}
   m_Layer: 0
   m_Name: Oven Tray Anchor
   m_TagString: Untagged
@@ -57,9 +58,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"groupSize","value":{"$content":60.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"groupSize","value":{"$content":58.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
+--- !u!114 &1349455207658098579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504104275270441935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0619c23d1ffaf3b48800c437568b5eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stuckChar: {fileID: 7497250490761347981, guid: b2ff6d0f79056984e8aa2985dee8e322, type: 3}
+  charPoss:
+  - {fileID: 4920246260858234793}
+  - {fileID: 4920246259650897256}
+  - {fileID: 4920246259909716218}
+  - {fileID: 4920246259435340422}
+  - {fileID: 4920246260270633927}
+  - {fileID: 4920246260912418336}
+  - {fileID: 4920246260247494821}
+  - {fileID: 4920246260700718034}
+  - {fileID: 4920246260646834018}
 --- !u!1001 &5504104274748117010
 PrefabInstance:
   m_ObjectHideFlags: 0
