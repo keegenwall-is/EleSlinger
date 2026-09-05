@@ -73,12 +73,12 @@ public class TakeHit : MonoBehaviour
 
         transform.forward = direction;
         baseScript.SetState(CharacterBase.playerState.TakingHit);
-        rb.velocity = direction.normalized * projPower * flySpeed;
+        rb.linearVelocity = direction.normalized * projPower * flySpeed;
         yield return new WaitForSeconds(0.5f);
         if (baseScript.GetState() == CharacterBase.playerState.TakingHit)
         {
             baseScript.SetState(CharacterBase.playerState.Idle);
         }
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
     }
 }

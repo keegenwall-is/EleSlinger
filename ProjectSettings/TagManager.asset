@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - SpawnPoint
   - Current
@@ -12,6 +12,20 @@ TagManager:
   - Out
   - ObImmune
   - Minigame Manager
+  - FxTemporaire
+  - Nut
+  - Bolt
+  - Item Spawner
+  - Block
+  - Chord
+  - Ready Check
+  - Ready Text
+  - Chord End Point
+  - Interactive Obj
+  - Dummy
+  - Player UI
+  - SpawnPointsParent
+  - Washer
   layers:
   - Default
   - TransparentFX
@@ -49,3 +63,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  m_RenderingLayers:
+  - Default
+  - Light Layer 1
+  - Light Layer 2
+  - Light Layer 3
+  - Light Layer 4
+  - Light Layer 5
+  - Light Layer 6
+  - Light Layer 7

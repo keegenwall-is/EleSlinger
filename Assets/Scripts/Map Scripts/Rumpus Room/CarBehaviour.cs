@@ -51,11 +51,11 @@ public class CarBehaviour : MonoBehaviour
     {
         if (!bump)
         {
-            rb.velocity = transform.forward * speed;
+            rb.linearVelocity = transform.forward * speed;
         }
         else
         {
-            rb.velocity = -transform.forward * bumpSpeed;
+            rb.linearVelocity = -transform.forward * bumpSpeed;
         }
     }
 

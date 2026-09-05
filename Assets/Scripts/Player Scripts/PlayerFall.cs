@@ -43,7 +43,7 @@ public class PlayerFall : MonoBehaviour
 
             velocity.y = -fallSpeed;
 
-            rb.velocity = velocity;
+            rb.linearVelocity = velocity;
         }
 
         //Returning the fallSpeed back to original, should not be hard coded

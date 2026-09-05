@@ -223,7 +223,7 @@ public class CharacterBase: MonoBehaviour
                 Instantiate(KO, transform.position, transform.rotation);
                 break;
             case playerState.Out:
-                playerMove.rb.velocity = Vector3.zero;
+                playerMove.rb.linearVelocity = Vector3.zero;
                 playerMove.enabled = false;
                 cc.enabled = false;
                 mesh.SetActive(false);

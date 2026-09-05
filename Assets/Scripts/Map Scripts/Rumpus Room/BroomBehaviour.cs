@@ -64,11 +64,11 @@ public class BroomBehaviour : MonoBehaviour
 
             if (movingUp)
             {
-                rb.velocity = transform.right * searchSpeed;
+                rb.linearVelocity = transform.right * searchSpeed;
             }
             else
             {
-                rb.velocity = -transform.right * searchSpeed;
+                rb.linearVelocity = -transform.right * searchSpeed;
 
             }
 
@@ -93,7 +93,7 @@ public class BroomBehaviour : MonoBehaviour
         else if (currentState == broomState.Sweeping)
         {
             //sweep from right to left or left to right
-            rb.velocity = transform.forward * broomSpeed;
+            rb.linearVelocity = transform.forward * broomSpeed;
 
             fireCurrent += Time.deltaTime;
 
@@ -195,7 +195,7 @@ public class BroomBehaviour : MonoBehaviour
     {
         yield return null;
 
-        rb.velocity = new Vector3(0, 0, 0);
+        rb.linearVelocity = new Vector3(0, 0, 0);
 
         yield return new WaitForSeconds(foundDur);
 

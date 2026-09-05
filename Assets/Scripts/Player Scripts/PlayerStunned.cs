@@ -52,7 +52,7 @@ public class PlayerStunned : MonoBehaviour
 
     public void Stunned()
     {
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         currentMashes = 0;
 
         if (baseScript.GetState() == CharacterBase.playerState.Attacking)

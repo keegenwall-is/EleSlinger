@@ -180,7 +180,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (baseScript.GetState() != CharacterBase.playerState.TakingHit && baseScript.GetState() != CharacterBase.playerState.Falling && !isDashing)
             {
-                rb.velocity = new Vector3(0, 0, 0);
+                rb.linearVelocity = new Vector3(0, 0, 0);
             }
         }
     }
@@ -227,7 +227,7 @@ public class PlayerMove : MonoBehaviour
     void Move()
     {
         Vector3 newVelocity = moveDir * moveSpeed;
-        rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+        rb.linearVelocity = new Vector3(newVelocity.x, rb.linearVelocity.y, newVelocity.z);
     }
 
     IEnumerator Dash()

@@ -45,7 +45,7 @@ public class SoccerBallBehaviour : MonoBehaviour
 
         if (checkVelo)
         {
-            if (rb.velocity.magnitude < fireExtinguishThreshold)
+            if (rb.linearVelocity.magnitude < fireExtinguishThreshold)
             {
                 for (int i = transform.childCount - 1; i >= 0; i--)
                 {
@@ -81,7 +81,7 @@ public class SoccerBallBehaviour : MonoBehaviour
         }
         else if (other.gameObject.name.Contains("SafeZone"))
         {
-            rb.velocity = -rb.velocity;
+            rb.linearVelocity = -rb.linearVelocity;
         }
 
     }

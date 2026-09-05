@@ -23,7 +23,7 @@ public class ProjectileBehaviour : AttackBase
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = transform.forward * speed;
+        rb.linearVelocity = transform.forward * speed;
     }
 
     protected override float SetDeleteTime()

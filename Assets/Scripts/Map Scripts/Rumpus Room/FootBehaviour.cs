@@ -92,11 +92,11 @@ public class FootBehaviour : MonoBehaviour
         }
         else if (currentState == footState.Stomping)
         {
-            rb.velocity = -transform.forward * stompSpeed;
+            rb.linearVelocity = -transform.forward * stompSpeed;
         }
         else if (currentState == footState.Lifting)
         {
-            rb.velocity = transform.forward * liftSpeed;
+            rb.linearVelocity = transform.forward * liftSpeed;
 
             if (transform.position.y > footHeight)
             {
@@ -113,13 +113,13 @@ public class FootBehaviour : MonoBehaviour
             {
                 moveDir = closestPlayer.transform.position - transform.position;
                 moveDir.y = 0f;
-                rb.velocity = moveDir.normalized * searchSpeed;
+                rb.linearVelocity = moveDir.normalized * searchSpeed;
             }
             else
             {
                 if (rb)
                 {
-                    rb.velocity = Vector3.zero;
+                    rb.linearVelocity = Vector3.zero;
                 }
             }
         }

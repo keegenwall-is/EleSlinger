@@ -146,8 +146,12 @@ public class FuseBoxGenerator : MonoBehaviour
         //using EndPoints.count to stop this breaking with an odd number of chords
         for (int i = 0; i < chordEndPoints.Count; i++)
         {
+            // 1. Create the base object and container
             GameObject spline = new GameObject("RuntimeSpline");
             SplineContainer container = spline.AddComponent<SplineContainer>();
+
+            // Ensure standard scales are explicit
+            spline.transform.localScale = Vector3.one;
 
             Vector3 start = chordStartPoints[i].position;
             Vector3 beta = start + chordStartPoints[i].forward * startDist;
@@ -156,7 +160,7 @@ public class FuseBoxGenerator : MonoBehaviour
 
             container.Spline.Add(new BezierKnot(start));
             container.Spline.Add(new BezierKnot(beta));
-            
+
             if (beta.y != 1.0f)
             {
                 Vector3 betaDown = beta;
@@ -164,6 +168,7 @@ public class FuseBoxGenerator : MonoBehaviour
                 betaDown += chordStartPoints[i].forward;
                 container.Spline.Add(new BezierKnot(betaDown));
             }
+
             if (penult.y != 1.0f)
             {
                 Vector3 penultDown = penult;
@@ -175,23 +180,25 @@ public class FuseBoxGenerator : MonoBehaviour
             container.Spline.Add(new BezierKnot(penult));
             container.Spline.Add(new BezierKnot(end));
 
-            SplineExtrude extrude = spline.AddComponent<SplineExtrude>();
-            extrude.container = container;
-
-            MeshFilter mf = spline.GetComponent<MeshFilter>();
-            Mesh runtimeMesh = new Mesh();
-            runtimeMesh.name = "GeneratedSplineMesh";
-            mf.sharedMesh = runtimeMesh;
-
-            extrude.radius = 0.25f;
-            extrude.sides = 8;
-            extrude.rebuildOnSplineChange = true;
-
-            MeshRenderer mr = spline.GetComponent<MeshRenderer>();
+            // 2. Add structural rendering components
+            MeshFilter mf = spline.AddComponent<MeshFilter>();
+            MeshRenderer mr = spline.AddComponent<MeshRenderer>();
             mr.material = chordMat;
 
-            float length = container.CalculateLength();
+            // 3. Directly bake the mesh using Unity 6's SplineMesh utility
+            Mesh runtimeMesh = new Mesh();
+            runtimeMesh.name = "GeneratedSplineMesh";
 
+            float extrudeRadius = 0.25f;
+            int extrudeSides = 8;
+            int segmentsPerUnit = 15; // Controls the curve smoothness density
+
+            // This immediately forces Unity to populate the vertex arrays right now
+            SplineMesh.Extrude(container.Spline, runtimeMesh, extrudeRadius, extrudeSides, segmentsPerUnit, false);
+            mf.sharedMesh = runtimeMesh;
+
+            // 4. Handle calculations and child instances
+            float length = container.CalculateLength();
             Vector3 middlePos = container.EvaluatePosition(0.5f);
             Vector3 middleForward = container.EvaluateTangent(0.5f);
             Quaternion middleRot = Quaternion.LookRotation(middleForward);
@@ -200,19 +207,19 @@ public class FuseBoxGenerator : MonoBehaviour
             thisElectricity.transform.parent = spline.transform;
 
             float zScale = length / 16f;
-
             thisElectricity.transform.localScale = new Vector3(2, 2, zScale);
 
+            // 5. Setup your custom gameplay components
             SplineChord chordScript = spline.AddComponent<SplineChord>();
             AudioSource ap = spline.AddComponent<AudioSource>();
+
             chordScript.SetMats(baseMat, warningMat, elecMat);
             chordScript.SetWait(minWait, maxWait, elecTime);
             chordScript.SetNoOfFlashes(noOfFlashes);
             chordScript.SetElectricity(thisElectricity);
             chordScript.SetSFX(ap, chordStartSFX);
 
-            float splineLength = container.CalculateLength();
-
+            // 6. Generate the trigger colliders along the baked path
             for (int j = 0; j <= maxChordLength; j++)
             {
                 float t = j / (float)maxChordLength;
@@ -224,11 +231,13 @@ public class FuseBoxGenerator : MonoBehaviour
 
                 SphereCollider sc = triggerPoint.AddComponent<SphereCollider>();
                 sc.isTrigger = true;
-                sc.radius = extrude.radius * 4;
+                sc.radius = extrudeRadius * 4; // Updated from extrude.Radius
                 sc.enabled = false;
+
                 triggerPoint.AddComponent<Obstacle>();
             }
         }
+
 
         //Spawners start with colliders so that chords will not be spawned over the top of them
         //Need to turn these off before play
