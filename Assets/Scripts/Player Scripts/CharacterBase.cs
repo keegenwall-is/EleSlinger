@@ -158,7 +158,15 @@ public class CharacterBase: MonoBehaviour
 
                 break;
             case playerState.Running:
-                anim.CrossFade(FindAnimation("Run"), animFadeDur);
+                if (playerMove.speedBuffed)
+                {
+                    anim.CrossFade(FindAnimation("Sprint"), animFadeDur);
+                }
+                else
+                {
+                    anim.CrossFade(FindAnimation("Run"), animFadeDur);
+                }
+
                 if (face != null)
                 {
                     face.sprite = normalFace;
@@ -236,7 +244,7 @@ public class CharacterBase: MonoBehaviour
         }
     }
 
-    private string FindAnimation(string seg)
+    public string FindAnimation(string seg)
     {
         foreach (AnimationClip clip in clips)
         {
@@ -250,7 +258,7 @@ public class CharacterBase: MonoBehaviour
 
     IEnumerator Respawn()
     {
-        playerMove.enabled = false;
+        canMove = false;
         cc.enabled = false;
         mesh.SetActive(false);
         gameObject.tag = "Immune";
@@ -282,8 +290,6 @@ public class CharacterBase: MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.1f);
-
-        playerMove.enabled = true;
         SetState(playerState.Idle);
         mesh.SetActive(true);
         cc.enabled = true;

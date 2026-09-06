@@ -13,6 +13,8 @@ public class PlayerMove : MonoBehaviour
     public float dashSpeed;
     public float maxSprint;
     public Image sprintMeter;
+    public bool speedBuffed;
+    public float dashDuration = 0.56f;
 
     private Vector3 moveDir;
     private CharacterBase baseScript;
@@ -21,7 +23,6 @@ public class PlayerMove : MonoBehaviour
     private float originalSpeed;
     private bool isSprinting;
     private float currentSprint;
-    private bool speedBuffed;
     private Keyboard keyboard;
     private Gamepad controller;
     private Vector3 initialSprintScale;
@@ -36,6 +37,7 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         baseSpeed = moveSpeed;
         initialSprintScale = sprintMeter.rectTransform.localScale;
+        sprintMeter.color = Color.green;
 
         if (baseScript.thisController is Keyboard thisKeyboard)
         {
@@ -54,32 +56,30 @@ public class PlayerMove : MonoBehaviour
         {
             if (keyboard != null)
             {
-                if (baseScript.canMove)
+                if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem && currentSprint >= dashDuration)
                 {
-                    if (keyboard.spaceKey.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
-                    {
-                        StartCoroutine(Dash());
-                        return;
-                    }
+                    StartCoroutine(Dash());
+                    return;
+                }
 
-                    if (currentSprint >= 0)
+                if (currentSprint >= 0)
+                {
+                    if (keyboard.leftShiftKey.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
                     {
-                        if (keyboard.leftShiftKey.wasPressedThisFrame && baseScript.GetState() == CharacterBase.playerState.Running)
+                        if (!speedBuffed)
                         {
-                            if (!speedBuffed)
-                            {
-                                originalSpeed = moveSpeed;
-                                moveSpeed *= sprintSpeedMultiplier;
-                            }
-                            isSprinting = true;
-                            sprintMeter.enabled = true;
+                            originalSpeed = moveSpeed;
+                            moveSpeed *= sprintSpeedMultiplier;
                         }
+                        isSprinting = true;
+                        sprintMeter.enabled = true;
+                        baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
                     }
                 }
             }
             else if (controller != null)
             {
-                if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem)
+                if (controller.buttonSouth.wasPressedThisFrame && !isDashing && baseScript.GetState() != CharacterBase.playerState.Idle && baseScript.GetState() != CharacterBase.playerState.UsingItem && currentSprint >= dashDuration)
                 {
                     StartCoroutine(Dash());
                     return;
@@ -96,6 +96,7 @@ public class PlayerMove : MonoBehaviour
                         }
                         isSprinting = true;
                         sprintMeter.enabled = true;
+                        baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
                     }
                 }
             }
@@ -105,40 +106,71 @@ public class PlayerMove : MonoBehaviour
             MoveDirection();
             //}
         }
+        else
+        {
+            if (isSprinting)
+            {
+                isSprinting = false;
+                if (!speedBuffed)
+                {
+                    DecreaseSpeed();
+                }
+            }
+        }
 
-        if (keyboard != null)
+        if (keyboard != null && isSprinting)
         {
             if (keyboard.leftShiftKey.wasReleasedThisFrame)
             {
+                isSprinting = false;
                 if (!speedBuffed)
                 {
                     DecreaseSpeed();
                 }
-                isSprinting = false;
+                
+                if (baseScript.GetState() == CharacterBase.playerState.Running && !speedBuffed)
+                {
+                    baseScript.anim.CrossFade(baseScript.FindAnimation("Run"), baseScript.animFadeDur);
+                }
             }
         }
-        else if (controller != null)
+        else if (controller != null && isSprinting)
         {
             if (controller.buttonWest.wasReleasedThisFrame)
             {
+                isSprinting = false;
                 if (!speedBuffed)
                 {
                     DecreaseSpeed();
                 }
-                isSprinting = false;
+                
+                if (baseScript.GetState() == CharacterBase.playerState.Running && !speedBuffed)
+                {
+                    baseScript.anim.CrossFade(baseScript.FindAnimation("Run"), baseScript.animFadeDur);
+                }
             }
         }
 
-        if (isSprinting)
+        if (isSprinting || isDashing)
         {
             if (!speedBuffed)
             {
                 currentSprint -= Time.deltaTime;
+
+                if (sprintMeter.color == Color.green && currentSprint < dashDuration)
+                {
+                    sprintMeter.color = Color.red;
+                }
+
                 if (currentSprint < 0)
                 {
                     currentSprint = 0;
-                    DecreaseSpeed();
                     isSprinting = false;
+                    DecreaseSpeed();
+                    if (baseScript.GetState() == CharacterBase.playerState.Running && !speedBuffed)
+                    {
+                        baseScript.anim.CrossFade(baseScript.FindAnimation("Run"), baseScript.animFadeDur);
+                    }
                 }
             }
             else
@@ -156,6 +188,10 @@ public class PlayerMove : MonoBehaviour
         else if (currentSprint <= maxSprint)
         {
             currentSprint += Time.deltaTime;
+            if (sprintMeter.color == Color.red && currentSprint >= dashDuration)
+            {
+                sprintMeter.color = Color.green;
+            }
             sprintMeter.transform.rotation = Camera.main.transform.rotation;
             float distance = Vector3.Distance(sprintMeter.transform.position, Camera.main.transform.position);
             float clampedDistance = Mathf.Clamp(distance, 2f, 35f);
@@ -234,9 +270,8 @@ public class PlayerMove : MonoBehaviour
     {
         baseScript.SetState(CharacterBase.playerState.Dashing);
         isDashing = true;
+        sprintMeter.enabled = true;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
-
-        yield return new WaitForSeconds(0.1f);
 
         originalSpeed = moveSpeed;
         float targetSpeed = baseSpeed * dashSpeed;
@@ -244,7 +279,6 @@ public class PlayerMove : MonoBehaviour
         {
             targetSpeed *= sprintSpeedMultiplier;
         }
-        float dashDuration = baseScript.anim.GetCurrentAnimatorStateInfo(0).length - 0.2f;
         float elapsed = 0f;
 
         while (elapsed < dashDuration)
@@ -263,7 +297,11 @@ public class PlayerMove : MonoBehaviour
 
         if (baseScript.GetState() == CharacterBase.playerState.Dashing)
         {
-            baseScript.SetState(CharacterBase.playerState.Idle);
+            baseScript.SetState(CharacterBase.playerState.Running);
+            if (isSprinting)
+            {
+                baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
+            }
         }
         isDashing = false;
     }
@@ -280,5 +318,11 @@ public class PlayerMove : MonoBehaviour
         originalSpeed = baseSpeed;
         moveSpeed = baseSpeed;
         speedBuffed = false;
+
+        if (isSprinting)
+        {
+            originalSpeed = moveSpeed;
+            moveSpeed *= sprintSpeedMultiplier;
+        }
     }
 }
