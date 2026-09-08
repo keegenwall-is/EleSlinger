@@ -232,7 +232,7 @@ public class CharacterBase: MonoBehaviour
                 break;
             case playerState.Out:
                 playerMove.rb.linearVelocity = Vector3.zero;
-                playerMove.enabled = false;
+                canMove = false;
                 cc.enabled = false;
                 mesh.SetActive(false);
                 Instantiate(KO, transform.position, transform.rotation);
@@ -266,6 +266,7 @@ public class CharacterBase: MonoBehaviour
         SIPos.y += 1f;
         Quaternion SIRot = Quaternion.Euler(90f, 0f, 0f);
         GameObject thisSpawnIndicator = Instantiate(respawnIndicator, SIPos, SIRot);
+        thisSpawnIndicator.transform.SetParent(spawnPos.transform);
 
         float elapsed = 0f;
         float dist = Vector3.Distance(transform.position, spawnPos.transform.position);

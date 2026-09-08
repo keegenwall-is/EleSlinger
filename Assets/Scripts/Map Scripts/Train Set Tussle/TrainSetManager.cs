@@ -23,6 +23,7 @@ public class TrainSetManager : MinigameManager
     public GameObject startTrain;
     public GameObject spawnPointsParent;
     public int difficultyIncrements;
+    public float stageWidth;
 
     private float environmentSpawnCurrent;
     public List<GameObject> environmentObjects = new List<GameObject>();
@@ -64,7 +65,7 @@ public class TrainSetManager : MinigameManager
         randomChangeRailCD = UnityEngine.Random.Range(changeRailCD - 10f, changeRailCD + 10f);
         difficultyIncrementCD = gameLengthStart / (difficultyIncrements + 1);
 
-        for (float i = 200f; i >= -200f; i -= railLength)
+        for (float i = stageWidth; i >= -stageWidth; i -= railLength)
         {
             Vector3 spawnPos = new Vector3(i, -10f, 0f);
             GameObject thisRail = Instantiate(rail, spawnPos, Quaternion.identity);
@@ -94,7 +95,7 @@ public class TrainSetManager : MinigameManager
             {
                 randomZ = UnityEngine.Random.Range(-20, -80);
             }
-            Vector3 spawnPos = new Vector3(200f, -10f, randomZ);
+            Vector3 spawnPos = new Vector3(stageWidth, -10f, randomZ);
             GameObject thisEnvObj = Instantiate(blockGroup, spawnPos, Quaternion.identity);
             environmentObjects.Add(thisEnvObj);
         }
@@ -110,7 +111,7 @@ public class TrainSetManager : MinigameManager
             {
                 if (trackOn[i])
                 {
-                    Vector3 spawnPos1 = new Vector3(200f, -10f, i * secondRailZ);
+                    Vector3 spawnPos1 = new Vector3(stageWidth, -10f, i * secondRailZ);
                     GameObject thisRail = Instantiate(rail, spawnPos1, Quaternion.identity);
                     environmentObjects.Add(thisRail);
                 }
@@ -203,7 +204,7 @@ public class TrainSetManager : MinigameManager
 
             environmentObjects[i].transform.Translate(-Vector3.right * environmentSpeed * Time.deltaTime);
 
-            if (environmentObjects[i].transform.position.x <= -200)
+            if (environmentObjects[i].transform.position.x <= -stageWidth)
             {
                 Destroy(environmentObjects[i]);
                 environmentObjects.RemoveAt(i);
@@ -271,7 +272,7 @@ public class TrainSetManager : MinigameManager
         }
         yield return new WaitForSeconds(5.0f);
 
-        Vector3 spawnPos = new Vector3(200f, 0f, 0f);
+        Vector3 spawnPos = new Vector3(stageWidth, 0f, 0f);
 
         if (previousRail == 0)
         {
