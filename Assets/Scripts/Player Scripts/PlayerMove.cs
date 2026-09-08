@@ -157,12 +157,15 @@ public class PlayerMove : MonoBehaviour
             {
                 currentSprint -= Time.deltaTime;
 
-                if (sprintMeter.color == Color.green && currentSprint < dashDuration)
+                if (sprintMeter.color != Color.orange && currentSprint >= dashDuration && currentSprint < 1.25f)
+                {
+                    sprintMeter.color = Color.orange;
+                }
+                else if (sprintMeter.color != Color.red && currentSprint < dashDuration && currentSprint >= 0f)
                 {
                     sprintMeter.color = Color.red;
                 }
-
-                if (currentSprint < 0)
+                else if (currentSprint < 0f)
                 {
                     currentSprint = 0;
                     isSprinting = false;
@@ -188,7 +191,11 @@ public class PlayerMove : MonoBehaviour
         else if (currentSprint <= maxSprint)
         {
             currentSprint += Time.deltaTime;
-            if (sprintMeter.color == Color.red && currentSprint >= dashDuration)
+            if (sprintMeter.color != Color.orange && currentSprint < 1.25f && currentSprint >= dashDuration)
+            {
+                sprintMeter.color = Color.orange;
+            }
+            else if (sprintMeter.color != Color.green && currentSprint >= 1.25f)
             {
                 sprintMeter.color = Color.green;
             }
