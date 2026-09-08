@@ -160,10 +160,20 @@ public class FloatingPlatformBehaviour : MonoBehaviour
         {
             CharacterBase baseScript = other.gameObject.GetComponent<CharacterBase>();
             PlayerFall fallScript = other.gameObject.GetComponent<PlayerFall>();
-            if (baseScript.GetState() != CharacterBase.playerState.Dashing && baseScript.GetState() != CharacterBase.playerState.TakingHit
-                && baseScript.GetState() != CharacterBase.playerState.Running && baseScript.GetState() != CharacterBase.playerState.UsingItem)
+            if (baseScript.GetState() != CharacterBase.playerState.Dashing && baseScript.GetState() != CharacterBase.playerState.TakingHit)
             {
-                fallScript.StartFall();
+                RaycastHit hit;
+                Vector3 rayStartPos = other.gameObject.transform.position;
+                rayStartPos.y += 3f;
+
+                Debug.DrawRay(rayStartPos, -other.gameObject.transform.up * 5f, Color.red, 2);
+                if (Physics.SphereCast(rayStartPos, 1f, -other.gameObject.transform.up, out hit, 4f))
+                {
+                    if (!hit.collider.name.Contains("Platform"))
+                    {
+                        fallScript.StartFall();
+                    }
+                }
             }
             else
             {
