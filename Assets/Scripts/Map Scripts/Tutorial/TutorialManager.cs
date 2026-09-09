@@ -17,10 +17,10 @@ public class TutorialManager : MinigameManager
 
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnObstacleEvent(GameObject player)
     {
-
+        GameObject spawn = SetPlayerSpawn(player);
+        KillPlayer(player, spawn);
     }
 
     protected override void OnInteractiveObjectEvent(GameObject obj, GameObject player, GameObject other)

@@ -313,6 +313,6 @@ public class CharacterBase: MonoBehaviour
             return;
         }
         lastMoveFrame = Time.frameCount;
-        transform.position -= Vector3.right * speed * Time.deltaTime;
+        rb.position -= Vector3.right * speed * Time.deltaTime;
     }
 }

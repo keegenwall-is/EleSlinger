@@ -166,13 +166,17 @@ public class FloatingPlatformBehaviour : MonoBehaviour
                 Vector3 rayStartPos = other.gameObject.transform.position;
                 rayStartPos.y += 3f;
 
-                Debug.DrawRay(rayStartPos, -other.gameObject.transform.up * 5f, Color.red, 2);
-                if (Physics.SphereCast(rayStartPos, 1f, -other.gameObject.transform.up, out hit, 4f))
+                Debug.DrawRay(rayStartPos, -other.gameObject.transform.up * 4f, Color.red, 2);
+                if (Physics.Raycast(rayStartPos, -other.gameObject.transform.up, out hit, 4f))
                 {
                     if (!hit.collider.name.Contains("Platform"))
                     {
                         fallScript.StartFall();
                     }
+                }
+                else
+                {
+                    fallScript.StartFall();
                 }
             }
             else
