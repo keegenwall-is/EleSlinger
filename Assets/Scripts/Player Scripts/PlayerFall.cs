@@ -65,6 +65,9 @@ public class PlayerFall : MonoBehaviour
             PUIScript.StopUsingItem();
         }
 
-        baseScript.SetState(CharacterBase.playerState.Falling);
+        if (baseScript.GetState() != CharacterBase.playerState.Dead && baseScript.GetState() != CharacterBase.playerState.Out)
+        {
+            baseScript.SetState(CharacterBase.playerState.Falling);
+        }
     }
 }
