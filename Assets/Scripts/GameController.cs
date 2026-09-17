@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < 4/*max player number*/; i++)
             {
-                if (i > playerNo - 1)
+                if (i >= playerNo)
                 {
                     UIElements[i].SetActive(false);
                 }
@@ -228,7 +228,16 @@ public class GameController : MonoBehaviour
                     }
                 }
 
-                if (playerNo == 2)
+                if (playerNo == 1)
+                {
+                    Camera cam = cams[0].GetComponent<Camera>();
+                    Rect r = cam.rect;
+                    r.y = 0f;
+                    r.height = 1f;
+                    r.width = 1f;
+                    cam.rect = r;
+                }
+                else if (playerNo == 2)
                 {
                     Camera cam1 = cams[0].GetComponent<Camera>();
                     Rect r1 = cam1.rect;

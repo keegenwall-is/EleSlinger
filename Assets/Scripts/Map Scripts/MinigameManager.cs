@@ -41,6 +41,7 @@ public class MinigameManager : MonoBehaviour
         playerNo = gameController.GetPlayerNo();
         playerControllers = gameController.GetControllers();
         GameObject[] readyTextObjects = GameObject.FindGameObjectsWithTag("Ready Text");
+        Array.Sort(readyTextObjects, (x, y) => x.name.CompareTo(y.name));
         readyTexts = new List<Text>();
         foreach (GameObject obj in readyTextObjects)
         {
@@ -104,7 +105,7 @@ public class MinigameManager : MonoBehaviour
         if (playerNo != 0)
         {
             playerInterfaces = GameObject.FindGameObjectsWithTag(UIType);
-
+            Array.Sort(playerInterfaces, (x, y) => x.name.CompareTo(y.name));
             DeactivateUnusedUI(playerInterfaces);
 
         }
@@ -116,7 +117,7 @@ public class MinigameManager : MonoBehaviour
         {
             for (int i = 0; i < 4/*max player number*/; i++)
             {
-                if (i > playerNo - 1)
+                if (i >= playerNo)
                 {
                     UIElements[i].SetActive(false);
                 }

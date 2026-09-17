@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private List<GameObject> players = new List<GameObject>();
+    public List<GameObject> players = new List<GameObject>();
     private Camera cam;
 
     private Vector3 currentVelocity = Vector3.zero;
@@ -29,7 +29,7 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         cam = GetComponent<Camera>();
-        FindPlayers();
+        //FindPlayers();
     }
 
     public void FindPlayers()

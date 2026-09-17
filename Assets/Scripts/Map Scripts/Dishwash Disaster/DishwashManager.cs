@@ -232,7 +232,7 @@ public class DishwashManager : MinigameManager
                 }
                 else if (isMedium)
                 {
-                    playerScores[i] += bigPlateScore;
+                    playerScores[i] += mediumPlateScore;
                     StartCoroutine(ScoreAnimation(true, players[i], mediumPlateScore));
                 }
                 else

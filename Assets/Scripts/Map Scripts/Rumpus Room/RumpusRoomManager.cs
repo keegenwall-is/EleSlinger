@@ -9,6 +9,7 @@ public class RumpusRoomManager : MinigameManager
     public GameObject broom;
     public int punishment;
     public GameObject horizontalBar;
+    public GameObject verticalBar;
     public float multiplierDuration;
     public GameObject multiplierVFX;
     public GameObject multiplier;
@@ -30,7 +31,12 @@ public class RumpusRoomManager : MinigameManager
             playerScores[i] = 0;
         }
 
-        if (playerNo == 2)
+        if (playerNo == 1)
+        {
+            Destroy(verticalBar);
+            Destroy(horizontalBar);
+        }
+        else if (playerNo == 2)
         {
             Destroy(horizontalBar);
         }
