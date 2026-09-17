@@ -1241,7 +1241,7 @@ MonoBehaviour:
   rail: {fileID: 4593425731558369430, guid: 62446e0ab2ee405429cbd2d7c04210b5, type: 3}
   bulletSpawnCD: 2
   minBulletSpawnCD: 2
-  maxBulletSpawnCD: 8
+  maxBulletSpawnCD: 6
   bullets:
   - {fileID: 4216928759003644059, guid: 13ee66b31d6c1314eb4949d240c1ce83, type: 3}
   - {fileID: 6696284634735127095, guid: e4322845979f7d44b9c1bce595b4d342, type: 3}
@@ -1381,6 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef871d509bc0bb4dbfe12aa4022f4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   smoothTime: 0.3
   minFOV: 40
   maxFOV: 60
