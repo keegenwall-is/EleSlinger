@@ -5618,6 +5618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef871d509bc0bb4dbfe12aa4022f4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   smoothTime: 0.3
   minFOV: 20
   maxFOV: 65
@@ -5761,6 +5762,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6621627161741306928, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6621627162189472640, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Name
       value: Ready Canvas
@@ -5851,6 +5856,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6621627162189472644, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162375205848, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162867878313, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162867878318, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Text
+      value: 'Cover white plates
+
+        with soap:
+
+        larger plate = more
+        points'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162956868265, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627163351098412, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

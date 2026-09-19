@@ -5,7 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6068827365368370439}
     m_Modifications:
     - target: {fileID: 3117278222602115271, guid: e8dbed4e9ae716b4f82209e8cae9c1b5, type: 3}
@@ -69,7 +69,9 @@ PrefabInstance:
       value: CFXR3 Ice Trail B
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8dbed4e9ae716b4f82209e8cae9c1b5, type: 3}
 --- !u!4 &581540260410109766 stripped
 Transform:
@@ -81,16 +83,20 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3501893452413584978, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Range
-      value: 6.706447
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452413584978, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Intensity
-      value: 7.4260864
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501893452413584979, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3501893452787138004, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       propertyPath: m_Materials.Array.size
@@ -169,10 +175,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 581540260410109766}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3501893452413584979, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5971690359325809634}
   m_SourcePrefab: {fileID: 100100000, guid: db667c0317c36ab41aef724b63de71cb, type: 3}
 --- !u!1 &6068827365121191554 stripped
 GameObject:
@@ -191,14 +202,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 1
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!4 &6068827365368370439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3501893452787138006, guid: db667c0317c36ab41aef724b63de71cb, type: 3}

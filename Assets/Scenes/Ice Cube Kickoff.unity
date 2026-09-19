@@ -2481,6 +2481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef871d509bc0bb4dbfe12aa4022f4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   smoothTime: 1
   minFOV: 20
   maxFOV: 60
@@ -3298,6 +3299,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ab69ee67a7dc0fe4b95a48d3629deb42, type: 3}
+    - target: {fileID: 6621627161741306928, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6621627161741306934, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Text
       value: 'Ice cube scored
@@ -3412,7 +3417,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Launch Ice Cubes
 
-        into enemy goals'
+        into enemy goal'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162956868265, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6621627163351098402, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Sprite
@@ -3528,7 +3537,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4293,6 +4302,14 @@ PrefabInstance:
     - target: {fileID: 1085859033638484581, guid: 2cce2787e63e92a41ace62a568f22480, type: 3}
       propertyPath: m_TagString
       value: Interactive Obj
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513134841924498330, guid: 2cce2787e63e92a41ace62a568f22480, type: 3}
+      propertyPath: m_Range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513134841924498330, guid: 2cce2787e63e92a41ace62a568f22480, type: 3}
+      propertyPath: m_Intensity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4686351818947361421, guid: 2cce2787e63e92a41ace62a568f22480, type: 3}
       propertyPath: m_Enabled

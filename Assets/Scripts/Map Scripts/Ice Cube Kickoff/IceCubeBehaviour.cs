@@ -25,13 +25,13 @@ public class IceCubeBehaviour : MonoBehaviour
 
         randomDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
 
-        if (iceShadow != null)
+        /*if (iceShadow != null)
         {
             GameObject thisIceShadow = Instantiate(iceShadow, transform.position, Quaternion.Euler(90f, 0f, 0f));
             FootShadowBehaviour iceShadowScript = thisIceShadow.GetComponent<FootShadowBehaviour>();
             iceShadowScript.footTransform = gameObject.transform;
             iceShadowScript.height = 20.01f;
-        }
+        }*/
     }
 
     // Update is called once per frame

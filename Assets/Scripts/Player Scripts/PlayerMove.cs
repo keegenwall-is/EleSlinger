@@ -331,5 +331,9 @@ public class PlayerMove : MonoBehaviour
             originalSpeed = moveSpeed;
             moveSpeed *= sprintSpeedMultiplier;
         }
+        else if (baseScript.GetState() == CharacterBase.playerState.Running)
+        {
+            baseScript.anim.CrossFade(baseScript.FindAnimation("Run"), baseScript.animFadeDur);
+        }
     }
 }

@@ -2277,11 +2277,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6621627161741306934, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Text
-      value: Broom KO
+      value: Drop 3 coins on KO
       objectReference: {fileID: 0}
     - target: {fileID: 6621627162118047795, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6621627162189472640, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Name
@@ -2375,6 +2375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6621627162375205848, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6621627162375205854, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Text
       value: 'Dont get stomped
@@ -2383,14 +2387,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6621627162867878318, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Text
-      value: 'Hide to avoid being
-
-        spotted by the broom'
+      value: Collect Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621627162956868271, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Text
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6621627163351098402, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9520a570391594646bf03347ec51296c, type: 3}
+    - target: {fileID: 6621627163351098412, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -7062,7 +7072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1890899281
 RectTransform:
   m_ObjectHideFlags: 0
