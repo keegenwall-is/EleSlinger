@@ -305,9 +305,34 @@ public class PlayerMove : MonoBehaviour
         if (baseScript.GetState() == CharacterBase.playerState.Dashing)
         {
             baseScript.SetState(CharacterBase.playerState.Running);
-            if (isSprinting)
+            if (keyboard != null)
             {
-                baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
+                if (keyboard.leftShiftKey.isPressed)
+                {
+                    if (!speedBuffed && !isSprinting)
+                    {
+                        originalSpeed = moveSpeed;
+                        moveSpeed *= sprintSpeedMultiplier;
+                    }
+                    isSprinting = true;
+                    sprintMeter.enabled = true;
+                    baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
+                }
+                
+            }
+            else if (controller != null)
+            {
+                if (controller.buttonWest.isPressed)
+                {
+                    if (!speedBuffed && !isSprinting)
+                    {
+                        originalSpeed = moveSpeed;
+                        moveSpeed *= sprintSpeedMultiplier;
+                    }
+                    isSprinting = true;
+                    sprintMeter.enabled = true;
+                    baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
+                }
             }
         }
         isDashing = false;
@@ -318,6 +343,7 @@ public class PlayerMove : MonoBehaviour
         originalSpeed = baseSpeed * speedMultiplier;
         moveSpeed = baseSpeed * speedMultiplier;
         speedBuffed = true;
+        sprintMeter.color = Color.green;
     }
 
     public void DecreaseSpeed()
