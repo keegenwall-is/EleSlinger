@@ -2700,6 +2700,10 @@ MonoBehaviour:
   - {fileID: 1008889125371364291, guid: f0fa06d654d242e45b88dd66402bf928, type: 3}
   - {fileID: 9038373480342675449, guid: 100d5db5728674944b8a152e77c78733, type: 3}
   - {fileID: 5100412669204209715, guid: 37b3ddffcf113e249a2cb3f22f9c0953, type: 3}
+  characterSprites:
+  - {fileID: -963791335356448533, guid: c3ba2ac79604a944c9774cf7af336893, type: 3}
+  - {fileID: 1446792919685844086, guid: 5f222cf900eb00c40ab6d92858807159, type: 3}
+  - {fileID: -1783808350427418317, guid: 05a9aae6dae38074b9d6e863921e0adc, type: 3}
   scoreBoard: {fileID: 3871125865860965570, guid: fd2c0c0128dec8c4199f2da5cdcd3f87, type: 3}
   maxRounds: 5
   continueUI: {fileID: 1223167775849547754, guid: 4496e7ce320540341a91d8f321edb1e2, type: 3}
@@ -2728,6 +2732,7 @@ MonoBehaviour:
   - {fileID: 793095339269514717, guid: 23b2d4fce57b82640883690c22b1d444, type: 3}
   - {fileID: 1456995601281918499, guid: 4b2623d59a312df4398e9ff8397c9ebd, type: 3}
   - {fileID: 5114795968228055872, guid: 3fb6cc7b5228a754e9e46fd7fc1a4129, type: 3}
+  playerCharacterSelections: 
 --- !u!4 &729165132
 Transform:
   m_ObjectHideFlags: 0

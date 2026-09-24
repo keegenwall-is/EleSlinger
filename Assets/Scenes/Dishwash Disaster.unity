@@ -1122,6 +1122,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5596289783018483525, guid: 7db6f9e9c5d0aed4790107dd48e69c83, type: 3}
   m_PrefabInstance: {fileID: 305430803}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &360747308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2907750797938402631, guid: bae317838c0d710478792ee0baaa8596, type: 3}
+  m_PrefabInstance: {fileID: 1600843937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &424817581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,6 +4536,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minigame Canvas 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9014510877698096782, guid: bae317838c0d710478792ee0baaa8596, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4579,17 +4594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1600843943 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9014510876863728365, guid: bae317838c0d710478792ee0baaa8596, type: 3}
-  m_PrefabInstance: {fileID: 1600843937}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1669014395
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,7 +4626,7 @@ MonoBehaviour:
   players: []
   playerNo: 0
   effectedObjects: []
-  countdown: {fileID: 1600843943}
+  countdown: {fileID: 360747308}
   gameLength: 180
   gameLengthStart: 0
   gameController: {fileID: 0}

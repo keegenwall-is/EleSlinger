@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
     //the list of characters that the characterID refers to
     public List<GameObject> characters = new List<GameObject>();
+    public Sprite[] characterSprites;
     public GameObject scoreBoard;
     public int maxRounds;
     public GameObject continueUI;
@@ -18,9 +19,9 @@ public class GameController : MonoBehaviour
     public GameObject[] MeleeEffects;
     public GameObject[] KOEffects;
     public GameObject[] respawnIndicators;
+    public List<int> playerCharacterSelections = new List<int>();
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
-    private List<int> playerCharacterSelections = new List<int>();
     private int playerNo = 0;
     private List<GameObject> players = new List<GameObject>();
     private GameObject spawnPointsParent;
@@ -115,7 +116,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void LoadRandomMinigame()

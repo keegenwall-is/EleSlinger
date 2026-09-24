@@ -86,6 +86,18 @@ public class SoccerBallBehaviour : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Contains("Foot"))
+        {
+            if (transform.childCount == 0)
+            {
+                StartCoroutine(SetFireAfterTime());
+                StartCoroutine(CheckVeloAfterTime());
+            }
+        }
+    }
+
     private IEnumerator SetFireAfterTime()
     {
         //audioPlayer.PlayOneShot(igniteSound);

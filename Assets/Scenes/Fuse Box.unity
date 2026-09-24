@@ -3370,7 +3370,7 @@ MonoBehaviour:
   players: []
   playerNo: 0
   effectedObjects: []
-  countdown: {fileID: 643862611}
+  countdown: {fileID: 8700583656572723695}
   gameLength: 180
   gameLengthStart: 0
   gameController: {fileID: 0}
@@ -3553,17 +3553,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &643862611 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8700583656008626617, guid: 0d19821074f360340861d04b36456ca5, type: 3}
-  m_PrefabInstance: {fileID: 8700583656572723690}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &645232538
@@ -11929,6 +11918,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8700583656572723695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7235641358699154193, guid: 0d19821074f360340861d04b36456ca5, type: 3}
+  m_PrefabInstance: {fileID: 8700583656572723690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &9215087619965656418
 PrefabInstance:
   m_ObjectHideFlags: 0

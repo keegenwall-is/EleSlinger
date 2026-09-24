@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class MinigameManager : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
     public int playerNo;
     public List<GameObject> effectedObjects = new List<GameObject>();
-    public Text countdown;
+    public TextMeshProUGUI countdown;
     public float gameLength;
     public float gameLengthStart;
     public GameController gameController;
@@ -108,6 +109,12 @@ public class MinigameManager : MonoBehaviour
             Array.Sort(playerInterfaces, (x, y) => x.name.CompareTo(y.name));
             DeactivateUnusedUI(playerInterfaces);
 
+            for (int i = 0; i < playerNo; i++)
+            {
+                Image playerProfile = playerInterfaces[i].transform.Find("Profile").gameObject.GetComponent<Image>();
+                playerProfile.sprite = gameController.characterSprites[gameController.playerCharacterSelections[i]];
+            }
+            
         }
     }
 
@@ -141,7 +148,7 @@ public class MinigameManager : MonoBehaviour
                     else
                     {
                         playersReady[i] = false;
-                        readyTexts[i].text = "Not Ready";
+                        readyTexts[i].text = "Ready Up";
                     }
                 }
             }
@@ -157,7 +164,7 @@ public class MinigameManager : MonoBehaviour
                     else
                     {
                         playersReady[i] = false;
-                        readyTexts[i].text = "Not Ready";
+                        readyTexts[i].text = "Ready Up";
                     }
                 }
             }
