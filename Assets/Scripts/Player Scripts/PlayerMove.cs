@@ -344,6 +344,11 @@ public class PlayerMove : MonoBehaviour
         moveSpeed = baseSpeed * speedMultiplier;
         speedBuffed = true;
         sprintMeter.color = Color.green;
+
+        if (baseScript.GetState() == CharacterBase.playerState.Running)
+        {
+            baseScript.anim.CrossFade(baseScript.FindAnimation("Sprint"), baseScript.animFadeDur);
+        }
     }
 
     public void DecreaseSpeed()

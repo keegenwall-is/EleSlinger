@@ -115,14 +115,14 @@ public class RumpusRoomManager : MinigameManager
             float rad = angle * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad));
 
-            Vector3 spawnPos = player.transform.position + (dir * 0.2f);
+            Vector3 spawnPos = player.transform.position + dir;
             spawnPos.y += 3f;
 
             GameObject thisCoin = Instantiate(coin, spawnPos, Quaternion.identity);
             thisCoin.GetComponent<SpawnChance>().enabled = false;
 
             Rigidbody rb = thisCoin.GetComponent<Rigidbody>();
-            float launchForce = 10f;
+            float launchForce = 20f;
             Vector3 forceVector = (dir * launchForce);
 
             rb.AddForce(forceVector, ForceMode.Impulse);

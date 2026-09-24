@@ -19,6 +19,7 @@ public class CharacterBase: MonoBehaviour
     private MinigameManager manager;
     private GameObject stunStars;
     private bool hasActiveItem;
+    private Vector3 currentInstructionPos;
 
     public InputDevice thisController;
     public Animator anim;
@@ -211,6 +212,10 @@ public class CharacterBase: MonoBehaviour
                 canMove = false;
                 instruction.SetActive(true);
                 instruction.transform.rotation = Camera.main.transform.rotation;
+                Vector3 pos = transform.position;
+                pos.z += 5.0f;
+                pos.y += 10.0f;
+                instruction.transform.position = pos;
                 break;
             case playerState.Falling:
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;

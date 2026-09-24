@@ -703,10 +703,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MULTIPLIER
+  m_text: 'CANDY
 
 
-    READY'
+    AVAILABLE'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0726001f792f39c49b9c09336a84d40b, type: 2}
   m_sharedMaterial: {fileID: 2568065406312752731, guid: 0726001f792f39c49b9c09336a84d40b, type: 2}
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
