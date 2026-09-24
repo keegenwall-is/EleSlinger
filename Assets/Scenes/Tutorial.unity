@@ -1146,7 +1146,7 @@ MonoBehaviour:
   players: []
   playerNo: 0
   effectedObjects: []
-  countdown: {fileID: 285368687}
+  countdown: {fileID: 0}
   gameLength: 0
   gameLengthStart: 0
   gameController: {fileID: 0}
@@ -2712,6 +2712,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1610476799642691578, guid: bae317838c0d710478792ee0baaa8596, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9014510876488052017, guid: bae317838c0d710478792ee0baaa8596, type: 3}
       propertyPath: m_Text
       value: X
@@ -2836,17 +2840,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9014510877698096782, guid: bae317838c0d710478792ee0baaa8596, type: 3}
   m_PrefabInstance: {fileID: 285368685}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &285368687 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9014510876863728365, guid: bae317838c0d710478792ee0baaa8596, type: 3}
-  m_PrefabInstance: {fileID: 285368685}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &285368688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9014510876515878858, guid: bae317838c0d710478792ee0baaa8596, type: 3}
