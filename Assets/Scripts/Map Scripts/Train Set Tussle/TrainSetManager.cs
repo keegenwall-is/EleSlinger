@@ -414,6 +414,7 @@ public class TrainSetManager : MinigameManager
                         gameController.IncreaseRoundWins(players[i]);
                     }
                 }
+                gameUI.SetActive(false);
             }
         }
     }

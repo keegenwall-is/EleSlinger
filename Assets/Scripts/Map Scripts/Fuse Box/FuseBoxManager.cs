@@ -335,6 +335,7 @@ public class FuseBoxManager : MinigameManager
                         gameController.IncreaseRoundWins(players[i]);
                     }
                 }
+                gameUI.SetActive(false);
             }
         }
     }

@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     public GameObject[] KOEffects;
     public GameObject[] respawnIndicators;
     public List<int> playerCharacterSelections = new List<int>();
+    public Sprite[] backgroundSprites;
 
     private List<InputDevice> playerControllers = new List<InputDevice>();
     private int playerNo = 0;
@@ -273,22 +274,27 @@ public class GameController : MonoBehaviour
 
         GameObject thisScoreBoard = Instantiate(scoreBoard, Vector3.zero, Quaternion.identity);
 
-        GameObject[] scoreBackgrounds = new GameObject[thisScoreBoard.transform.childCount];
-        for (int i = 0; i < thisScoreBoard.transform.childCount; i++)
-        {
-            scoreBackgrounds[i] = thisScoreBoard.transform.GetChild(i).gameObject;
-        }
+        thisScoreBoard.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = backgroundSprites[SceneManager.GetActiveScene().buildIndex - 2].texture;
 
+        GameObject[] scoreBackgrounds = GameObject.FindGameObjectsWithTag("Score Card");
+        Array.Sort(scoreBackgrounds, (x, y) => x.name.CompareTo(y.name));
         DeactivateUnusedUI(scoreBackgrounds);
 
         GameObject[,] scorePoints = new GameObject[scoreBackgrounds.Length, maxRounds + 1];
-        for (int i = 0; i < scoreBackgrounds.Length; i++)
+        for (int i = 0; i < playerNo; i++)
         {
-            for (int j = 0; j < maxRounds + 1; j++)
+            for (int j = 0; j < maxRounds + 2; j++)
             {
                 //the first entry of each column will be the text score version, due to children order in score board prefab
-                scorePoints[i, j] = scoreBackgrounds[i].transform.GetChild(j).gameObject;
-                scorePoints[i, j].SetActive(false);
+                GameObject child = scoreBackgrounds[i].transform.GetChild(j).gameObject;
+                if (!child.name.Contains("Profile")) {
+                    scorePoints[i, j] = child;
+                    scorePoints[i, j].SetActive(false);
+                }
+                else
+                {
+                    child.GetComponent<Image>().sprite = characterSprites[playerCharacterSelections[i]];
+                }
             }
         }
 
@@ -326,7 +332,7 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < maxRoundWins + 1; i++)
         {
-            for (int j = 0; j < scorePoints.GetLength(0); j++)
+            for (int j = 0; j < playerNo; j++)
             {
                 if (roundWins[j] >= i)
                 {

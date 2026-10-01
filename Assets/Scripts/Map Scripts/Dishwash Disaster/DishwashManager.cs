@@ -337,6 +337,7 @@ public class DishwashManager : MinigameManager
                         gameController.IncreaseRoundWins(players[i]);
                     }
                 }
+                gameUI.SetActive(false);
             }
         }
     }

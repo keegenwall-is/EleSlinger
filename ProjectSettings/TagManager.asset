@@ -26,6 +26,7 @@ TagManager:
   - Player UI
   - SpawnPointsParent
   - Washer
+  - Score Card
   layers:
   - Default
   - TransparentFX

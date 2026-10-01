@@ -289,6 +289,7 @@ public class KickoffManager : MinigameManager
                         gameController.IncreaseRoundWins(players[3]);
                     }
                 }
+                gameUI.SetActive(false);
             }
         }
     }

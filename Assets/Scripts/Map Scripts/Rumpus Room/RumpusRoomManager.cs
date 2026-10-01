@@ -259,6 +259,7 @@ public class RumpusRoomManager : MinigameManager
                         gameController.IncreaseRoundWins(players[i]);
                     }
                 }
+                gameUI.SetActive(false);
             }
         }
     }

@@ -188,6 +188,7 @@ public class MinigameManager : MonoBehaviour
             gameController.SpawnPlayers(splitScreen, teamGame);
             ActivateUI("Player UI");
             OnAllReady();
+            gameLength -= 175f;
         }
     }
 
