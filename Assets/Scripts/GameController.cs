@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameController : MonoBehaviour
 {
@@ -117,7 +118,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(4);
     }
 
     public void LoadRandomMinigame()
@@ -262,11 +263,11 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void IncreaseRoundWins(GameObject player)
+    public void IncreaseRoundWins(GameObject[] victoriousPlayers)
     {
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i] == player)
+            if (victoriousPlayers.Contains(players[i]))
             {
                 roundWins[i]++;
             }

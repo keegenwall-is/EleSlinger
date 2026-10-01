@@ -152,6 +152,10 @@ public class KickoffManager : MinigameManager
     public override void HandleItemPickup(GameObject item, GameObject actor)
     {
         PlayerAttack attackScript = actor.GetComponent<PlayerAttack>();
+        if (attackScript.GetSpecialAttack())
+        {
+            return;
+        }
         attackScript.SetSpecialAttack(true);
 
         Vector3 spawnPos = actor.transform.position;
@@ -222,7 +226,14 @@ public class KickoffManager : MinigameManager
                 if (playerScores[i] == winningScore + 1)
                 {
                     overTime = false;
-                    gameController.IncreaseRoundWins(players[i]);
+                    if (i == 0)
+                    {
+                        TeamOneWin();
+                    }
+                    else
+                    {
+                        TeamTwoWin();
+                    }
                     return;
                 }
                 else if (playerScores[i] == winningScore)
@@ -233,13 +244,15 @@ public class KickoffManager : MinigameManager
 
             if (maxScoreCounter == 1)
             {
-                for (int i = 0; i < playerScores.Length; i++)
+                if (playerScores[0] == winningScore)
                 {
-                    if (playerScores[i] == winningScore)
-                    {
-                        overTime = false;
-                        gameController.IncreaseRoundWins(players[i]);
-                    }
+                    TeamOneWin();
+                    overTime = false;
+                }
+                else if (playerScores[1] == winningScore)
+                {
+                    TeamTwoWin();
+                    overTime = false;
                 }
             }
         }
@@ -275,22 +288,38 @@ public class KickoffManager : MinigameManager
             {
                 if (playerScores[0] == winningScore)
                 {
-                    gameController.IncreaseRoundWins(players[0]);
-                    if (playerNo >= 3)
-                    {
-                        gameController.IncreaseRoundWins(players[2]);
-                    }
+                    TeamOneWin();
                 }
-                else
+                else if (playerScores[1] == winningScore)
                 {
-                    gameController.IncreaseRoundWins(players[1]);
-                    if (playerNo >= 4)
-                    {
-                        gameController.IncreaseRoundWins(players[3]);
-                    }
+                    TeamTwoWin();
                 }
                 gameUI.SetActive(false);
             }
+        }
+    }
+
+    private void TeamOneWin()
+    {
+        if (playerNo >= 3)
+        {
+            gameController.IncreaseRoundWins(new GameObject[] { players[0], players[2] });
+        }
+        else
+        {
+            gameController.IncreaseRoundWins(new GameObject[] { players[0] });
+        }
+    }
+
+    private void TeamTwoWin()
+    {
+        if (playerNo >= 4)
+        {
+            gameController.IncreaseRoundWins(new GameObject[] { players[1], players[3] });
+        }
+        else
+        {
+            gameController.IncreaseRoundWins(new GameObject[] { players[1] });
         }
     }
 }

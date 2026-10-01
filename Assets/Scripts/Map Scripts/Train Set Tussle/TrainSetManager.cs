@@ -356,7 +356,7 @@ public class TrainSetManager : MinigameManager
                 if (playerScores[i] == winningScore + 1)
                 {
                     overTime = false;
-                    gameController.IncreaseRoundWins(players[i]);
+                    gameController.IncreaseRoundWins(new GameObject[] { players[i] });
                     return;
                 }
                 else if (playerScores[i] == winningScore)
@@ -372,7 +372,7 @@ public class TrainSetManager : MinigameManager
                     if (playerScores[i] == winningScore)
                     {
                         overTime = false;
-                        gameController.IncreaseRoundWins(players[i]);
+                        gameController.IncreaseRoundWins(new GameObject[] { players[i] });
                     }
                 }
             }
@@ -411,7 +411,7 @@ public class TrainSetManager : MinigameManager
                 {
                     if (playerScores[i] == winningScore)
                     {
-                        gameController.IncreaseRoundWins(players[i]);
+                        gameController.IncreaseRoundWins(new GameObject[] { players[i] });
                     }
                 }
                 gameUI.SetActive(false);
