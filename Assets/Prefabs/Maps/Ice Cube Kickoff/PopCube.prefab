@@ -29,15 +29,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989002734546354221}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.6932823, y: 0.0066905012, z: 0.008499636, w: 0.7205849}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -250.00002, y: -260.518, z: -286.02472}
+  m_LocalScale: {x: 250, y: 260.51797, z: 286.0247}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5371350257511903737}
   - {fileID: 4449989270183755649}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8068547794556015922
 MeshFilter:
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989002734546354221}
-  m_Mesh: {fileID: 3921568967233161584, guid: 275106511ca5cb742b12fcb6b947811a, type: 3}
+  m_Mesh: {fileID: 3921568967233161584, guid: fe8ddc7dd832aaa4b93ca6797b5a00fc, type: 3}
 --- !u!23 &5196531859841163768
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,6 +64,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -85,9 +90,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &6907501002228219262
 Rigidbody:
@@ -96,10 +103,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989002734546354221}
-  serializedVersion: 2
+  serializedVersion: 5
   m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -113,9 +131,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989002734546354221}
   m_Material: {fileID: 13400000, guid: 649ac88e192597b48af3ac87b6f49c36, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.022128291, y: 0.019743191, z: 0.019974142}
   m_Center: {x: 0.00009061862, y: -0.00027460046, z: -0.0002739504}
 --- !u!114 &6907501002228219249
@@ -130,12 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4665cbb47e62e469927b5b26a4ae4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrinkSpeed: 0.1
   minSize: 0.2
-  driftStrength: 2
-  driftPause: 1.5
   pushMultiplier: 100
-  fanPower: 750
+  iceShadow: {fileID: 0}
 --- !u!82 &4311330438835389849
 AudioSource:
   m_ObjectHideFlags: 0
@@ -146,7 +169,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6c67230d4224ba34f8a8b1bc7bd45e68, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 6c67230d4224ba34f8a8b1bc7bd45e68, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -237,7 +261,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6365529029416245911}
     m_Modifications:
     - target: {fileID: 5626116901858368536, guid: 28ee99865fe6cb848a574eb3b73719bd, type: 3}
@@ -309,7 +333,9 @@ PrefabInstance:
       value: CFXR3 Ice Debris Hit (Lit)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28ee99865fe6cb848a574eb3b73719bd, type: 3}
 --- !u!4 &5371350257511903737 stripped
 Transform:
@@ -321,7 +347,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 6365529029416245911}
     m_Modifications:
     - target: {fileID: 8213287603058298675, guid: d75b9b51b56644948bde394ed91745ec, type: 3}
@@ -393,7 +419,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d75b9b51b56644948bde394ed91745ec, type: 3}
 --- !u!4 &4449989270183755649 stripped
 Transform:

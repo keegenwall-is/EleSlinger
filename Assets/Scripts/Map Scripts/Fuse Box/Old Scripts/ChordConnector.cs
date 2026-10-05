@@ -15,6 +15,7 @@ public class ChordConnector : MonoBehaviour
 
     [Header("Type of this piece")]
     public PieceType pieceType;
+    public ChordConnector originalPrefab;
 
     public bool[] GetConnections(int rotation)
     {

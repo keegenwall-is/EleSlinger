@@ -147,20 +147,20 @@ public class BroomBehaviour : MonoBehaviour
                 switch (zSweepIndex)
                 {
                     case 0:
-                        pcgScript.RegenerateRow(1);
-                        pcgScript.RegenerateRow(2);
+                        StartCoroutine(pcgScript.RegenerateRow(1));
+                        StartCoroutine(pcgScript.RegenerateRow(2));
                         break;
                     case 1:
-                        pcgScript.RegenerateRow(2);
-                        pcgScript.RegenerateRow(3);
+                        StartCoroutine(pcgScript.RegenerateRow(2));
+                        StartCoroutine(pcgScript.RegenerateRow(3));
                         break;
                     case 2:
-                        pcgScript.RegenerateRow(3);
-                        pcgScript.RegenerateRow(4);
+                        StartCoroutine(pcgScript.RegenerateRow(3));
+                        StartCoroutine(pcgScript.RegenerateRow(4));
                         break;
                     case 3:
-                        pcgScript.RegenerateRow(3);
-                        pcgScript.RegenerateRow(4);
+                        StartCoroutine(pcgScript.RegenerateRow(3));
+                        StartCoroutine(pcgScript.RegenerateRow(4));
                         break;
                 }
                 zSweepIndex = Random.Range(0, possibleSweeps.Length);

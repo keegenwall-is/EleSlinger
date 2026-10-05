@@ -30,6 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085859033638484581}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 250, y: 260.51797, z: 286.0247}
@@ -38,7 +39,6 @@ Transform:
   - {fileID: 1336081293690536620}
   - {fileID: 2513134841618581534}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &3744096785167347578
 MeshFilter:
@@ -47,7 +47,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085859033638484581}
-  m_Mesh: {fileID: 3921568967233161584, guid: 275106511ca5cb742b12fcb6b947811a, type: 3}
+  m_Mesh: {fileID: 3921568967233161584, guid: fe8ddc7dd832aaa4b93ca6797b5a00fc, type: 3}
 --- !u!23 &1446011144723766192
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,10 +65,15 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2248771528128665737, guid: 275106511ca5cb742b12fcb6b947811a, type: 3}
+  - {fileID: 2100000, guid: 78cc19a107e8b194d8ab176b08351a9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,9 +91,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &274955802016909110
 Rigidbody:
@@ -97,10 +104,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085859033638484581}
-  serializedVersion: 2
+  serializedVersion: 5
   m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -114,9 +132,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085859033638484581}
   m_Material: {fileID: 13400000, guid: 649ac88e192597b48af3ac87b6f49c36, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.022128291, y: 0.019743191, z: 0.019974142}
   m_Center: {x: 0.00009061862, y: -0.00027460046, z: -0.0002739504}
 --- !u!114 &274955802016909113
@@ -144,7 +170,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 232d6339c4d472241b443227f2ebf6a7, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 232d6339c4d472241b443227f2ebf6a7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -247,7 +274,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 313685879096598751}
     m_Modifications:
     - target: {fileID: 5626116901858368536, guid: 28ee99865fe6cb848a574eb3b73719bd, type: 3}
@@ -319,7 +346,9 @@ PrefabInstance:
       value: CFXR3 Ice Debris Hit (Lit)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28ee99865fe6cb848a574eb3b73719bd, type: 3}
 --- !u!4 &1336081293690536620 stripped
 Transform:
@@ -331,7 +360,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 313685879096598751}
     m_Modifications:
     - target: {fileID: 581540260410109764, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
@@ -348,15 +377,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6068827365121191555, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
       propertyPath: m_Range
-      value: 8
+      value: 7.426559
       objectReference: {fileID: 0}
     - target: {fileID: 6068827365121191555, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
       propertyPath: m_Intensity
-      value: 0
+      value: 9.153565
       objectReference: {fileID: 0}
     - target: {fileID: 6068827365368370437, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068827365368370438, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6068827365368370439, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
       propertyPath: m_RootOrder
@@ -422,8 +455,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CFXR3 Iceball B + Ice Trail
       objectReference: {fileID: 0}
+    - target: {fileID: 6068827365368370443, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df21cee3ca9428749a143ff1ad6036ef, type: 3}
 --- !u!4 &2513134841618581534 stripped
 Transform:
