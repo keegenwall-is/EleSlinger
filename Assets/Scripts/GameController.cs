@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
 
     public void LoadRandomMinigame()
@@ -303,7 +303,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        StartCoroutine(DisplayWins(scorePoints));
+        StartCoroutine(DisplayWins(scorePoints, victoriousPlayers));
 
         //Stop players from performing actions once the round is done
         /*for (int i = 0; i < players.Count; i++)
@@ -319,7 +319,7 @@ public class GameController : MonoBehaviour
         }*/
     }
 
-    private IEnumerator DisplayWins(GameObject[,] scorePoints)
+    private IEnumerator DisplayWins(GameObject[,] scorePoints, GameObject[] victoriousPlayers)
     {
         int maxRoundWins = 0;
         for (int i = 0; i < roundWins.Length; i++)
@@ -344,6 +344,10 @@ public class GameController : MonoBehaviour
                     scorePoints[j, i].SetActive(true);
                     Text thisScoreText = scorePoints[j, 0].GetComponent<Text>();
                     thisScoreText.text = i.ToString();
+                    if (roundWins[j] == i && victoriousPlayers.Contains(players[j]))
+                    {
+                        scorePoints[j, i].GetComponent<Animator>().Play("NewScorePoint");
+                    }
                 }
             }
             yield return new WaitForSeconds(1.0f);
