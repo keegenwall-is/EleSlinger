@@ -25,6 +25,11 @@ public class KickoffManager : MinigameManager
     public float randSpawnAmount;
     public float addCubeCD = 30f;
     public List<GameObject> iceCubes = new List<GameObject>();
+    public Image[] readyBackgrounds;
+    public Sprite blueReadyBackground;
+    public Sprite redReadyBackground;
+    public RectTransform[] profilePoss;
+    public Canvas canvas;
 
     private int[] playerScores = { 0, 0 };
     private float popsicleSpawnCurrent;
@@ -44,16 +49,95 @@ public class KickoffManager : MinigameManager
 
         if (playerNo <= 2)
         {
-            Vector3 spawnPos = playerSpawners[0].transform.position;
-            spawnPos.z = 0;
-            playerSpawners[0].transform.position = spawnPos;
+            Vector3 spawnPos1 = playerSpawners[0].transform.position;
+            spawnPos1.z = 0;
+            playerSpawners[0].transform.position = spawnPos1;
+            Vector3 spawnPos2 = playerSpawners[1].transform.position;
+            spawnPos2.z = 0;
+            playerSpawners[1].transform.position = spawnPos2;
         }
 
-        if (playerNo <= 3)
+        if (playerNo > 2)
         {
-            Vector3 spawnPos = playerSpawners[1].transform.position;
-            spawnPos.z = 0;
-            playerSpawners[1].transform.position = spawnPos;
+            List<int> shuffledPlayers = new List<int>();
+            if (playerNo == 3)
+            {
+                shuffledPlayers = new List<int> { 0, 1, 2 };
+            }
+            else
+            {
+                shuffledPlayers = new List<int> { 0, 1, 2, 3 };
+            }
+
+            for (int i = shuffledPlayers.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (shuffledPlayers[i], shuffledPlayers[j]) = (shuffledPlayers[j], shuffledPlayers[i]);
+            }
+
+            for (int i = 0; i < playerNo; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    team1.Add(shuffledPlayers[i]);
+                }
+                else
+                {
+                    team2.Add(shuffledPlayers[i]);
+                }
+            }
+        }
+        else if (playerNo == 2)
+        {
+            team1.Add(0);
+            team2.Add(1);
+        }
+        else if (playerNo == 1)
+        {
+            team1.Add(0);
+        }
+
+        for (int i = 0; i < readyBackgrounds.Length; i++)
+        {
+            if (team1.Contains(i))
+            {
+                readyBackgrounds[i].sprite = blueReadyBackground;
+                Vector3 spawnPosSpawnPos = playerSpawners[i].transform.position;
+                Vector2 profilePos = profilePoss[i].anchoredPosition;
+                spawnPosSpawnPos.x = -45f;
+
+                if (playerNo > 2)
+                {
+                    spawnPosSpawnPos.z = (team1[team1.Count - 1] == i) ? -15f : 15f;
+                }
+                profilePos.x = (team1[team1.Count - 1] == i) ? -290f : -350f;
+
+                playerSpawners[i].transform.position = spawnPosSpawnPos;
+                playerSpawners[i].transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                profilePoss[i].anchoredPosition = profilePos;
+            }
+            else if (team2.Contains(i))
+            {
+                readyBackgrounds[i].sprite = redReadyBackground;
+                Vector3 spawnPosSpawnPos = playerSpawners[i].transform.position;
+                Vector2 profilePos = profilePoss[i].anchoredPosition;
+                spawnPosSpawnPos.x = 45f;
+
+                if (playerNo > 3)
+                {
+                    spawnPosSpawnPos.z = (team2[team2.Count - 1] == i) ? -15f : 15f;
+                }
+                else if (playerNo == 3)
+                {
+                    spawnPosSpawnPos.z = 0f;
+                }
+
+                profilePos.x = (team2[team2.Count - 1] == i) ? 290f : 350f;
+
+                playerSpawners[i].transform.position = spawnPosSpawnPos;
+                playerSpawners[i].transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                profilePoss[i].anchoredPosition = profilePos;
+            }
         }
 
         camMoveScript = mainCam.GetComponent<CameraMovement>();
@@ -172,27 +256,27 @@ public class KickoffManager : MinigameManager
         IceNovaBehaviour novaScript = nova.GetComponent<IceNovaBehaviour>();
         novaScript.SetThrower(thrower);
         int throwerIndex = players.IndexOf(thrower);
-
         if (throwerIndex != -1)
         {
-            // 4-Player Match: 1 & 3 (indices 0 & 2) are teammates, 2 & 4 (indices 1 & 3) are teammates
-            if (playerNo == 4)
+            if (team1.Contains(throwerIndex) && team1.Count > 1)
             {
-                int partnerIndex = (throwerIndex + 2) % 4;
-                novaScript.SetTeamMate(players[partnerIndex]);
+                for (int i = 0; i < team1.Count; i++)
+                {
+                    if (team1[i] != throwerIndex)
+                    {
+                        novaScript.SetTeamMate(players[team1[i]]);
+                    }
+                }
             }
-            // 3-Player Match: Player 2 (index 1) is alone. Players 1 & 3 (indices 0 & 2) are teammates
-            else if (playerNo == 3)
+            else if (team2.Contains(throwerIndex) && team2.Count > 1)
             {
-                if (throwerIndex == 0)
+                for (int i = 0; i < team2.Count; i++)
                 {
-                    novaScript.SetTeamMate(players[2]); // Player 1's teammate is Player 3
+                    if (team2[i] != throwerIndex)
+                    {
+                        novaScript.SetTeamMate(players[team2[i]]);
+                    }
                 }
-                else if (throwerIndex == 2)
-                {
-                    novaScript.SetTeamMate(players[0]); // Player 3's teammate is Player 1
-                }
-                // If throwerIndex is 1 (Player 2), they have no teammate, so SetTeamMate is not called
             }
         }
 
@@ -228,11 +312,11 @@ public class KickoffManager : MinigameManager
                     overTime = false;
                     if (i == 0)
                     {
-                        TeamOneWin();
+                        TeamWin(team1);
                     }
                     else
                     {
-                        TeamTwoWin();
+                        TeamWin(team2);
                     }
                     return;
                 }
@@ -246,12 +330,12 @@ public class KickoffManager : MinigameManager
             {
                 if (playerScores[0] == winningScore)
                 {
-                    TeamOneWin();
+                    TeamWin(team1);
                     overTime = false;
                 }
                 else if (playerScores[1] == winningScore)
                 {
-                    TeamTwoWin();
+                    TeamWin(team2);
                     overTime = false;
                 }
             }
@@ -288,38 +372,24 @@ public class KickoffManager : MinigameManager
             {
                 if (playerScores[0] == winningScore)
                 {
-                    TeamOneWin();
+                    TeamWin(team1);
                 }
                 else if (playerScores[1] == winningScore)
                 {
-                    TeamTwoWin();
+                    TeamWin(team2);
                 }
                 gameUI.SetActive(false);
             }
         }
     }
 
-    private void TeamOneWin()
+    private void TeamWin(List<int> team)
     {
-        if (playerNo >= 3)
+        List<GameObject> victoriousPlayers = new List<GameObject>();
+        for (int i = 0; i < team.Count; i++)
         {
-            gameController.IncreaseRoundWins(new GameObject[] { players[0], players[2] });
+            victoriousPlayers.Add(players[team[i]]);
         }
-        else
-        {
-            gameController.IncreaseRoundWins(new GameObject[] { players[0] });
-        }
-    }
-
-    private void TeamTwoWin()
-    {
-        if (playerNo >= 4)
-        {
-            gameController.IncreaseRoundWins(new GameObject[] { players[1], players[3] });
-        }
-        else
-        {
-            gameController.IncreaseRoundWins(new GameObject[] { players[1] });
-        }
+        gameController.IncreaseRoundWins(victoriousPlayers.ToArray());
     }
 }

@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void LoadRandomMinigame()
@@ -177,6 +177,7 @@ public class GameController : MonoBehaviour
         if (playerNo != 0)
         {
             spawnPointsParent = GameObject.FindGameObjectWithTag("SpawnPointsParent");
+            MinigameManager managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
 
             for (int i = 0; i < spawnPointsParent.transform.childCount; i++)
             {
@@ -194,13 +195,16 @@ public class GameController : MonoBehaviour
                 baseScript.SetController(playerControllers[i]);
 
                 int num = i;
-                if (i == 2 && teamGame)
+                if (teamGame)
                 {
-                    num = 0;
-                }
-                else if (i == 3 && teamGame)
-                {
-                    num = 1;
+                    if (managerScript.team1.Contains(i))
+                    {
+                        num = 0;
+                    }
+                    else
+                    {
+                        num = 1;
+                    }
                 }
 
                 baseScript.KO = KOEffects[num];

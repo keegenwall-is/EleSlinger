@@ -27,6 +27,7 @@ TagManager:
   - SpawnPointsParent
   - Washer
   - Score Card
+  - Profile
   layers:
   - Default
   - TransparentFX

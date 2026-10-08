@@ -26,6 +26,8 @@ public class MinigameManager : MonoBehaviour
     public bool hasGracePeriod = true;
     public float movingPlatformSpeed = 0f;
     public List<GameObject> activeSpawnPoints = new List<GameObject>();
+    public List<int> team1 = new List<int>();
+    public List<int> team2 = new List<int>();
 
     private bool roundOver = false;
     private bool roundBegun = false;
@@ -109,12 +111,17 @@ public class MinigameManager : MonoBehaviour
             Array.Sort(playerInterfaces, (x, y) => x.name.CompareTo(y.name));
             DeactivateUnusedUI(playerInterfaces);
 
+            GameObject[] profiles = GameObject.FindGameObjectsWithTag("Profile");
+            Array.Sort(profiles, (x, y) => x.name.CompareTo(y.name));
+
             for (int i = 0; i < playerNo; i++)
             {
-                Image playerProfile = playerInterfaces[i].transform.Find("Profile").gameObject.GetComponent<Image>();
-                playerProfile.sprite = gameController.characterSprites[gameController.playerCharacterSelections[i]];
+                if (i < profiles.Length)
+                {
+                    Image playerProfile = profiles[i].GetComponent<Image>();
+                    playerProfile.sprite = gameController.characterSprites[gameController.playerCharacterSelections[i]];
+                }
             }
-            
         }
     }
 

@@ -162,8 +162,8 @@ GameObject:
   - component: {fileID: 1068744860915134416}
   - component: {fileID: 6554339999721578247}
   m_Layer: 5
-  m_Name: Profile
-  m_TagString: Untagged
+  m_Name: Profile 3
+  m_TagString: Profile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1795,8 +1795,8 @@ GameObject:
   - component: {fileID: 8009835755429344028}
   - component: {fileID: 6901519791818862999}
   m_Layer: 5
-  m_Name: Profile
-  m_TagString: Untagged
+  m_Name: Profile 1
+  m_TagString: Profile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1967,8 +1967,8 @@ GameObject:
   - component: {fileID: 6631871223245418010}
   - component: {fileID: 7793242624235211929}
   m_Layer: 5
-  m_Name: Profile
-  m_TagString: Untagged
+  m_Name: Profile 2
+  m_TagString: Profile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,8 +2042,8 @@ GameObject:
   - component: {fileID: 6870926058921010527}
   - component: {fileID: 7422577247368792097}
   m_Layer: 5
-  m_Name: Profile
-  m_TagString: Untagged
+  m_Name: Profile 4
+  m_TagString: Profile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

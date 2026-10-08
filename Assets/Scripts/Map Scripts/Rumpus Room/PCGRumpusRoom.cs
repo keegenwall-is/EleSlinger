@@ -293,7 +293,6 @@ public class PCGRumpusRoom : MonoBehaviour
                     mapSections[rowIndex, col] = (null, 0);
                 }
                 yield return null;
-                print("trying again");
                 continue; // retry full regeneration
             }
 
