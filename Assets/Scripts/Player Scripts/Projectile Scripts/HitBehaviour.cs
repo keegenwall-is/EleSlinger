@@ -29,6 +29,7 @@ public class HitBehaviour : MonoBehaviour
             }
             else
             {
+                volume /= 2f;
                 audioPlayer.PlayOneShot(failedHitSound, volume);
             }
         }

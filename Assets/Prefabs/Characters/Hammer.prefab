@@ -727,7 +727,7 @@ MonoBehaviour:
   rotateSpeed: 500
   rb: {fileID: 0}
   dashSpeed: 2.25
-  maxSprint: 3
+  maxSprint: 4
   sprintMeter: {fileID: 116076070476742040}
   speedBuffed: 0
   dashDuration: 0.56

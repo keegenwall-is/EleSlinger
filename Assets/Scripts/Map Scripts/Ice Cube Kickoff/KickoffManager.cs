@@ -307,7 +307,7 @@ public class KickoffManager : MinigameManager
             int maxScoreCounter = 0;
             for (int i = 0; i < playerScores.Length; i++)
             {
-                if (playerScores[i] == winningScore + 1)
+                if (playerScores[i] > winningScore)
                 {
                     overTime = false;
                     if (i == 0)

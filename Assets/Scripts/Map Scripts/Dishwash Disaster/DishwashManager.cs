@@ -33,7 +33,7 @@ public class DishwashManager : MinigameManager
     private bool spawnPlates = false;
     private bool waterRise = false;
     private bool waterSink = false;
-    private int[] playerScores = { 0, 0, 0, 0 };
+    private int[] playerScores = { -1, -1, -1, -1 };
     private float winningScore = 0;
     private GameObject winningPlayer;
 
@@ -58,6 +58,10 @@ public class DishwashManager : MinigameManager
         hasGracePeriod = false;
         origPlateSpeed = plateSpeed;
         plateHeight = 0f;
+        for (int i = 0; i < playerNo; i++)
+        {
+            playerScores[i] = 0;
+        }
     }
 
     protected override void OnTick()
@@ -276,7 +280,7 @@ public class DishwashManager : MinigameManager
             int maxScoreCounter = 0;
             for (int i = 0; i < playerScores.Length; i++)
             {
-                if (playerScores[i] == winningScore + 1)
+                if (playerScores[i] > winningScore)
                 {
                     overTime = false;
                     gameController.IncreaseRoundWins(new GameObject[] { players[i] });
