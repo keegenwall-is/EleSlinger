@@ -65,8 +65,6 @@ public class MinigameManager : MonoBehaviour
             gameController.SpawnPlayers(splitScreen, teamGame);
             ActivateUI("Player UI");
         }
-
-        gameLength -= 175f;
     }
 
     // Update is called once per frame
