@@ -15,6 +15,7 @@ public class FootBehaviour : MonoBehaviour
     public float gracePeriod;
     public GameObject hit;
     public int changeAfterAttempts;
+    public AudioClip[] stompSounds;
 
     private footState currentState;
     private GameController gameScript;
@@ -27,6 +28,7 @@ public class FootBehaviour : MonoBehaviour
     private int stompAttempts;
     private float sphereCastRadius = 0.1f;
     private Coroutine stompedCoroutine;
+    private AudioSource ap;
 
     public enum footState
     {
@@ -38,6 +40,7 @@ public class FootBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ap = GetComponent<AudioSource>();
         gameScript = GameObject.FindGameObjectWithTag("Game Controller").GetComponent<GameController>();
         if (gameScript)
         {
@@ -175,6 +178,8 @@ public class FootBehaviour : MonoBehaviour
 
         if (currentState == footState.Stomping)
         {
+            AudioClip randomClip = stompSounds[Random.Range(0, stompSounds.Length)];
+            ap.PlayOneShot(randomClip);
             Instantiate(hit, transform.position, Quaternion.identity);
             SetState(footState.Lifting);
         }

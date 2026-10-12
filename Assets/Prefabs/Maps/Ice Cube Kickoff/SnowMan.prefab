@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7387589311357514432}
   m_Layer: 0
   m_Name: SnowMan
-  m_TagString: Untagged
+  m_TagString: Interactive Obj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7387589311357514428}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 6993883699949684785}
   - {fileID: 5018442896042234369}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7387589311357514430
 MonoBehaviour:
@@ -51,6 +51,8 @@ MonoBehaviour:
   pushMultiplier: 50
   iceExplosion: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   chargeThreshold: 17.5
+  rotSpeed: 5
+  managerScript: {fileID: 0}
 --- !u!136 &7387589311357514431
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -59,8 +61,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7387589311357514428}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 5
   m_Height: 16
   m_Direction: 1
@@ -72,10 +83,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7387589311357514428}
-  serializedVersion: 2
+  serializedVersion: 5
   m_Mass: 15
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -86,7 +108,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 7387589311357514429}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e4bd03a9ca8ff554ebfb108ba1b4fc24, type: 3}
@@ -150,7 +172,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: e4bd03a9ca8ff554ebfb108ba1b4fc24, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bd52ef9ecd0a0b541907b7de0f280ff2, type: 2}
     - target: {fileID: 919132149155446097, guid: e4bd03a9ca8ff554ebfb108ba1b4fc24, type: 3}
@@ -158,7 +180,9 @@ PrefabInstance:
       value: SnowMan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4bd03a9ca8ff554ebfb108ba1b4fc24, type: 3}
 --- !u!4 &6993883699949684785 stripped
 Transform:
@@ -170,7 +194,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 7387589311357514429}
     m_Modifications:
     - target: {fileID: 2531280756429009902, guid: 608d1cb6999ab0b46b1a60eae105381b, type: 3}
@@ -266,7 +290,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2531280756890085591, guid: 608d1cb6999ab0b46b1a60eae105381b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7387589310987190614}
   m_SourcePrefab: {fileID: 100100000, guid: 608d1cb6999ab0b46b1a60eae105381b, type: 3}
 --- !u!4 &5018442896042234369 stripped
 Transform:
@@ -290,11 +319,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 1
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1

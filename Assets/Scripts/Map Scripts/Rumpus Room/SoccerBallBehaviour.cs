@@ -16,11 +16,13 @@ public class SoccerBallBehaviour : MonoBehaviour
     private GameObject thrower;
     private bool checkVelo = false;
     private GameObject thisFireBall;
+    private Renderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rend = GetComponent<Renderer>();
 
         if (transform.parent != null)
         {
@@ -65,6 +67,10 @@ public class SoccerBallBehaviour : MonoBehaviour
 
             rb.AddForce(attackScript.GetDirection(gameObject) * attackScript.GetPower() * pushMultiplier, ForceMode.Impulse);
 
+            if (rend != null && rend.isVisible && audioPlayer != null && !audioPlayer.isPlaying)
+            {
+                audioPlayer.PlayOneShot(igniteSound);
+            }
             if (transform.childCount == 0)
             {
                 StartCoroutine(SetFireAfterTime());
@@ -73,6 +79,10 @@ public class SoccerBallBehaviour : MonoBehaviour
         }
         else if (other.gameObject.name.Contains("Broom") || other.gameObject.name.Contains("Car"))
         {
+            if (rend != null && rend.isVisible && audioPlayer != null && !audioPlayer.isPlaying)
+            {
+                audioPlayer.PlayOneShot(igniteSound);
+            }
             if (transform.childCount == 0)
             {
                 StartCoroutine(SetFireAfterTime());
@@ -90,6 +100,10 @@ public class SoccerBallBehaviour : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Foot"))
         {
+            if (rend != null && rend.isVisible && audioPlayer != null && !audioPlayer.isPlaying)
+            {
+                audioPlayer.PlayOneShot(igniteSound);
+            }
             if (transform.childCount == 0)
             {
                 StartCoroutine(SetFireAfterTime());
@@ -100,8 +114,6 @@ public class SoccerBallBehaviour : MonoBehaviour
 
     private IEnumerator SetFireAfterTime()
     {
-        //audioPlayer.PlayOneShot(igniteSound);
-
         yield return new WaitForSeconds(0.1f);
 
         thisFireBall = Instantiate(fireBall, gameObject.transform);

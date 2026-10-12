@@ -22,6 +22,10 @@ public class BroomBehaviour : MonoBehaviour
     public GameObject fire;
     public float fireWidth;
     public float fireZ;
+    public AudioClip[] blockSounds;
+    public AudioClip sweepSFX;
+    public AudioSource ap1;
+    public AudioSource ap2;
 
     private broomState currentState;
     private Rigidbody rb;
@@ -136,7 +140,7 @@ public class BroomBehaviour : MonoBehaviour
         switch (state)
         {
             case broomState.Searching:
-
+                ap2.Stop();
                 foreach (GameObject fire in fires)
                 {
                     Destroy(fire);
@@ -180,6 +184,7 @@ public class BroomBehaviour : MonoBehaviour
                 break;
             case broomState.Sweeping:
                 rb.constraints |= RigidbodyConstraints.FreezePositionZ;
+                ap2.Play();
                 broomSpeed += speedIncrement;
                 fireCD = fireWidth / broomSpeed;
                 //Speed capped because if broom is too fast ray cast wont capture it.
@@ -240,5 +245,17 @@ public class BroomBehaviour : MonoBehaviour
         yield return new WaitForSeconds(restingTime);
         restingTime *= 0.95f;
         resting = false;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!ap1.isPlaying)
+        {
+            if (collision.gameObject.name.Contains("Block"))
+            {
+                AudioClip randomClip = blockSounds[Random.Range(0, blockSounds.Length)];
+                ap1.PlayOneShot(randomClip);
+            }
+        }
     }
 }

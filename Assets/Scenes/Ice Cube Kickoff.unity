@@ -319,7 +319,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 07ca1e4fa21c98b478a9a3ca585e8666, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3149,10 +3149,26 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: d9781bb0969dd8c478348645593cacad, type: 3}
+    - target: {fileID: 2520955565768241704, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: 69c6fcd88760cdd4a9c7d1b36903cb10, type: 2}
+    - target: {fileID: 6606272868279153648, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: b7be4a17670b8a44a9928d2bf48bdfba, type: 3}
+    - target: {fileID: 6606272868279153648, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 69c6fcd88760cdd4a9c7d1b36903cb10, type: 2}
     - target: {fileID: 6621627161479465778, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ab69ee67a7dc0fe4b95a48d3629deb42, type: 3}
+    - target: {fileID: 6621627161620161555, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8805071026108729761, guid: 07de6a0d95040d74b9ebadc9383a8618, type: 3}
     - target: {fileID: 6621627161741306928, guid: 124ebec000f8378408a7b516b5fdee55, type: 3}
       propertyPath: m_IsActive
       value: 0

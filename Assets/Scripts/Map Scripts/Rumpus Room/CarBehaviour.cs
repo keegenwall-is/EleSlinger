@@ -10,15 +10,22 @@ public class CarBehaviour : MonoBehaviour
     public float rayDistance = 10f;
     public GameObject warning;
     public GameObject explosion;
+    public AudioClip honkSFX;
+    public AudioClip thumpSFX;
 
     private Rigidbody rb;
     private bool bump = false;
     private RectTransform rectTransform;
+    private AudioSource ap;
+    private bool hasHonked;
+    private Renderer renderer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        ap = GetComponent<AudioSource>();
+        renderer = GetComponentInChildren<Renderer>();
         rectTransform = warning.GetComponent<RectTransform>();
 
         if (transform.parent != null)
@@ -35,6 +42,12 @@ public class CarBehaviour : MonoBehaviour
 
         if (findPlayer && hit.collider.CompareTag("Player")) {
             warning.SetActive(true);
+            if (!hasHonked && !bump)
+            {
+                ap.volume = 0.5f;
+                ap.PlayOneShot(honkSFX);
+                hasHonked = true;
+            }
             Vector3 newPos = rectTransform.localPosition;
 
             newPos.z = hit.distance - 5.0f;
@@ -43,6 +56,7 @@ public class CarBehaviour : MonoBehaviour
         else
         {
             warning.SetActive(false);
+            hasHonked = false;
         }
     }
 
@@ -71,6 +85,16 @@ public class CarBehaviour : MonoBehaviour
         }
     }
 
+    private void OnBecameVisible()
+    {
+        Debug.Log(gameObject.name + " is now visible to a camera.");
+    }
+
+    private void OnBecameInvisible()
+    {
+        Debug.Log(gameObject.name + " is no longer visible to any camera.");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.Contains("Broom"))
@@ -90,6 +114,12 @@ public class CarBehaviour : MonoBehaviour
 
     private IEnumerator Bump()
     {
+        if (ap != null && renderer.isVisible)
+        {
+            ap.volume = 0.2f;
+            ap.PlayOneShot(thumpSFX);
+        }
+
         yield return new WaitForSeconds(1.0f);
 
         float origBumpSpeed = bumpSpeed;

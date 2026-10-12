@@ -1268,6 +1268,8 @@ MonoBehaviour:
   hasGracePeriod: 0
   movingPlatformSpeed: 12.5
   activeSpawnPoints: []
+  team1: 
+  team2: 
   buttons:
   - {fileID: 460200202}
   - {fileID: 568331079}
@@ -15249,7 +15251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1444676562
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15263,7 +15265,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: ea3047ecd69505e4484becf905a2d4e4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
