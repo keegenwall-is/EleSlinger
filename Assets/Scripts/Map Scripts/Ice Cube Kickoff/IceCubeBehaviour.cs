@@ -10,18 +10,22 @@ public class IceCubeBehaviour : MonoBehaviour
     public GameObject iceShadow;
 
     private Vector3 randomDir;
-    private MinigameManager managerScript;
+    private KickoffManager managerScript;
     private bool willShrink = true;
     private GameObject attachedPlayer;
     private Vector3 stuckPos;
     private Rigidbody rb;
     private GameObject thrower;
+    private GameObject redScore;
+    private GameObject blueScore;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<MinigameManager>();
+        managerScript = GameObject.FindGameObjectWithTag("Minigame Manager").GetComponent<KickoffManager>();
+        redScore = managerScript.redScore;
+        blueScore = managerScript.blueScore;
 
         randomDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
 
@@ -87,7 +91,7 @@ public class IceCubeBehaviour : MonoBehaviour
         {
             //Increase scores and spawn new ice cube
             managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, other.gameObject);
-            Destroy();
+            DestroyIce(other.gameObject);
         }
     }
 
@@ -97,16 +101,25 @@ public class IceCubeBehaviour : MonoBehaviour
         {
             //Increase scores and spawn new ice cube
             managerScript.TriggerInteractiveObjectEvent(gameObject, thrower, c.gameObject);
-            Destroy();
+            DestroyIce(c.gameObject);
         }
     }
 
-    private void Destroy()
+    private void DestroyIce(GameObject goal)
     {
-        if (thrower != null)
+        //TODO remove these hardcoded strings
+        if (goal.name.Equals("Goal (1)"))
+        {
+            Instantiate(blueScore, transform.position, transform.rotation);
+        }
+        else if (goal.name.Equals("Goal"))
+        {
+            Instantiate(redScore, transform.position, transform.rotation);
+        }
+        else if (thrower != null)
         {
             CharacterBase throwerBaseScript = thrower.GetComponent<CharacterBase>();
-            GameObject thisKO = Instantiate(throwerBaseScript.KO, transform.position, transform.rotation);
+            Instantiate(throwerBaseScript.KO, transform.position, transform.rotation);
         }
 
         if (gameObject.name.Contains("Pop"))

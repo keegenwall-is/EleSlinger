@@ -200,10 +200,10 @@ public class FuseBoxManager : MinigameManager
 
     protected override void OnObstacleEvent(GameObject player)
     {
+        UpdateScore(player);
+
         GameObject spawn = SetPlayerSpawn(player);
         KillPlayer(player, spawn);
-
-        UpdateScore(player);
 
         RemoveItemsFromInventory(player);
     }

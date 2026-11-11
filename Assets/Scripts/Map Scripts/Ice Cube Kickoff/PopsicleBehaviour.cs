@@ -6,6 +6,7 @@ public class PopsicleBehaviour : MonoBehaviour
 {
 
     public float duration = 5.0f;
+    public GameObject spawner;
 
     private float elapsedTime = 0f;
     private Vector3 startPos;
@@ -14,18 +15,19 @@ public class PopsicleBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float spawnHeight = spawner.transform.position.y;
         int updown = Random.Range(0, 2);
         float randStart = Random.Range(-40f, 40f);
         float randEnd = Random.Range(-40f, 40f);
         if (updown == 0)
         {
-            startPos = new Vector3(randStart, 22, 50);
-            endPos = new Vector3(randEnd, 22, -50);
+            startPos = new Vector3(randStart, spawnHeight, 50);
+            endPos = new Vector3(randEnd, spawnHeight, -50);
         }
         else
         {
-            startPos = new Vector3(randStart, 22, -50);
-            endPos = new Vector3(randEnd, 22, 50);
+            startPos = new Vector3(randStart, spawnHeight, -50);
+            endPos = new Vector3(randEnd, spawnHeight, 50);
         }
     }
 

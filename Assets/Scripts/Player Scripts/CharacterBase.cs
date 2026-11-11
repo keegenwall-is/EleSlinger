@@ -145,6 +145,8 @@ public class CharacterBase: MonoBehaviour
                 canMove = true;
                 instruction.SetActive(false);
                 cc.enabled = true;
+
+                //for destroying ice cubes a player may be trapped in
                 if (transform.parent)
                 {
                     GameObject parent = transform.parent.gameObject;
@@ -156,7 +158,7 @@ public class CharacterBase: MonoBehaviour
                 {
                     Destroy(stunStars);
                 }
-
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Running:
                 if (playerMove.speedBuffed)
@@ -173,6 +175,7 @@ public class CharacterBase: MonoBehaviour
                     face.sprite = normalFace;
                 }
                 canMove = true;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Attacking:
                 anim.CrossFade(FindAnimation("Attack"), animFadeDur);
@@ -181,10 +184,12 @@ public class CharacterBase: MonoBehaviour
                     face.sprite = attackFace;
                 }
                 canMove = false;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Melee:
                 anim.CrossFade(FindAnimation("Selected"), animFadeDur - 0.1f);
                 canMove = false;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Dashing:
                 anim.CrossFade(FindAnimation("Jump"), animFadeDur);
@@ -193,6 +198,7 @@ public class CharacterBase: MonoBehaviour
                     face.sprite = normalFace;
                 }
                 canMove = true;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.TakingHit:
                 anim.CrossFade(FindAnimation("TakeHit"), animFadeDur);
@@ -216,6 +222,7 @@ public class CharacterBase: MonoBehaviour
                 pos.z += 5.0f;
                 pos.y += 10.0f;
                 instruction.transform.position = pos;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Falling:
                 rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
@@ -225,6 +232,7 @@ public class CharacterBase: MonoBehaviour
             case playerState.UsingItem:
                 anim.CrossFade(FindAnimation("Firing"), animFadeDur);
                 canMove = true;
+                takeHit.SetAttacker(null);
                 break;
             case playerState.Dead:
                 anim.CrossFade(FindAnimation("Idle"), animFadeDur);

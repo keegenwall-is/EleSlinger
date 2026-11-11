@@ -30,6 +30,8 @@ public class KickoffManager : MinigameManager
     public Sprite redReadyBackground;
     public RectTransform[] profilePoss;
     public Canvas canvas;
+    public GameObject redScore;
+    public GameObject blueScore;
 
     private int[] playerScores = { 0, 0 };
     private float popsicleSpawnCurrent;
@@ -160,7 +162,8 @@ public class KickoffManager : MinigameManager
         {
             popsicleSpawnCurrent = 0f;
             randPopSpawn = Random.Range(0, 4);
-            Instantiate(popsicle, popsicleSpawners[randPopSpawn].transform);
+            GameObject thisPop = Instantiate(popsicle, popsicleSpawners[randPopSpawn].transform);
+            thisPop.GetComponent<PopsicleBehaviour>().spawner = popsicleSpawners[randPopSpawn];
             randPopSpawnCD = Random.Range(popsicleSpawnCD - randSpawnAmount, popsicleSpawnCD + randSpawnAmount);
         }
 

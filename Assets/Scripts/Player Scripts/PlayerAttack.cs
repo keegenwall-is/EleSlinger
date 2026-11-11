@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     private bool hasSpecialAttack;
     private Vector3 projSpawnPoint;
     private float playerScale;
+    private float currentCharge;
 
     public float animCut;
     public GameObject projectile;
@@ -26,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public float chargeSpeed;
     public float maxSize;
     public float projSpawnHeight;
+    public AnimationCurve growthCurve;
 
     // Start is called before the first frame update
     void Start()
@@ -106,6 +108,12 @@ public class PlayerAttack : MonoBehaviour
 
     public void Aim()
     {
+        //this return is an attempt at fixing the pesky persisting charge state bug that I cant reproduce on my own
+        if (baseScript.GetState() != CharacterBase.playerState.Attacking)
+        {
+            return;
+        }
+
         if (baseScript.thisController is Keyboard keyboard)
         {
             if (keyboard.pKey.isPressed)
@@ -140,14 +148,26 @@ public class PlayerAttack : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, aimSpeed * Time.deltaTime);
         }
-        projSize += chargeSpeed * Time.deltaTime;
+        /*projSize += chargeSpeed * Time.deltaTime;
         if (projSize >= maxSize)
         {
             projSize = maxSize;
         }
         thisCharge.transform.localScale = new Vector3(projSize / 150, projSize / 150, projSize / 150);
         float adjustedSize = projSize / playerScale * 1.5f;
-        indicator.transform.localScale = new Vector3(adjustedSize, adjustedSize, adjustedSize);
+        indicator.transform.localScale = new Vector3(adjustedSize, adjustedSize, adjustedSize);*/
+
+        currentCharge += Time.deltaTime;
+        float totalChargeTime = maxSize / chargeSpeed;
+        float chargePercent = Mathf.Clamp01(currentCharge / totalChargeTime);
+        float curveProgress = growthCurve.Evaluate(chargePercent);
+        projSize = curveProgress * maxSize;
+
+        thisCharge.transform.localScale = Vector3.one * (projSize / 150f);
+
+        float safePlayerScale = playerScale == 0 ? 1f : playerScale;
+        float adjustedSize = (projSize / safePlayerScale) * 1.5f;
+        indicator.transform.localScale = Vector3.one * adjustedSize;
     }
 
     public void ResumeAnim()
@@ -167,7 +187,7 @@ public class PlayerAttack : MonoBehaviour
         projScript.SetThrower(gameObject);
         thisProjectile.transform.localScale += new Vector3(projSize, projSize, projSize);
         Destroy(thisCharge);
-        projSize = 0.0f;
+        currentCharge = 0.0f;
         StartCoroutine(EndAttack());
     }
 
@@ -187,7 +207,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Destroy(thisCharge);
         }
-        projSize = 0.0f;
+        currentCharge = 0.0f;
         isAiming = false;
         indicator.SetActive(false);
         indicator.transform.localScale = indicatorStartSize;

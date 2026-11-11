@@ -1816,6 +1816,30 @@ MonoBehaviour:
   chargeSpeed: 6
   maxSize: 8
   projSpawnHeight: 2.75
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.2241955
+      outSlope: 2.2241955
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04409858
+    - serializedVersion: 3
+      time: 0.99999994
+      value: 0.99997675
+      inSlope: 0.3996319
+      outSlope: 0.3996319
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.077820964
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &8191952180223140527
 MonoBehaviour:
   m_ObjectHideFlags: 0

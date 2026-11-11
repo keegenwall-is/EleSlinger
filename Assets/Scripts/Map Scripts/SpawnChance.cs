@@ -7,7 +7,7 @@ public class SpawnChance : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Random.Range(0, 2) > 0)
+        if (Random.Range(0, 3) == 0)
         {
             Destroy(gameObject);
         }
