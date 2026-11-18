@@ -20,6 +20,8 @@ public class CharacterBase: MonoBehaviour
     private GameObject stunStars;
     private bool hasActiveItem;
     private Vector3 currentInstructionPos;
+    private bool followingPlatform = false;
+    private float platformSpeed = 0f;
 
     public InputDevice thisController;
     public Animator anim;
@@ -286,7 +288,10 @@ public class CharacterBase: MonoBehaviour
 
         while (elapsed < respawnTime)
         {
-            transform.position = Vector3.Lerp(transform.position, spawnPos.transform.position, elapsed/dist);
+            if (dist != 0f)
+            {
+                transform.position = Vector3.Lerp(transform.position, spawnPos.transform.position, elapsed / dist);
+            }
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -326,6 +331,6 @@ public class CharacterBase: MonoBehaviour
             return;
         }
         lastMoveFrame = Time.frameCount;
-        rb.position -= Vector3.right * speed * Time.deltaTime;
+        transform.position -= Vector3.right * speed * Time.deltaTime;
     }
 }

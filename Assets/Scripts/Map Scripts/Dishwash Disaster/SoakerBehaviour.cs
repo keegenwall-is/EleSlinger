@@ -18,6 +18,7 @@ public class SoakerBehaviour : MonoBehaviour
     private CharacterBase baseScript;
     private bool foamOn;
     private float bubbleCurrent;
+    private int bubsThisPeriod;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class SoakerBehaviour : MonoBehaviour
         if (foamOn)
         {
             FireCircularConeRays();
+            bubsThisPeriod = 0;
         }
     }
 
@@ -99,7 +101,11 @@ public class SoakerBehaviour : MonoBehaviour
         {
             GameObject plate = null;
 
-            SpawnBubbles(hit);
+            if (bubsThisPeriod <= 10)
+            {
+                SpawnBubbles(hit);
+            }
+
             if (hit.collider.gameObject.name.Contains("Plate"))
             {
                 plate = hit.collider.gameObject;
@@ -119,6 +125,7 @@ public class SoakerBehaviour : MonoBehaviour
 
     private void SpawnBubbles(RaycastHit hit)
     {
+        bubsThisPeriod++;
         bubbleCurrent += Time.deltaTime;
         if (bubbleCurrent >= bubbleCD)
         {

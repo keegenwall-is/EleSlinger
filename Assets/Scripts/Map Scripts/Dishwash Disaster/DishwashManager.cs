@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class DishwashManager : MinigameManager
 {
@@ -23,12 +25,16 @@ public class DishwashManager : MinigameManager
     public int bigPlateScore;
     public int mediumPlateScore;
     public GameObject floodWarning;
+    public GameObject horizontalBar;
+    public GameObject verticalBar;
 
     public GameObject[] plateGroups;
     public float plateSpeed;
     public GameObject soaker;
     public GameObject rain;
     public GameObject rainSplashes;
+    public Volume volume;
+
 
     private bool spawnPlates = false;
     private bool waterRise = false;
@@ -48,19 +54,32 @@ public class DishwashManager : MinigameManager
     private GameObject glass;
     private bool canStartEvent = true;
     private int lastPlateGroup = -1;
+    private bool canRaiseSpawnGlass = true;
+    private Vignette vignette;
 
     // Start is called before the first frame update
     void Start()
     {
         movingPlatformSpeed = plateSpeed;
         spawnCurrent = 0f;
-        untilWashEventCurrent = Random.Range(15f, 30f);
+        untilWashEventCurrent = Random.Range(10f, 20f);
         hasGracePeriod = false;
         origPlateSpeed = plateSpeed;
         plateHeight = 0f;
+
         for (int i = 0; i < playerNo; i++)
         {
             playerScores[i] = 0;
+        }
+
+        if (playerNo == 1)
+        {
+            Destroy(verticalBar);
+            Destroy(horizontalBar);
+        }
+        else if (playerNo == 2)
+        {
+            Destroy(horizontalBar);
         }
     }
 
@@ -148,10 +167,16 @@ public class DishwashManager : MinigameManager
                 movingPlatformSpeed = origPlateSpeed;
                 rain.SetActive(false);
                 rainSplashes.SetActive(false);
-                untilWashEventCurrent = Random.Range(15f, 30f);
+                untilWashEventCurrent = Random.Range(10f, 20f);
                 correctMark.SetActive(false);
                 glass.GetComponent<GlassBehaviour>().glassSpeed *= -1f;
                 canStartEvent = true;
+                canRaiseSpawnGlass = true;
+                if (volume.profile.TryGet(out vignette))
+                {
+                    StartCoroutine(TurnOnOffVignette(false));
+                    vignette.smoothness.value = 0f;
+                }
             }
         }
 
@@ -218,7 +243,9 @@ public class DishwashManager : MinigameManager
 
         glassScript.glassSpeed = Mathf.Abs(glassScript.glassSpeed);
 
-        yield return new WaitForSeconds(8.0f);
+        yield return new WaitForSeconds(6.0f);
+
+        yield return new WaitUntil(() => canRaiseSpawnGlass);
 
         glassScript.glassSpeed *= -1f;
     }
@@ -253,6 +280,17 @@ public class DishwashManager : MinigameManager
     {
         yield return new WaitForSeconds(timeUntilPause);
 
+        foreach (GameObject player in players)
+        {
+            player.GetComponentInChildren<DirectionArrow>().SetTarget(successPlate);
+        }
+
+        if (volume.profile.TryGet(out vignette))
+        {
+            vignette.smoothness.value = 0.8f;
+            StartCoroutine(TurnOnOffVignette(true));
+        }
+
         floodWarning.SetActive(true);
         spawnPlates = false;
         movingPlatformSpeed = 0f;
@@ -262,14 +300,40 @@ public class DishwashManager : MinigameManager
         correctMark = successPlate.transform.Find("CorrectMark").gameObject;
         correctMark.SetActive(true);
 
-        yield return new WaitForSeconds(9.0f);
+        yield return new WaitForSeconds(4.0f);
+
+        canRaiseSpawnGlass = false;
+        floodWarning.SetActive(false);
+
+        yield return new WaitForSeconds(4.0f);
 
         glass = successPlate.transform.Find("Glass").gameObject;
         glass.SetActive(true);
 
         yield return new WaitForSeconds(1.5f);
         waterRise = true;
-        floodWarning.SetActive(false);
+
+        foreach (GameObject player in players)
+        {
+            player.GetComponentInChildren<DirectionArrow>().ForgetTarget();
+        }
+    }
+
+    private IEnumerator TurnOnOffVignette(bool on)
+    {
+        float duration = 2.0f;
+        float target = on ? 0.25f : 0f;
+        float startIntensity = vignette.intensity.value;
+        float elapsed = 0f;
+
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            vignette.intensity.value = Mathf.Lerp(startIntensity, target, elapsed / duration);
+            yield return null;
+        }
+
+        vignette.intensity.value = target;
     }
 
     protected override void OnMinigameEnd()
